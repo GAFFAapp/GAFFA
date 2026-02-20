@@ -5,6 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAFFA - Instagram Style</title>
     <style>
+/* شريط الستوري */
+.stories-container {
+    display: flex;
+    gap: 15px;
+    padding: 15px 20px;
+    overflow-x: auto;
+    border-bottom: 1px solid #222;
+}
+.story {
+    flex: 0 0 auto;
+    width: 65px;
+    text-align: center;
+}
+.story-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 2px;
+    background: linear-gradient(45deg, var(--gold), #555);
+    margin-bottom: 5px;
+}
+.story-circle img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid black;
+    background: #222;
+}
+.story-name {
+    font-size: 10px;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* هالة التميز حول الصورة */
+.profile-pic {
+    position: relative;
+    box-shadow: 0 0 15px var(--gold); /* توهج ذهبي */
+    animation: pulse 2s infinite; /* حركة نبض */
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 5px var(--gold); }
+    50% { box-shadow: 0 0 20px var(--gold); }
+    100% { box-shadow: 0 0 5px var(--gold); }
+}
+
+/* تأثير الزجاج للأزرار */
+.edit-profile-btn {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    transition: 0.3s;
+}
+
+.edit-profile-btn:hover {
+    background: var(--gold);
+    color: black;
+}
+
+/* حركة لشبكة الصور */
+.grid-item {
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.grid-item:hover {
+    transform: scale(0.95); /* تأثير الضغط عند اللمس */
+    filter: brightness(1.2);
+}
+
         :root { --gold: #d4af37; --bg: #000; --card: #111; }
         body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; padding-bottom: 70px; }
         
@@ -33,6 +106,20 @@
     </style>
 </head>
 <body>
+<div class="stories-container">
+    <div class="story">
+        <div class="story-circle"><img src="" alt=""></div>
+        <div class="story-name">قصتك</div>
+    </div>
+    <div class="story">
+        <div class="story-circle"><img src="" alt=""></div>
+        <div class="story-name">Marawi</div>
+    </div>
+    <div class="story">
+        <div class="story-circle"><img src="" alt=""></div>
+        <div class="story-name">Gaffa_Team</div>
+    </div>
+</div>
 
     <div class="profile-container">
         <div class="profile-pic"><img src="" alt=""></div>
