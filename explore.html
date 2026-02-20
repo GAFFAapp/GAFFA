@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAFFA - Explore</title>
+    <style>
+        :root { --gold: #d4af37; --bg: #000; --card: #111; }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; padding-bottom: 70px; }
+        
+        /* شريط البحث */
+        .search-container { padding: 15px; position: sticky; top: 0; background: var(--bg); z-index: 100; }
+        .search-bar { width: 100%; background: #1a1a1a; border: 1px solid #333; padding: 10px 15px; border-radius: 10px; color: white; font-size: 14px; outline: none; }
+        .search-bar:focus { border-color: var(--gold); }
+
+        /* شبكة الاستكشاف */
+        .explore-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+        .explore-item { aspect-ratio: 1 / 1; background: #111; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; cursor: pointer; }
+        .explore-item:nth-child(2n) { grid-row: span 2; aspect-ratio: auto; } /* تنويع الأحجام */
+        .explore-item img { width: 100%; height: 100%; object-fit: cover; }
+        .icon-overlay { position: absolute; top: 5px; right: 5px; font-size: 12px; opacity: 0.7; }
+
+        /* شريط التنقل */
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; background: var(--card); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; }
+        .nav-item { color: #888; text-decoration: none; font-size: 22px; }
+        .nav-item.active { color: var(--gold); }
+    </style>
+</head>
+<body>
+
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="ابحث في GAFFA...">
+    </div>
+
+    <div class="explore-grid">
+        <div class="explore-item">📸 <span class="icon-overlay">🔥</span></div>
+        <div class="explore-item">📸</div>
+        <div class="explore-item">📸</div>
+        <div class="explore-item">📸 <span class="icon-overlay">🎥</span></div>
+        <div class="explore-item">📸</div>
+        <div class="explore-item">📸</div>
+        <div class="explore-item">📸</div>
+        <div class="explore-item">📸</div>
+        <div class="explore-item">📸</div>
+    </div>
+
+    <div class="nav-bottom">
+        <a href="feed.html" class="nav-item">🏠</a>
+        <a href="explore.html" class="nav-item active">🔍</a>
+        <div class="nav-item" style="cursor:pointer;">+</div>
+        <a href="profile.html" class="nav-item">👤</a>
+    </div>
+
+</body>
+</html>
+
