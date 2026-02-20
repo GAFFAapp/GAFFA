@@ -3,41 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAFFA - Profile</title>
+    <title>GAFFA - Instagram Style</title>
     <style>
         :root { --gold: #d4af37; --bg: #000; --card: #111; }
-        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; text-align: center; }
-        .p-header { padding: 40px 20px; border-bottom: 1px solid #222; background: var(--card); }
-        .p-avatar { width: 100px; height: 100px; background: var(--gold); border-radius: 50%; margin: 0 auto 15px; border: 3px solid #000; }
-        .p-stats { display: flex; justify-content: space-around; padding: 20px; border-bottom: 1px solid #222; }
-        .stat b { display: block; color: var(--gold); font-size: 18px; }
-        .p-bio { padding: 20px; color: #ccc; font-size: 14px; }
-        .edit-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 10px 40px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        .nav-bottom { position: fixed; bottom: 0; width: 100%; background: var(--card); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid var(--gold); }
-        .nav-item { color: #888; font-size: 20px; text-decoration: none; }
-        .active { color: var(--gold); }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; padding-bottom: 70px; }
+        
+        /* رأس الصفحة - Instagram Style */
+        .profile-container { padding: 20px; display: flex; align-items: center; gap: 20px; }
+        .profile-pic { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(45deg, #d4af37, #8a6d3b); padding: 3px; }
+        .profile-pic img { width: 100%; height: 100%; border-radius: 50%; border: 2px solid black; background: #222; }
+        
+        .stats-container { flex-grow: 1; display: flex; justify-content: space-around; text-align: center; }
+        .stat-value { font-weight: bold; font-size: 16px; display: block; }
+        .stat-label { font-size: 12px; color: #aaa; }
+
+        .bio-section { padding: 0 20px 20px; }
+        .profile-name { font-weight: bold; margin-bottom: 5px; color: var(--gold); }
+        .edit-profile-btn { width: 100%; background: #222; border: 1px solid #333; color: white; padding: 7px; border-radius: 8px; font-weight: bold; font-size: 14px; }
+
+        /* شبكة الصور (Grid) */
+        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border-top: 1px solid #222; padding-top: 2px; }
+        .grid-item { aspect-ratio: 1 / 1; background: #111; display: flex; align-items: center; justify-content: center; color: #333; border: 1px solid #222; }
+        .grid-item:hover { background: #1a1a1a; color: var(--gold); }
+
+        /* شريط التنقل السفلي */
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; background: var(--card); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; }
+        .nav-item { color: #888; text-decoration: none; font-size: 22px; }
+        .nav-item.active { color: var(--gold); }
     </style>
 </head>
 <body>
-    <div class="p-header">
-        <div class="p-avatar"></div>
-        <h2 style="margin:0;">Ismail (Marawi)</h2>
-        <p style="color: var(--gold); margin: 5px 0;">Founder of GAFFA</p>
-        <button class="edit-btn">تعديل الملف الشخصي</button>
+
+    <div class="profile-container">
+        <div class="profile-pic"><img src="" alt=""></div>
+        <div class="stats-container">
+            <div class="stat-item"><span class="stat-value">0</span><span class="stat-label">منشور</span></div>
+            <div class="stat-item"><span class="stat-value">120</span><span class="stat-label">متابع</span></div>
+            <div class="stat-item"><span class="stat-value">85</span><span class="stat-label">متابعة</span></div>
+        </div>
     </div>
-    <div class="p-stats">
-        <div class="stat"><b>1</b><br>منشور</div>
-        <div class="stat"><b>1.2K</b><br>متابع</div>
-        <div class="stat"><b>50</b><br>أتابع</div>
+
+    <div class="bio-section">
+        <div class="profile-name">إسماعيل | Marawi</div>
+        <div style="font-size: 14px; color: #ddd;">Developer of GAFFA App ✨</div>
+        <button class="edit-profile-btn" style="margin-top: 15px;">تعديل الملف الشخصي</button>
     </div>
-    <div class="p-bio">هذا هو الحساب الرسمي لمؤسس منصة GAFFA. نحن نصنع التاريخ.</div>
+
+    <div class="photo-grid">
+        <div class="grid-item">📸</div>
+        <div class="grid-item">📸</div>
+        <div class="grid-item">📸</div>
+        <div class="grid-item">📸</div>
+        <div class="grid-item">📸</div>
+        <div class="grid-item">📸</div>
+    </div>
+
     <div class="nav-bottom">
         <a href="feed.html" class="nav-item">🏠</a>
-        <a href="#" class="nav-item">🎞️</a>
-        <a href="#" class="nav-item">➕</a>
-        <a href="#" class="nav-item">💬</a>
+        <div class="nav-item" style="cursor:pointer;">🔍</div>
+        <div class="nav-item" style="cursor:pointer;">+</div>
         <a href="profile.html" class="nav-item active">👤</a>
     </div>
+
 </body>
 </html>
 
