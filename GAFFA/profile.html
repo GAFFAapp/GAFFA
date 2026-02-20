@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAFFA - Profile</title>
+    <style>
+        :root { --gold: #d4af37; --bg: #000; --card: #111; }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; text-align: center; }
+        .p-header { padding: 40px 20px; border-bottom: 1px solid #222; background: var(--card); }
+        .p-avatar { width: 100px; height: 100px; background: var(--gold); border-radius: 50%; margin: 0 auto 15px; border: 3px solid #000; }
+        .p-stats { display: flex; justify-content: space-around; padding: 20px; border-bottom: 1px solid #222; }
+        .stat b { display: block; color: var(--gold); font-size: 18px; }
+        .p-bio { padding: 20px; color: #ccc; font-size: 14px; }
+        .edit-btn { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 10px 40px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; background: var(--card); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid var(--gold); }
+        .nav-item { color: #888; font-size: 20px; text-decoration: none; }
+        .active { color: var(--gold); }
+    </style>
+</head>
+<body>
+    <div class="p-header">
+        <div class="p-avatar"></div>
+        <h2 style="margin:0;">Ismail (Marawi)</h2>
+        <p style="color: var(--gold); margin: 5px 0;">Founder of GAFFA</p>
+        <button class="edit-btn">تعديل الملف الشخصي</button>
+    </div>
+    <div class="p-stats">
+        <div class="stat"><b>1</b><br>منشور</div>
+        <div class="stat"><b>1.2K</b><br>متابع</div>
+        <div class="stat"><b>50</b><br>أتابع</div>
+    </div>
+    <div class="p-bio">هذا هو الحساب الرسمي لمؤسس منصة GAFFA. نحن نصنع التاريخ.</div>
+    <div class="nav-bottom">
+        <a href="feed.html" class="nav-item">🏠</a>
+        <a href="#" class="nav-item">🎞️</a>
+        <a href="#" class="nav-item">➕</a>
+        <a href="#" class="nav-item">💬</a>
+        <a href="profile.html" class="nav-item active">👤</a>
+    </div>
+</body>
+</html>
+
