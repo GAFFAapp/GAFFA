@@ -192,41 +192,41 @@
         </div>
     </div>
 </div>
-function saveChanges() {
-    const nameInput = document.getElementById('newName').value;
-    const bioInput = document.getElementById('newBio').value;
-    const imgInput = document.getElementById('imageInput'); // جلب مدخل الصورة الذي أضفته
+   
 
-    // 1. تحديث الاسم والوصف
-    if (nameInput.trim() !== "") {
-        document.querySelector('.profile-name').innerText = nameInput;
-    }
-    if (bioInput.trim() !== "") {
-        // تأكد أن هذا الكلاس يطابق العنصر الموجود في كودك
-        const bioDisplay = document.querySelector('.bio-section div');
-        if (bioDisplay) bioDisplay.innerText = bioInput;
+    <script>
+    function openModal() {
+        document.getElementById('editModal').style.display = 'block';
     }
 
-    // 2. تحديث الصورة الشخصية (القطعة الجديدة)
-    if (imgInput.files && imgInput.files[0]) {
-        const reader = new FileReader();
-        
-        reader.onload = function(e) {
-            // تحديث مصدر الصورة (src) في البروفايل
-            document.querySelector('.profile-pic img').src = e.target.result;
+    function closeModal() {
+        document.getElementById('editModal').style.display = 'none';
+    }
+
+    function saveChanges() {
+        const nameInput = document.getElementById('newName').value;
+        const bioInput = document.getElementById('newBio').value;
+        const imgInput = document.getElementById('imageInput');
+
+        if (nameInput.trim() !== "") {
+            document.querySelector('.profile-name').innerText = nameInput;
         }
-        
-        reader.readAsDataURL(imgInput.files[0]);
+        if (bioInput.trim() !== "") {
+            const bioDisplay = document.querySelector('.bio-section div');
+            if (bioDisplay) bioDisplay.innerText = bioInput;
+        }
+
+        if (imgInput.files && imgInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.querySelector('.profile-pic img').src = e.target.result;
+            }
+            reader.readAsDataURL(imgInput.files[0]);
+        }
+        closeModal();
+        console.log("تم تحديث بيانات GAFFA بنجاح");
     }
-
-    // إغلاق النافذة
-    closeModal();
-    
-    // إشعار بسيط في الكونسول (اختياري)
-    console.log("تم تحديث بيانات GAFFA بنجاح");
-}
-}
-
+    </script>
 </body>
 </html>
 
