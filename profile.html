@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAFFA - Instagram Style</title>
     <style>
+.modal {
+    display: none; position: fixed; z-index: 1000;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+}
+.modal-content {
+    background: #111; margin: 20% auto; padding: 20px;
+    border: 1px solid var(--gold); border-radius: 15px; width: 80%; max-width: 400px;
+}
+.edit-group { margin-bottom: 15px; text-align: right; }
+.edit-group input, .edit-group textarea {
+    width: 100%; background: #222; border: 1px solid #444;
+    color: white; padding: 10px; border-radius: 8px; margin-top: 5px;
+}
+.btn-save { background: var(--gold); color: black; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+.btn-cancel { background: transparent; color: white; border: 1px solid #444; padding: 10px 20px; border-radius: 8px; margin-right: 10px; cursor: pointer; }
+
 /* شريط الستوري */
 .stories-container {
     display: flex;
@@ -151,6 +168,64 @@
         <div class="nav-item" style="cursor:pointer;">+</div>
         <a href="profile.html" class="nav-item active">👤</a>
     </div>
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h3 style="color: var(--gold);">تعديل الملف الشخصي</h3>
+    <div class="edit-group">
+    <label>الصورة الشخصية:</label>
+    <input type="file" id="imageInput" accept="image/*" class="gold-input">
+</div>
+    
+        <div class="edit-group">
+            <label>الاسم:</label>
+            <input type="text" id="newName" placeholder="ادخل اسمك الجديد">
+        </div>
+
+        <div class="edit-group">
+            <label>الوصف (Bio):</label>
+            <textarea id="newBio" placeholder="اكتب نبذة عنك"></textarea>
+        </div>
+
+        <div class="modal-buttons">
+            <button onclick="saveChanges()" class="btn-save">حفظ التعديلات</button>
+            <button onclick="closeModal()" class="btn-cancel">إلغاء</button>
+        </div>
+    </div>
+</div>
+function saveChanges() {
+    const nameInput = document.getElementById('newName').value;
+    const bioInput = document.getElementById('newBio').value;
+    const imgInput = document.getElementById('imageInput'); // جلب مدخل الصورة الذي أضفته
+
+    // 1. تحديث الاسم والوصف
+    if (nameInput.trim() !== "") {
+        document.querySelector('.profile-name').innerText = nameInput;
+    }
+    if (bioInput.trim() !== "") {
+        // تأكد أن هذا الكلاس يطابق العنصر الموجود في كودك
+        const bioDisplay = document.querySelector('.bio-section div');
+        if (bioDisplay) bioDisplay.innerText = bioInput;
+    }
+
+    // 2. تحديث الصورة الشخصية (القطعة الجديدة)
+    if (imgInput.files && imgInput.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            // تحديث مصدر الصورة (src) في البروفايل
+            document.querySelector('.profile-pic img').src = e.target.result;
+        }
+        
+        reader.readAsDataURL(imgInput.files[0]);
+    }
+
+    // إغلاق النافذة
+    closeModal();
+    
+    // إشعار بسيط في الكونسول (اختياري)
+    console.log("تم تحديث بيانات GAFFA بنجاح");
+}
+}
 
 </body>
 </html>
