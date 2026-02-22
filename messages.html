@@ -3,41 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAFFA | الرسائل</title>
+    <title>GAFFA - Messages</title>
     <style>
         :root { --gold: #d4af37; }
         body { background-color: #000; color: white; font-family: sans-serif; margin: 0; padding: 0; }
-        .chat-header { padding: 20px; border-bottom: 1px solid #222; text-align: center; color: var(--gold); font-weight: bold; }
-        .chat-box { height: 70vh; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
-        .msg { max-width: 80%; padding: 10px 15px; border-radius: 15px; font-size: 14px; line-height: 1.4; }
+        .chat-header { padding: 20px; border-bottom: 1px solid #222; text-align: center; color: var(--gold); position: sticky; top: 0; background: #000; z-index: 10; }
+        #chatBox { height: 75vh; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .msg { max-width: 80%; padding: 10px 15px; border-radius: 15px; font-size: 14px; line-height: 1.4; position: relative; }
         .received { align-self: flex-start; background: #222; border-bottom-left-radius: 2px; }
         .sent { align-self: flex-end; background: var(--gold); color: black; border-bottom-right-radius: 2px; }
+        
         .input-area { position: fixed; bottom: 70px; width: 100%; padding: 10px; display: flex; gap: 10px; background: #000; box-sizing: border-box; }
         .chat-input { flex: 1; background: #111; border: 1px solid #333; color: white; padding: 12px; border-radius: 25px; outline: none; }
-        .nav-bottom { position: fixed; bottom: 0; width: 100%; display: flex; justify-content: space-around; background: #000; border-top: 1px solid #222; padding: 15px 0; }
+        .send-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--gold); }
+
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 60px; background: #111; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #222; }
         .nav-item { text-decoration: none; font-size: 22px; color: #888; }
         .nav-item.active { color: var(--gold); }
     </style>
 </head>
 <body>
-    <div class="chat-header">💎 فريق GAFFA</div>
 
-    <div class="chat-box" id="chatBox">
-        <div class="msg received">أهلاً بك في GAFFA! كيف يمكننا مساعدتك اليوم؟</div>
-        <div class="msg sent">شكراً لكم، أنا أطور التطبيق الآن مع Gemini! 🚀</div>
-    </div>
+<div class="chat-header">💎 فريق GAFFA</div>
 
-    <div class="input-area">
-        <input type="text" class="chat-input" placeholder="اكتب رسالة...">
-        <button style="background:none; border:none; font-size:20px; cursor:pointer;">📩</button>
-    </div>
+<div id="chatBox">
+    <div class="msg received">أهلاً بك في GAFFA! كيف يمكننا مساعدتك اليوم؟</div>
+    <div class="msg sent">شكراً لكم، أنا أطور التطبيق الآن مع Gemini 🚀!</div>
+</div>
 
-    <div class="nav-bottom">
-        <a href="feed.html" class="nav-item">🏠</a>
-        <a href="explore.html" class="nav-item">🔍</a>
-        <a href="messages.html" class="nav-item active">📩</a>
-        <a href="profile.html" class="nav-item">👤</a>
-    </div>
+<div class="input-area">
+    <input type="text" id="messageInput" class="chat-input" placeholder="اكتب رسالتك هنا..." onkeypress="handleKeyPress(event)">
+    <button class="send-btn" onclick="sendMessage()">📩</button>
+</div>
+
+<div class="nav-bottom">
+    <a href="feed.html" class="nav-item">🏠</a>
+    <a href="explore.html" class="nav-item">🔍</a>
+    <a href="messages.html" class="nav-item active">📩</a>
+    <a href="profile.html" class="nav-item">👤</a>
+</div>
+
+<script>
+    function sendMessage() {
+        const input = document.getElementById('messageInput');
+        const chatBox = document.getElementById('chatBox');
+        const text = input.value.trim();
+
+        if (text === "") return;
+
+        // 1. إنشاء فقاعة الرسالة المرسلة
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'msg sent';
+        msgDiv.textContent = text;
+
+        // 2. إضافتها لصندوق الدردشة
+        chatBox.appendChild(msgDiv);
+
+        // 3. تفريغ الحقل والنزول لأسفل الدردشة
+        input.value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // 4. (اختياري) رد تلقائي بسيط للترحيب بـ مروي
+        setTimeout(() => {
+            const replyDiv = document.createElement('div');
+            replyDiv.className = 'msg received';
+            replyDiv.textContent = "وصلت رسالتك يا مروي! نحن معك خطوة بخطوة. ✨";
+            chatBox.appendChild(replyDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 1000);
+    }
+
+    // وظيفة تسمح بالإرسال عند الضغط على زر Enter
+    function handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    }
+</script>
+
 </body>
 </html>
 
