@@ -3,105 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAFFA - المحادثة الخاصة</title>
+    <title>GAFFA - قائمة الرسائل</title>
     <style>
-        :root { --gold: #d4af37; --glow-gold: #ffdf00; --bg: #000; }
-        body { background-color: var(--bg); color: white; font-family: sans-serif; margin: 0; overflow: hidden; }
+        :root { --gold: #d4af37; --bg: #000; }
+        body { background-color: var(--bg); color: white; font-family: sans-serif; margin: 0; padding: 0; }
+        .header { padding: 20px; border-bottom: 1px solid #222; text-align: center; color: var(--gold); font-weight: bold; font-size: 20px; }
         
-        /* رأس المحادثة الاحترافي */
-        .chat-header { 
-            padding: 10px 15px; 
-            border-bottom: 1px solid #222; 
-            display: flex; 
-            align-items: center; 
-            background: rgba(10, 10, 10, 0.95); 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
+        /* تصميم قائمة الأصدقاء */
+        .chat-list { padding: 10px; }
+        .friend-item { 
+            display: flex; align-items: center; padding: 15px; 
+            text-decoration: none; border-bottom: 1px solid #111; 
+            transition: 0.3s;
         }
-        .back-btn { font-size: 22px; color: var(--gold); cursor: pointer; text-decoration: none; margin-left: 15px; }
-        .profile-pic { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--gold); margin-left: 12px; background: #333; }
-        .user-info { display: flex; flex-direction: column; }
-        .user-name { font-weight: bold; font-size: 16px; color: white; }
-        .user-status { font-size: 11px; color: var(--gold); opacity: 0.8; }
+        .friend-item:active { background: #111; }
+        .avatar { width: 55px; height: 55px; border-radius: 50%; border: 2px solid var(--gold); background: #222; position: relative; }
+        .online-dot { width: 12px; height: 12px; background: #00ff00; border-radius: 50%; position: absolute; bottom: 2px; right: 2px; border: 2px solid #000; }
+        .info { margin-right: 15px; flex: 1; }
+        .name { color: white; font-weight: bold; font-size: 16px; margin-bottom: 4px; }
+        .last-msg { color: #888; font-size: 13px; }
 
-        #chatBox { height: calc(100vh - 130px); padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; position: relative; }
-        
-        /* فقاعات الرسائل (تختفي بعد 20 ثانية) */
-        .msg { max-width: 75%; padding: 12px 18px; border-radius: 20px; font-size: 15px; position: relative; animation: fadeOut 20s forwards; z-index: 5; }
-        .sent { align-self: flex-end; background: linear-gradient(135deg, var(--gold), #b8860b); color: black; border-bottom-right-radius: 4px; }
-        .received { align-self: flex-start; background: #1a1a1a; color: #fff; border-bottom-left-radius: 4px; }
-
-        @keyframes fadeOut {
-            0% { opacity: 1; } 90% { opacity: 1; } 100% { opacity: 0; visibility: hidden; }
-        }
-
-        /* الفراشات الذهبية المضيئة */
-        .butterfly {
-            position: fixed; bottom: -50px; font-size: 24px; pointer-events: none; z-index: 999;
-            color: var(--glow-gold); text-shadow: 0 0 15px var(--glow-gold);
-            animation: flyUp 18s linear forwards;
-        }
-        @keyframes flyUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            5% { opacity: 1; }
-            100% { transform: translateY(-110vh) translateX(30px) rotate(20deg); opacity: 0; }
-        }
-
-        /* منطقة الإدخال */
-        .input-area { position: fixed; bottom: 0; width: 100%; padding: 15px; display: flex; background: #000; z-index: 1000; border-top: 1px solid #222; box-sizing: border-box; }
-        .chat-input { flex: 1; background: #111; border: 1px solid #333; color: white; padding: 12px 20px; border-radius: 25px; outline: none; }
-        .send-btn { background: none; border: none; font-size: 24px; color: var(--gold); cursor: pointer; margin-right: 10px; }
-
-        /* لاحظ: قمنا بإزالة الـ nav-bottom هنا لمنح المحادثة طابعاً احترافياً */
+        /* شريط التنقل السفلي - الحفاظ على الروابط */
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 65px; background: #080808; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #222; }
+        .nav-item { text-decoration: none; font-size: 24px; color: #444; }
+        .nav-item.active { color: var(--gold); }
     </style>
 </head>
 <body>
 
-<div class="chat-header">
-    <a href="feed.html" class="back-btn">🔙</a>
-    <div class="profile-pic"></div> <div class="user-info">
-        <span class="user-name">فريق GAFFA</span>
-        <span class="user-status">متصل الآن 🦋</span>
+<div class="header">المحادثات 💬</div>
+
+<div class="chat-list">
+    <a href="chat.html" class="friend-item">
+        <div class="avatar">
+            <div class="online-dot"></div>
+        </div>
+        <div class="info">
+            <div class="name">فريق GAFFA (رسمي)</div>
+            <div class="last-msg">انقر لبدء سحر الفراشات... 🦋</div>
+        </div>
+        <div style="color: #444; font-size: 11px;">الآن</div>
+    </a>
+
     </div>
+
+<div class="nav-bottom">
+    <a href="feed.html" class="nav-item">🏠</a>
+    <a href="explore.html" class="nav-item">🔍</a>
+    <a href="messages.html" class="nav-item active">📩</a>
+    <a href="profile.html" class="nav-item">👤</a>
 </div>
 
-<div id="chatBox"></div>
-
-<div class="input-area">
-    <input type="text" id="messageInput" class="chat-input" placeholder="اكتب رسالة سرية..." onkeypress="handleKeyPress(event)">
-    <button class="send-btn" onclick="sendMessage()">📩</button>
-</div>
-
-<script>
-    function createButterfly() {
-        const bf = document.createElement('div');
-        bf.className = 'butterfly';
-        bf.innerHTML = '🦋';
-        bf.style.left = Math.random() * 100 + 'vw';
-        document.body.appendChild(bf);
-        setTimeout(() => bf.remove(), 20000);
-    }
-
-    function sendMessage() {
-        const input = document.getElementById('messageInput');
-        const chatBox = document.getElementById('chatBox');
-        if (input.value.trim() === "") return;
-
-        const msgDiv = document.createElement('div');
-        msgDiv.className = 'msg sent';
-        msgDiv.textContent = input.value;
-        chatBox.appendChild(msgDiv);
-        
-        for(let i=0; i<6; i++) { setTimeout(createButterfly, i * 400); }
-        setTimeout(() => msgDiv.remove(), 20000);
-
-        input.value = "";
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    function handleKeyPress(e) { if (e.key === 'Enter') sendMessage(); }
-</script>
 </body>
 </html>
 

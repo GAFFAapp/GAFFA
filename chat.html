@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAFFA - Chat</title>
+    <style>
+        :root { --gold: #d4af37; --glow-gold: #ffdf00; --bg: #000; }
+        body { background-color: var(--bg); color: white; font-family: sans-serif; margin: 0; overflow: hidden; }
+        
+        .chat-header { 
+            padding: 10px 15px; border-bottom: 1px solid #222; 
+            display: flex; align-items: center; background: #080808; 
+            position: sticky; top: 0; z-index: 1000; 
+        }
+        .back-btn { font-size: 24px; color: var(--gold); cursor: pointer; text-decoration: none; margin-left: 15px; }
+        .profile-pic { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--gold); background: #222; }
+        .user-name { margin-right: 12px; font-weight: bold; font-size: 16px; flex: 1; }
+
+        #chatBox { height: calc(100vh - 140px); padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; position: relative; }
+        
+        .msg { max-width: 75%; padding: 12px 18px; border-radius: 20px; font-size: 15px; animation: fadeOut 20s forwards; }
+        .sent { align-self: flex-end; background: linear-gradient(135deg, var(--gold), #b8860b); color: black; border-bottom-right-radius: 4px; }
+        .received { align-self: flex-start; background: #1a1a1a; color: #fff; border-bottom-left-radius: 4px; }
+
+        @keyframes fadeOut { 0%, 90% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+
+        .butterfly {
+            position: fixed; bottom: -50px; font-size: 24px; pointer-events: none; z-index: 999;
+            color: var(--glow-gold); text-shadow: 0 0 15px var(--glow-gold);
+            animation: flyUp 18s linear forwards;
+        }
+        @keyframes flyUp {
+            0% { transform: translateY(0); opacity: 0; }
+            5% { opacity: 1; }
+            100% { transform: translateY(-110vh) translateX(40px) rotate(20deg); opacity: 0; }
+        }
+
+        .input-area { position: fixed; bottom: 0; width: 100%; padding: 15px; display: flex; background: #000; border-top: 1px solid #222; box-sizing: border-box; }
+        .chat-input { flex: 1; background: #111; border: 1px solid #333; color: white; padding: 12px 20px; border-radius: 25px; outline: none; }
+        .send-btn { background: none; border: none; font-size: 24px; color: var(--gold); cursor: pointer; margin-right: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="chat-header">
+    <a href="messages.html" class="back-btn">🔙</a>
+    <div class="profile-pic"></div>
+    <div class="user-name">فريق GAFFA</div>
+</div>
+
+<div id="chatBox">
+    <div class="msg received">مرحباً بك! أرسل رسالة لترى الفراشات الذهبية تظهر وتختفي بعد 20 ثانية 🦋</div>
+</div>
+
+<div class="input-area">
+    <input type="text" id="messageInput" class="chat-input" placeholder="اكتب رسالة سرية..." onkeypress="handleKeyPress(event)">
+    <button class="send-btn" onclick="sendMessage()">📩</button>
+</div>
+
+<script>
+    function createButterfly() {
+        const bf = document.createElement('div');
+        bf.className = 'butterfly';
+        bf.innerHTML = '🦋';
+        bf.style.left = Math.random() * 100 + 'vw';
+        document.body.appendChild(bf);
+        setTimeout(() => bf.remove(), 20000);
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('messageInput');
+        const chatBox = document.getElementById('chatBox');
+        if (input.value.trim() === "") return;
+
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'msg sent';
+        msgDiv.textContent = input.value;
+        chatBox.appendChild(msgDiv);
+        
+        for(let i=0; i<6; i++) { setTimeout(createButterfly, i * 400); }
+        setTimeout(() => msgDiv.remove(), 20000);
+
+        input.value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+    function handleKeyPress(e) { if (e.key === 'Enter') sendMessage(); }
+</script>
+</body>
+</html>
+
