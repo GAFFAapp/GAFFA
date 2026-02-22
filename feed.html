@@ -5,201 +5,125 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAFFA - Feed</title>
     <style>
-/* تنسيق نافذة إضافة المنشور */
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; }
-.modal-content { background: #111; margin: 20% auto; padding: 20px; width: 85%; border: 1px solid var(--gold); border-radius: 15px; }
-textarea { width: 100%; height: 100px; background: #222; color: white; border: 1px solid #444; border-radius: 10px; padding: 10px; margin-bottom: 10px; }
-.post-btn { background: var(--gold); color: black; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; width: 100%; }
+        /* التنسيقات الأساسية للحفاظ على التصميم */
+        :root { --gold: #d4af37; --bg: #000; --card: #111; }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; padding-bottom: 70px; overflow-x: hidden; }
+        .top-bar { background: var(--card); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000; }
+        .logo { color: var(--gold); font-weight: bold; font-size: 22px; }
+        
+        /* تنسيق المنشورات */
+        .post { background: var(--card); margin: 15px auto; width: 95%; max-width: 500px; border-radius: 12px; overflow: hidden; border: 1px solid #222; position: relative; }
+        .post-img img { width: 100%; display: block; height: auto; }
+        .post-content { padding: 15px; }
+        .post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .avatar { width: 35px; height: 35px; border-radius: 50%; background: #444; border: 1px solid var(--gold); }
+        
+        /* شريط التنقل السفلي - Z-index 1000 */
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; background: var(--card); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; z-index: 1000; }
+        .nav-item { color: #888; font-size: 22px; cursor: pointer; text-decoration: none; display: flex; align-items: center; }
+        .nav-item.active { color: var(--gold); }
 
-<style>
-    :root { --gold: #d4af37; --bg: #000; --card: #111; }
-    body { background: radial-gradient(circle at top, #1a1a1a 0%, #000 100%); color: #e0e0e0; font-family: sans-serif; margin: 0; padding-bottom: 70px; }
-    
-    .top-bar { background: var(--card); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; }
-    .logo { color: var(--gold); font-size: 22px; font-weight: bold; letter-spacing: 2px; text-shadow: 0 0 10px rgba(212,175,55,0.3); }
-
-    /* تنسيق المنشور الجديد: الكتابة فوق الصورة */
-    .post { 
-        position: relative; /* ضروري لوضع العناصر فوق بعضها */
-        margin: 20px auto; 
-        max-width: 500px; 
-        border-radius: 20px; 
-        overflow: hidden; 
-        height: 400px; /* طول ثابت للمنشور */
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-
-    .post-img { 
-        width: 100%; 
-        height: 100%; 
-        background: #222; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center;
-        object-fit: cover;
-    }
-
-    /* طبقة الكتابة فوق الصورة */
-    .post-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 20px;
-        background: linear-gradient(transparent, rgba(0,0,0,0.9)); /* تدرج لضمان وضوح النص */
-        box-sizing: border-box;
-    }
-
-    .post-info { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: white; }
-    
-    .post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
-    .avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--gold); border: 1px solid #000; }
-
-    .post-actions { display: flex; gap: 15px; font-size: 20px; }
-    
-    /* شريط التنقل السفلي */
-    .nav-bottom { position: fixed; bottom: 0; width: 100%; background: var(--card); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; z-index: 100; }
-    .nav-item { color: #888; font-size: 20px; cursor: pointer; text-decoration: none; }
-    .nav-item.active { color: var(--gold); }
-</style>
-   
+        /* النافذة المنبثقة - Z-index 9999 (فوق كل شيء) */
+        #postModal { 
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.9); 
+            z-index: 9999; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .modal-content { background: #111; width: 85%; max-width: 400px; padding: 20px; border-radius: 15px; border: 1px solid var(--gold); box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+        textarea { width: 100%; height: 120px; background: none; border: none; color: white; outline: none; resize: none; font-size: 16px; margin-bottom: 10px; }
+        .post-btn { background: var(--gold); color: black; width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    </style>
 </head>
 <body>
-    <div class="top-bar"><div class="logo">GAFFA</div><div style="color: var(--gold);">🔔</div></div>
-    <div class="post">
-<div class="post">
-    <div class="post-img">Image_Content</div> 
-    
-    <div class="post-overlay">
-        <div class="post-header">
-            <div class="avatar"></div>
-            <b style="color: var(--gold);">إسماعيل (Marawi)</b>
-        </div>
-        <div class="post-info">هذا المنشور يغرس الروح الجديدة في GAFFA.. الكتابة هنا تعانق الصورة!</div>
-        <div class="post-actions">
-            <span onclick="toggleLike(this)" style="cursor:pointer;">❤️</span>
-            <span>💬</span>
-            <span>🚀</span>
-        </div>
-    </div>
+
+<div class="top-bar">
+    <div class="logo">GAFFA</div>
+    <div style="color: var(--gold);">🔔</div>
 </div>
-    </div>
-       <div class="nav-bottom">
-        <a href="feed.html" class="nav-item active">🏠</a>
-        <a href="explore.html" class="nav-item">🔍</a>
-        <div class="nav-item" onclick="openModal()" style="cursor:pointer; font-size: 28px;">+</div>
 
-        <a href="messages.html" class="nav-item">📩</a>
-        <a href="profile.html" class="nav-item">👤</a>
+<div id="mainFeed">
     </div>
-<div id="postModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000;">
-    <div class="modal-content"> >
 
+<div class="nav-bottom">
+    <a href="feed.html" class="nav-item active">🏠</a>
+    <a href="explore.html" class="nav-item">🔍</a>
+    <div class="nav-item" onclick="openModal()" style="font-size: 30px; color: var(--gold); font-weight: bold;">+</div>
+    <a href="messages.html" class="nav-item">📩</a>
+    <a href="profile.html" class="nav-item">👤</a>
+</div>
+
+<div id="postModal">
+    <div class="modal-content">
         <textarea id="postInput" placeholder="ماذا يدور في ذهنك يا مروي؟"></textarea>
-   <input type="file" id="imageInput" accept="image/*" style="display: none;">
-<button onclick="document.getElementById('imageInput').click()" style="background: none; border: 1px solid var(--gold); color: white; padding: 8px; border-radius: 5px; margin-bottom: 10px; width: 100%; cursor: pointer;">📷 إضافة صورة للمنشور</button>
-  
-<button type="button" class="post-btn" onclick="addPost()">نشر في GAFFA</button>
-        <button style="background:none; color:gray; border:none; width:100%; margin-top:10px;" onclick="closeModal()">إلغاء</button>
+        <input type="file" id="imageInput" accept="image/*" style="display: none;">
+        <button onclick="document.getElementById('imageInput').click()" style="background: none; border: 1px solid #444; color: #ccc; padding: 10px; width: 100%; border-radius: 8px; cursor: pointer; margin-bottom: 5px;">📸 إضافة صورة</button>
+        <button class="post-btn" onclick="addPost()">نشر في GAFFA</button>
+        <button onclick="closeModal()" style="background: none; border: none; color: gray; width: 100%; margin-top: 15px; cursor: pointer;">إلغاء</button>
     </div>
 </div>
 
 <script>
-// 1. دالة فتح نافذة النشر
-function openModal() {
-    document.getElementById('postModal').style.display = 'block';
-}
-
-// 2. دالة إغلاق نافذة النشر
-function closeModal() {
-    document.getElementById('postModal').style.display = 'none';
-}
-
-// 3. دالة إضافة المنشور (نص + صورة)
-function addPost() {
-    const text = document.getElementById('postInput').value;
-    const imageInput = document.getElementById('imageInput');
-    const imageFile = imageInput.files[0];
-
-    // منع النشر إذا كان المنشور فارغاً تماماً
-    if (text.trim() === "" && !imageFile) {
-        alert("يرجى كتابة شيء أو اختيار صورة أولاً!");
-        return;
+    // 1. وظيفة فتح النافذة (استخدام flex للتوسيط)
+    function openModal() {
+        document.getElementById('postModal').style.display = 'flex';
     }
 
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-        // تحديد مكان إضافة المنشورات (فوق المنشورات القديمة)
-        const postContainer = document.querySelector('.post').parentElement;
-        const newPost = document.createElement('div');
-        newPost.className = 'post';
-        
-        // بناء هيكل المنشور الجديد
-        newPost.innerHTML = `
-            ${imageFile ? `<div class="post-img"><img src="${e.target.result}" style="width:100%; display:block; border-radius: 8px 8px 0 0;"></div>` : ''}
-            <div class="post-overlay" style="padding: 15px; background: #111; border-radius: 0 0 8px 8px;">
-                <div class="post-header" style="display: flex; align-items: center; margin-bottom: 10px;">
-                    <div class="avatar" style="width:30px; height:30px; background:#444; border-radius:50%; margin-left:10px;"></div>
-                    <b style="color: var(--gold);">إسماعيل (Marawi)</b>
-                </div>
-                <div class="post-info" style="color: white; margin-bottom: 10px;">${text}</div>
-                <div class="post-actions" style="display: flex; gap: 15px; font-size: 18px;">
-                    <span onclick="toggleLike(this)" style="cursor:pointer;">❤️</span>
-                    <span>💬</span>
-                    <span>🚀</span>
-                </div>
-            </div>`;
-            
- function addPost() {
-    const text = document.getElementById('postInput').value;
-    const imageInput = document.getElementById('imageInput');
-    const imageFile = imageInput.files[0];
-
-    // التأكد من وجود نص أو صورة
-    if (!text.trim() && !imageFile) {
-        alert("أرجو كتابة شيء ما أو اختيار صورة أولاً!");
-        return;
+    // 2. وظيفة إغلاق النافذة
+    function closeModal() {
+        document.getElementById('postModal').style.display = 'none';
     }
 
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        // التصحيح هنا: استهداف الحاوية الرئيسية للمنشورات
-        const feedContainer = document.getElementById('mainFeed') || document.body;
-        
-        const newPost = document.createElement('div');
-        newPost.className = 'post';
-        
-        newPost.innerHTML = `
-            ${imageFile ? `<div class="post-img"><img src="${e.target.result}" style="width:100%;"></div>` : ''}
-            <div class="post-content">
-                <div class="post-header">
-                    <div class="avatar"></div>
-                    <b style="color: var(--gold);">Marawi</b>
+    // 3. وظيفة النشر الاحترافية (تدعم النص والصور)
+    function addPost() {
+        const text = document.getElementById('postInput').value;
+        const imageInput = document.getElementById('imageInput');
+        const imageFile = imageInput.files[0];
+
+        if (!text.trim() && !imageFile) {
+            alert("اكتب شيئاً أو أضف صورة أولاً يا مروي!");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const feed = document.getElementById('mainFeed');
+            const newPost = document.createElement('div');
+            newPost.className = 'post';
+
+            let imageHtml = imageFile ? `<div class="post-img"><img src="${e.target.result}"></div>` : '';
+
+            newPost.innerHTML = `
+                ${imageHtml}
+                <div class="post-content">
+                    <div class="post-header">
+                        <div class="avatar"></div>
+                        <b style="color: var(--gold);">Marawi</b>
+                    </div>
+                    <div style="line-height: 1.5;">${text}</div>
+                    <div style="margin-top: 10px; color: #555; font-size: 12px;">الآن</div>
                 </div>
-                <div class="post-info">${text}</div>
-                <div class="post-actions">
-                    <span onclick="toggleLike(this)" style="cursor:pointer;">❤️</span>
-                </div>
-            </div>`;
+            `;
 
-        feedContainer.prepend(newPost);
+            feed.prepend(newPost);
+            closeModal();
+            // تفريغ الحقول بعد النشر
+            document.getElementById('postInput').value = "";
+            imageInput.value = "";
+        };
 
-        // إغلاق النافذة وتنظيف الحقول
-        closeModal();
-        document.getElementById('postInput').value = "";
-        imageInput.value = "";
-    };
-
-    if (imageFile) {
-        reader.readAsDataURL(imageFile);
-    } else {
-        reader.onload({ target: { result: '' } });
+        if (imageFile) {
+            reader.readAsDataURL(imageFile);
+        } else {
+            // في حال نشر نص فقط
+            reader.onload({ target: { result: '' } });
+        }
     }
-}
-
 </script>
-
 
 </body>
 </html>
