@@ -3,76 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAFFA ISMAIL - Pro</title>
+    <title>GAFFA ISMAIL - Official</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root { --gold: #d4af37; --bg: #000; --card: #111; }
         body { background-color: var(--bg); color: white; font-family: sans-serif; margin: 0; padding-bottom: 90px; overflow-x: hidden; }
 
-        /* الهوية البصرية (كما في الصورة تماماً) */
-        .profile-header { padding: 30px 20px 10px; display: flex; align-items: center; gap: 20px; flex-direction: row-reverse; }
-        .profile-pic { width: 85px; height: 85px; border-radius: 50%; border: 2px solid var(--gold); padding: 3px; box-shadow: 0 0 15px var(--gold); animation: pulse 2.5s infinite; overflow: hidden; }
-        @keyframes pulse { 0%, 100% { box-shadow: 0 0 10px var(--gold); } 50% { box-shadow: 0 0 25px var(--gold); } }
+        /* التصميم العلوي كما في صورتك */
+        .profile-header { padding: 30px 20px 10px; display: flex; align-items: center; justify-content: space-between; flex-direction: row-reverse; }
+        .profile-pic { width: 90px; height: 90px; border-radius: 50%; border: 2px solid var(--gold); padding: 3px; box-shadow: 0 0 15px var(--gold); position: relative; }
         .profile-pic img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        
+        .stats { display: flex; gap: 25px; text-align: center; margin-right: 20px; }
+        .stats b { font-size: 18px; display: block; }
+        .stats small { color: #888; }
 
-        .stats { display: flex; flex-grow: 1; justify-content: space-around; text-align: center; }
-        .btn-group { display: flex; gap: 8px; padding: 15px 20px; }
-        .btn { flex: 1; padding: 10px; border-radius: 10px; border: 1px solid #333; background: var(--card); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; font-weight: bold; }
+        /* الاسم والسيرة الذاتية */
+        .user-info { padding: 0 25px 15px; }
+        .user-info h2 { font-size: 22px; margin: 0; display: flex; align-items: center; gap: 8px; }
+        .user-info p { font-size: 13px; color: #aaa; margin-top: 8px; line-height: 1.4; }
+
+        /* الأزرار الثلاثة */
+        .btn-group { display: flex; gap: 10px; padding: 0 20px 20px; }
+        .btn { flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #333; background: #151515; color: white; cursor: pointer; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s; }
         .btn-follow { background: var(--gold); color: black; border: none; }
 
-        /* الهايلايتس والتبويبات */
+        /* الهايلايتس */
         .highlights { display: flex; gap: 15px; padding: 10px 20px; overflow-x: auto; scrollbar-width: none; }
-        .hl-item { flex: 0 0 auto; width: 65px; text-align: center; }
-        .hl-circle { width: 60px; height: 60px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; overflow: hidden; background: #0a0a0a; }
-        
+        .hl-item { flex: 0 0 auto; width: 70px; text-align: center; cursor: pointer; }
+        .hl-circle { width: 65px; height: 65px; border-radius: 50%; border: 1px solid #222; margin-bottom: 5px; overflow: hidden; background: #0a0a0a; display: flex; align-items: center; justify-content: center; }
+
+        /* التبويبات */
         .tabs { display: flex; border-top: 1px solid #222; margin-top: 10px; }
-        .tab { flex: 1; padding: 15px; text-align: center; color: #555; cursor: pointer; }
+        .tab { flex: 1; padding: 15px; text-align: center; color: #555; }
         .tab.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
 
-        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; padding: 2px; }
+        /* الشبكة */
+        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
         .grid-item { aspect-ratio: 1/1; background: #0a0a0a; overflow: hidden; }
         .grid-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* شريط التنقل السفلي */
-        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #111; z-index: 2000; }
-        .publish-btn { background: var(--gold); width: 55px; height: 55px; border-radius: 18px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); transform: translateY(-15px); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        /* البار السفلي */
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.95); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #111; z-index: 1000; }
+        .publish-btn { background: var(--gold); width: 55px; height: 55px; border-radius: 18px; transform: translateY(-15px); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
 
-        /* المودالات (نافذة المراسلة كما في الصورة) */
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); }
-        .modal-content { background: #000; margin: 30% auto; padding: 25px; border-radius: 20px; width: 85%; border: 1px solid var(--gold); box-sizing: border-box; text-align: center; }
-        .modal-content h3 { color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        input, textarea { width: 100%; padding: 15px; margin: 10px 0; background: #0a0a0a; border: 1px solid #222; color: white; border-radius: 12px; box-sizing: border-box; outline: none; }
-        .modal-btn { width: 100%; background: var(--gold); color: black; border: none; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        /* المودالات (النوافذ) كما في الصورة */
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
+        .modal-content { background: #000; margin: 35% auto; padding: 25px; border-radius: 20px; width: 85%; border: 1px solid var(--gold); text-align: center; }
+        input, textarea { width: 100%; padding: 15px; margin: 10px 0; background: #0a0a0a; border: 1px solid #222; color: white; border-radius: 12px; box-sizing: border-box; }
+        .modal-btn { width: 100%; background: var(--gold); color: black; border: none; padding: 14px; border-radius: 12px; font-weight: bold; margin-top: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="profile-header">
-    <div class="profile-pic"><img id="mainImg" src="https://via.placeholder.com/150"></div>
+    <div class="profile-pic"><img id="mainP" src="https://via.placeholder.com/150"></div>
     <div class="stats">
-        <div><b id="pCount">1</b><br><small>منشور</small></div>
-        <div><b id="fCount">850</b><br><small>متابع</small></div>
-        <div><b>120</b><br><small>أتابع</small></div>
+        <div><b id="pc">1</b><small>منشور</small></div>
+        <div><b id="fc">850</b><small>متابع</small></div>
+        <div><b>120</b><small>أتابع</small></div>
     </div>
 </div>
 
-<div style="padding: 0 25px 15px;">
-    <div id="uName" style="font-weight:bold; font-size:22px;">GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#1d9bf0; stroke:none; width:18px;"></i></div>
-    <p id="uBio" style="font-size:13px; color:#aaa; margin-top:5px;">Trying to go to go back ⬅️ to the same as you serious or ok... 💎</p>
+<div class="user-info">
+    <h2 id="un">GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#1d9bf0; stroke:none; width:18px;"></i></h2>
+    <p id="ub">Trying to go to go back ⬅️ to the same as you serious or ok... 💎</p>
 </div>
 
 <div class="btn-group">
-    <button class="btn btn-follow" onclick="followLogic()">متابعة</button>
-    <button class="btn" onclick="openModal('msgModal')"><i data-lucide="send"></i> مراسلة</button>
-    <button class="btn" onclick="openModal('editModal')"><i data-lucide="edit-3"></i> تعديل</button>
+    <button class="btn btn-follow" onclick="follow()">متابعة</button>
+    <button class="btn" onclick="openM('msgM')"><i data-lucide="send"></i> مراسلة</button>
+    <button class="btn" onclick="openM('editM')"><i data-lucide="edit-3"></i> تعديل</button>
 </div>
 
-<div class="highlights" id="hList">
-    <div class="hl-item" onclick="openModal('storyModal')">
+<div class="highlights" id="hlBox">
+    <div class="hl-item" onclick="openM('storyM')">
         <div class="hl-circle" style="border:1.5px dashed var(--gold); color:var(--gold)"><i data-lucide="plus"></i></div>
-        <div style="font-size:10px; color:#777">جديد</div>
+        <small style="color:#777">جديد</small>
     </div>
-    <div class="hl-item"><div class="hl-circle"><img src="https://via.placeholder.com/100" style="width:100%"></div><div style="font-size:10px; color:#777">Good 😊</div></div>
 </div>
 
 <div class="tabs">
@@ -86,98 +94,98 @@
 </div>
 
 <div class="nav-bottom">
-    <i data-lucide="home" style="color:#888"></i>
-    <i data-lucide="search" style="color:#888"></i>
-    <div class="publish-btn" onclick="openModal('postModal')"><i data-lucide="plus" style="color:black"></i></div>
-    <i data-lucide="message-square" style="color:#888"></i>
+    <i data-lucide="home" style="color:#666"></i>
+    <i data-lucide="search" style="color:#666"></i>
+    <div class="publish-btn" onclick="openM('postM')"><i data-lucide="plus" style="color:black"></i></div>
+    <i data-lucide="message-square" style="color:#666"></i>
     <i data-lucide="user" style="color:var(--gold)"></i>
 </div>
 
-<div id="editModal" class="modal"><div class="modal-content">
-    <h3><i data-lucide="settings"></i> تعديل الملف</h3>
-    <input type="file" id="pInp" accept="image/*">
-    <input type="text" id="nInp" placeholder="الاسم الجديد">
-    <textarea id="bInp" placeholder="السيرة الذاتية..."></textarea>
-    <button class="modal-btn" onclick="applyEdit()">حفظ التغييرات</button>
-</div></div>
-
-<div id="msgModal" class="modal"><div class="modal-content">
-    <h3>💎 مراسلة GAFFA</h3>
-    <textarea id="msgInp" placeholder="Hi..."></textarea>
+<div id="msgM" class="modal"><div class="modal-content">
+    <h3 style="color:var(--gold)">💎 مراسلة GAFFA</h3>
+    <textarea id="msgInput" placeholder="Hi"></textarea>
     <button class="modal-btn" onclick="sendMsg()">إرسال</button>
 </div></div>
 
-<div id="postModal" class="modal"><div class="modal-content">
-    <h3>🖼️ منشور جديد</h3>
-    <input type="file" id="postInp" accept="image/*">
-    <button class="modal-btn" onclick="applyPost()">نشر الآن</button>
+<div id="editM" class="modal"><div class="modal-content">
+    <h3>⚙️ تعديل البروفايل</h3>
+    <input type="file" id="picInput" accept="image/*">
+    <input type="text" id="nameInput" placeholder="الاسم الجديد">
+    <textarea id="bioInput" placeholder="السيرة الذاتية..."></textarea>
+    <button class="modal-btn" onclick="saveEdit()">حفظ</button>
 </div></div>
 
-<div id="storyModal" class="modal"><div class="modal-content">
-    <h3>🦋 إضافة هايلايت</h3>
+<div id="postM" class="modal"><div class="modal-content">
+    <h3>🖼️ نشر منشور</h3>
+    <input type="file" id="postInput" accept="image/*">
+    <button class="modal-btn" onclick="newPost()">نشر الآن</button>
+</div></div>
+
+<div id="storyM" class="modal"><div class="modal-content">
+    <h3>🦋 هايلايت جديد</h3>
     <input type="file" id="sPic" accept="image/*">
-    <input type="text" id="sTitle" placeholder="عنوان الهايلايت">
-    <button class="modal-btn" onclick="applyStory()">إضافة</button>
+    <input type="text" id="sTitle" placeholder="العنوان">
+    <button class="modal-btn" onclick="newStory()">إضافة</button>
 </div></div>
 
 <script>
     lucide.createIcons();
-    function openModal(id) { document.getElementById(id).style.display = 'block'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    function openM(id) { document.getElementById(id).style.display='block'; }
+    function closeM(id) { document.getElementById(id).style.display='none'; }
 
-    // وظيفة التعديل (تغيير الصورة والاسم والسيرة)
-    function applyEdit() {
-        const name = document.getElementById('nInp').value;
-        const bio = document.getElementById('bInp').value;
-        const pic = document.getElementById('pInp').files[0];
-        if(name) document.getElementById('uName').innerHTML = name + ' <i data-lucide="badge-check" style="fill:#1d9bf0; stroke:none; width:18px;"></i>';
-        if(bio) document.getElementById('uBio').innerText = bio;
-        if(pic) {
-            const reader = new FileReader();
-            reader.onload = (e) => { document.getElementById('mainImg').src = e.target.result; };
-            reader.readAsDataURL(pic);
-        }
-        closeModal('editModal'); lucide.createIcons();
-    }
-
-    // وظيفة النشر في الشبكة
-    let count = 1;
-    function applyPost() {
-        const pic = document.getElementById('postInp').files[0];
-        if(!pic) return alert("اختر صورة");
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const div = document.createElement('div'); div.className = 'grid-item';
-            div.innerHTML = `<img src="${e.target.result}">`;
-            document.getElementById('grid').prepend(div);
-            count++; document.getElementById('pCount').innerText = count;
-        };
-        reader.readAsDataURL(pic); closeModal('postModal');
-    }
-
-    // وظيفة المراسلة
+    // إصلاح وظيفة المراسلة
     function sendMsg() {
-        const txt = document.getElementById('msgInp').value;
-        if(txt) { alert("تم إرسال رسالتك لـ GAFFA بنجاح! ✅"); closeModal('msgModal'); }
+        if(document.getElementById('msgInput').value) {
+            alert("تم الإرسال لـ GAFFA!"); closeM('msgM');
+        }
     }
 
-    // وظيفة إضافة قصة/هايلايت
-    function applyStory() {
-        const pic = document.getElementById('sPic').files[0];
-        const title = document.getElementById('sTitle').value;
-        if(!pic || !title) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const div = document.createElement('div'); div.className = 'hl-item';
-            div.innerHTML = `<div class="hl-circle"><img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover"></div><div style="font-size:10px; color:#777">${title}</div>`;
-            document.getElementById('hList').appendChild(div);
-        };
-        reader.readAsDataURL(pic); closeModal('storyModal');
+    // إصلاح وظيفة التعديل
+    function saveEdit() {
+        const n = document.getElementById('nameInput').value, b = document.getElementById('bioInput').value, p = document.getElementById('picInput').files[0];
+        if(n) document.getElementById('un').innerHTML = n + ' <i data-lucide="badge-check" style="fill:#1d9bf0; stroke:none; width:18px;"></i>';
+        if(b) document.getElementById('ub').innerText = b;
+        if(p) {
+            const r = new FileReader();
+            r.onload = (e) => document.getElementById('mainP').src = e.target.result;
+            r.readAsDataURL(p);
+        }
+        closeM('editM'); lucide.createIcons();
     }
 
-    function followLogic() {
-        const f = document.getElementById('fCount');
-        f.innerText = f.innerText === "850" ? "851" : "850";
+    // إصلاح وظيفة النشر
+    let count = 1;
+    function newPost() {
+        const p = document.getElementById('postInput').files[0];
+        if(p) {
+            const r = new FileReader();
+            r.onload = (e) => {
+                const div = document.createElement('div'); div.className='grid-item';
+                div.innerHTML = `<img src="${e.target.result}">`;
+                document.getElementById('grid').prepend(div);
+                count++; document.getElementById('pc').innerText = count;
+            };
+            r.readAsDataURL(p); closeM('postM');
+        }
+    }
+
+    // إصلاح وظيفة الستوري
+    function newStory() {
+        const p = document.getElementById('sPic').files[0], t = document.getElementById('sTitle').value;
+        if(p && t) {
+            const r = new FileReader();
+            r.onload = (e) => {
+                const div = document.createElement('div'); div.className='hl-item';
+                div.innerHTML = `<div class="hl-circle"><img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover"></div><small style="color:#777">${t}</small>`;
+                document.getElementById('hlBox').appendChild(div);
+            };
+            r.readAsDataURL(p); closeM('storyM');
+        }
+    }
+
+    function follow() { 
+        let fc = document.getElementById('fc');
+        fc.innerText = fc.innerText === "850" ? "851" : "850";
     }
 </script>
 </body>
