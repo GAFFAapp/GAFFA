@@ -4,53 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAFFA - Explore</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root { --gold: #d4af37; --bg: #000; --card: #111; }
-        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; padding-bottom: 70px; }
-        
-        /* شريط البحث */
-        .search-container { padding: 15px; position: sticky; top: 0; background: var(--bg); z-index: 100; }
-        .search-bar { width: 100%; background: #1a1a1a; border: 1px solid #333; padding: 10px 15px; border-radius: 10px; color: white; font-size: 14px; outline: none; }
-        .search-bar:focus { border-color: var(--gold); }
-
-        /* شبكة الاستكشاف */
+        :root { --gold: #d4af37; --bg: #000; }
+        body { background-color: var(--bg); color: white; font-family: sans-serif; margin: 0; padding-bottom: 80px; }
+        .search-bar { padding: 15px; position: sticky; top: 0; background: var(--bg); z-index: 1000; }
+        .search-input-wrapper { background: #111; display: flex; align-items: center; padding: 10px 15px; border-radius: 12px; border: 1px solid #222; }
+        .search-input-wrapper input { background: transparent; border: none; color: white; width: 100%; margin-right: 10px; outline: none; }
         .explore-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-        .explore-item { aspect-ratio: 1 / 1; background: #111; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; cursor: pointer; }
-        .explore-item:nth-child(2n) { grid-row: span 2; aspect-ratio: auto; } /* تنويع الأحجام */
-        .explore-item img { width: 100%; height: 100%; object-fit: cover; }
-        .icon-overlay { position: absolute; top: 5px; right: 5px; font-size: 12px; opacity: 0.7; }
-
-        /* شريط التنقل */
-        .nav-bottom { position: fixed; bottom: 0; width: 100%; background: var(--card); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; }
-        .nav-item { color: #888; text-decoration: none; font-size: 22px; }
+        .grid-item { aspect-ratio: 1/1; background: #0a0a0a; display: flex; align-items: center; justify-content: center; }
+        
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #111; }
+        .nav-item { color: #888; text-decoration: none; }
         .nav-item.active { color: var(--gold); }
+        .publish-btn { background: var(--gold); width: 50px; height: 50px; border-radius: 16px; transform: translateY(-12px); display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
-    <div class="search-container">
-        <input type="text" class="search-bar" placeholder="ابحث في GAFFA...">
+<div class="search-bar">
+    <div class="search-input-wrapper">
+        <i data-lucide="search" size="18" color="#555"></i>
+        <input type="text" placeholder="ابحث عن الإلهام الذهبي...">
     </div>
+</div>
 
-    <div class="explore-grid">
-        <div class="explore-item">📸 <span class="icon-overlay">🔥</span></div>
-        <div class="explore-item">📸</div>
-        <div class="explore-item">📸</div>
-        <div class="explore-item">📸 <span class="icon-overlay">🎥</span></div>
-        <div class="explore-item">📸</div>
-        <div class="explore-item">📸</div>
-        <div class="explore-item">📸</div>
-        <div class="explore-item">📸</div>
-        <div class="explore-item">📸</div>
-    </div>
+<div class="explore-grid">
+    <div class="grid-item"><i data-lucide="play" color="#111"></i></div>
+    <div class="grid-item"><i data-lucide="image" color="#111"></i></div>
+    <div class="grid-item"><i data-lucide="image" color="#111"></i></div>
+    <div class="grid-item"><i data-lucide="image" color="#111"></i></div>
+    <div class="grid-item"><i data-lucide="play" color="#111"></i></div>
+    <div class="grid-item"><i data-lucide="image" color="#111"></i></div>
+</div>
 
-    <div class="nav-bottom">
-        <a href="feed.html" class="nav-item">🏠</a>
-        <a href="explore.html" class="nav-item active">🔍</a>
-        <div class="nav-item" style="cursor:pointer;">+</div>
-        <a href="profile.html" class="nav-item">👤</a>
-    </div>
+<div class="nav-bottom">
+    <a href="feed.html" class="nav-item"><i data-lucide="home"></i></a>
+    <a href="explore.html" class="nav-item active"><i data-lucide="search"></i></a>
+    <div class="publish-btn" onclick="location.href='profile.html'"><i data-lucide="plus" style="stroke:black"></i></div>
+    <a href="messages.html" class="nav-item"><i data-lucide="message-square"></i></a>
+    <a href="profile.html" class="nav-item"><i data-lucide="user"></i></a>
+</div>
 
+<script>lucide.createIcons();</script>
 </body>
 </html>
 

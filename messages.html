@@ -3,57 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAFFA - قائمة الرسائل</title>
+    <title>GAFFA - Messages</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root { --gold: #d4af37; --bg: #000; }
-        body { background-color: var(--bg); color: white; font-family: sans-serif; margin: 0; padding: 0; }
-        .header { padding: 20px; border-bottom: 1px solid #222; text-align: center; color: var(--gold); font-weight: bold; font-size: 20px; }
-        
-        /* تصميم قائمة الأصدقاء */
+        body { background-color: var(--bg); color: white; font-family: sans-serif; margin: 0; padding-bottom: 80px; }
+        .msg-header { padding: 20px; font-size: 20px; font-weight: bold; border-bottom: 1px solid #111; display: flex; justify-content: space-between; align-items: center; }
         .chat-list { padding: 10px; }
-        .friend-item { 
-            display: flex; align-items: center; padding: 15px; 
-            text-decoration: none; border-bottom: 1px solid #111; 
-            transition: 0.3s;
-        }
-        .friend-item:active { background: #111; }
-        .avatar { width: 55px; height: 55px; border-radius: 50%; border: 2px solid var(--gold); background: #222; position: relative; }
-        .online-dot { width: 12px; height: 12px; background: #00ff00; border-radius: 50%; position: absolute; bottom: 2px; right: 2px; border: 2px solid #000; }
-        .info { margin-right: 15px; flex: 1; }
-        .name { color: white; font-weight: bold; font-size: 16px; margin-bottom: 4px; }
-        .last-msg { color: #888; font-size: 13px; }
-
-        /* شريط التنقل السفلي - الحفاظ على الروابط */
-        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 65px; background: #080808; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #222; }
-        .nav-item { text-decoration: none; font-size: 24px; color: #444; }
+        .chat-item { display: flex; align-items: center; gap: 15px; padding: 15px; transition: 0.3s; border-radius: 12px; }
+        .chat-item:active { background: #111; }
+        .chat-img { width: 55px; height: 55px; border-radius: 50%; border: 1px solid var(--gold); padding: 2px; }
+        .chat-info { flex-grow: 1; }
+        .chat-info h4 { margin: 0; font-size: 16px; }
+        .chat-info p { margin: 5px 0 0; font-size: 13px; color: #777; }
+        
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #111; }
+        .nav-item { color: #888; text-decoration: none; }
         .nav-item.active { color: var(--gold); }
+        .publish-btn { background: var(--gold); width: 50px; height: 50px; border-radius: 16px; transform: translateY(-12px); display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
-<div class="header">المحادثات 💬</div>
-
-<div class="chat-list">
-    <a href="chat.html" class="friend-item">
-        <div class="avatar">
-            <div class="online-dot"></div>
-        </div>
-        <div class="info">
-            <div class="name">فريق GAFFA (رسمي)</div>
-            <div class="last-msg">انقر لبدء سحر الفراشات... 🦋</div>
-        </div>
-        <div style="color: #444; font-size: 11px;">الآن</div>
-    </a>
-
-    </div>
-
-<div class="nav-bottom">
-    <a href="feed.html" class="nav-item">🏠</a>
-    <a href="explore.html" class="nav-item">🔍</a>
-    <a href="messages.html" class="nav-item active">📩</a>
-    <a href="profile.html" class="nav-item">👤</a>
+<div class="msg-header">
+    الرسائل
+    <i data-lucide="edit"></i>
 </div>
 
+<div class="chat-list">
+    <div class="chat-item">
+        <img src="https://via.placeholder.com/60" class="chat-img">
+        <div class="chat-info">
+            <h4>Marawi</h4>
+            <p>مشروع GAFFA مذهل جداً!</p>
+        </div>
+        <i data-lucide="camera" color="#555"></i>
+    </div>
+</div>
+
+<div class="nav-bottom">
+    <a href="feed.html" class="nav-item"><i data-lucide="home"></i></a>
+    <a href="explore.html" class="nav-item"><i data-lucide="search"></i></a>
+    <div class="publish-btn" onclick="location.href='profile.html'"><i data-lucide="plus" style="stroke:black"></i></div>
+    <a href="messages.html" class="nav-item active"><i data-lucide="message-square"></i></a>
+    <a href="profile.html" class="nav-item"><i data-lucide="user"></i></a>
+</div>
+
+<script>lucide.createIcons();</script>
 </body>
 </html>
 
