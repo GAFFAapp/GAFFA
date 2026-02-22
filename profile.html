@@ -3,75 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAFFA - Future Profile UI</title>
+    <title>GAFFA - Marawi Elite</title>
     <style>
         :root { --gold: #d4af37; --glow: #ffdf00; --bg: #000; }
-        body { background-color: var(--bg); color: white; font-family: sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        body { background-color: var(--bg); color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
 
-        /* --- تصميم الأزرار المبتكرة (Liquid Gold) --- */
-        .btn-group-liquid { display: flex; gap: 20px; padding: 0 25px 25px; justify-content: center; }
-        .liquid-btn {
-            position: relative; flex: 1; padding: 15px 10px; border: none;
-            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(0,0,0,0.7));
-            color: var(--gold); font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
-            cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px;
-            clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%); /* الشكل الانسيابي */
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(10px);
-            animation: liquidFlow 4s infinite ease-in-out; /* حركة مستمرة */
+        /* --- تصميم الأزرار الملكية الجديدة (Elite Buttons) --- */
+        .btn-group-elite { display: flex; gap: 12px; padding: 0 20px 20px; }
+        .elite-btn {
+            flex: 1; position: relative; padding: 12px; border: 1px solid rgba(212, 175, 55, 0.4);
+            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.5) 100%);
+            color: white; border-radius: 12px; font-size: 14px; font-weight: bold;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+            text-decoration: none; transition: 0.3s; backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5), inset 0 0 10px rgba(212,175,55,0.1);
         }
-        /* تأثير النبض والحركة */
-        @keyframes liquidFlow {
-            0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 5px 15px rgba(212,175,55,0.2); }
-            50% { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 30px rgba(212,175,55,0.4); }
-        }
-        /* طبقة الذهب السائل عند اللمس */
-        .liquid-btn::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,223,0,0.5), transparent);
-            transition: 0.6s; z-index: -1;
-        }
-        .liquid-btn:hover::before { left: 100%; }
-        .liquid-btn:active {
-            transform: scale(0.95); background: var(--gold); color: black;
-            box-shadow: 0 0 40px var(--glow), 0 0 80px var(--gold); /* انفجار ضوئي */
-        }
-        .liquid-btn span { font-size: 20px; filter: drop-shadow(0 0 5px var(--glow)); }
+        .elite-btn:active { transform: scale(0.95); box-shadow: 0 0 20px var(--gold); background: var(--gold); color: black; }
+        .btn-gold-text { color: var(--gold); }
 
+        /* --- الهوية البصرية (Marawi Core) --- */
+        .profile-container { padding: 30px 20px 20px; display: flex; align-items: center; justify-content: space-between; }
+        .profile-pic { 
+            width: 85px; height: 85px; border-radius: 50%; border: 2px solid var(--gold);
+            box-shadow: 0 0 20px var(--gold); animation: pulse 2.5s infinite; overflow: hidden;
+        }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 10px var(--gold); } 50% { box-shadow: 0 0 25px var(--gold); } }
+        .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .stats-container { display: flex; gap: 25px; text-align: center; padding-left: 10px; }
+        .stat-value { font-weight: 900; font-size: 18px; display: block; color: #fff; }
+        .stat-label { font-size: 11px; color: #888; }
 
-        /* --- بقية أنماطك القديمة (المضمونة) --- */
-        .profile-container { padding: 25px 20px; display: flex; align-items: center; }
-        .profile-pic { position: relative; width: 90px; height: 90px; border-radius: 50%; border: 2px solid var(--gold); box-shadow: 0 0 20px var(--gold); animation: pulse 2.5s infinite; }
-        @keyframes pulse { 0%, 100% { box-shadow: 0 0 5px var(--gold); } 50% { box-shadow: 0 0 30px var(--gold); } }
-        .profile-pic img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .stats-container { flex-grow: 1; display: flex; justify-content: space-around; text-align: center; }
-        .stat-value { font-weight: 900; font-size: 18px; } .stat-label { font-size: 12px; color: #aaa; }
-        .bio-section { padding: 0 25px 20px; } .profile-name { font-weight: 900; font-size: 22px; margin-bottom: 8px; }
+        .bio-section { padding: 0 20px 20px; }
+        .profile-name { font-weight: bold; font-size: 20px; margin-bottom: 5px; color: #fff; display: flex; align-items: center; gap: 5px; }
 
-        /* القصص، الفلاتر، والشبكة */
-        .stories-container { display: flex; gap: 15px; padding: 15px 25px; overflow-x: auto; border-top: 1px solid #111; }
+        /* --- القصص (الترتيب الصحيح) --- */
+        .stories-container { display: flex; gap: 18px; padding: 15px 20px; overflow-x: auto; border-top: 1px solid #111; }
         .story { flex: 0 0 auto; width: 65px; text-align: center; }
-        .story-circle { width: 60px; height: 60px; border-radius: 50%; padding: 2px; background: linear-gradient(45deg, var(--gold), #333); margin-bottom: 5px; }
+        .story-circle { width: 62px; height: 62px; border-radius: 50%; padding: 2px; background: linear-gradient(45deg, var(--gold), #333); margin-bottom: 5px; }
         .story-circle img { width: 100%; height: 100%; border-radius: 50%; border: 2px solid #000; background: #222; }
-        .filter-tabs { display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; border-bottom: 1px solid #222; }
-        .tab-item { cursor: pointer; font-size: 24px; color: #555; transition: 0.3s; position: relative; }
-        .tab-item.active { color: var(--gold); } .tab-item.active::after { content: '●'; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); font-size: 10px; color: var(--gold); }
-        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding-bottom: 80px; }
-        .grid-item { aspect-ratio: 1/1; background: #111; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-        .magic-butterfly { position: fixed; pointer-events: none; z-index: 2000; font-size: 24px; color: var(--glow); text-shadow: 0 0 20px var(--glow); animation: fly 2s ease-out forwards; }
-        @keyframes fly { 0% { transform: translate(-50%,-50%) scale(1); opacity: 1; } 100% { transform: translate(-50%,-150vh) scale(5) rotate(45deg); opacity: 0; } }
+        .story-name { font-size: 10px; color: #aaa; }
 
-        /* التنقل والمودال */
-        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 70px; background: #000; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #222; }
-        .nav-item { text-decoration: none; font-size: 26px; color: #444; transition: 0.3s; } .nav-item.active { color: var(--gold); transform: translateY(-5px); }
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
-        .modal-content { background: linear-gradient(135deg, #1a1a1a, #000); margin: 15% auto; padding: 30px; border: 2px solid var(--gold); border-radius: 25px; width: 85%; box-shadow: 0 0 30px rgba(212,175,55,0.3); }
+        /* --- الفرز والسحر (Butterfly) --- */
+        .filter-tabs { display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #222; border-bottom: 1px solid #222; margin-top: 10px; }
+        .tab-item { cursor: pointer; font-size: 22px; color: #444; transition: 0.3s; position: relative; }
+        .tab-item.active { color: var(--gold); }
+        .tab-item.active::after { content: ''; position: absolute; bottom: -12px; left: 0; width: 100%; height: 2px; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+
+        .magic-butterfly { position: fixed; pointer-events: none; z-index: 9999; font-size: 24px; color: var(--glow); text-shadow: 0 0 15px var(--glow); animation: flyUp 1.8s ease-out forwards; }
+        @keyframes flyUp { 0% { transform: translate(-50%,-50%) scale(1); opacity: 1; } 100% { transform: translate(-50%,-120vh) scale(6) rotate(30deg); opacity: 0; } }
+
+        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding-bottom: 90px; }
+        .grid-item { aspect-ratio: 1/1; background: #0a0a0a; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #333; }
+
+        /* شريط التنقل */
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 65px; background: #000; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #1a1a1a; z-index: 1000; }
+        .nav-item { text-decoration: none; font-size: 26px; color: #444; } .nav-item.active { color: var(--gold); filter: drop-shadow(0 0 8px var(--gold)); }
+
+        /* نافذة التعديل المضمونة */
+        .modal { display: none; position: fixed; z-index: 5000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); }
+        .modal-content { background: #111; margin: 15% auto; padding: 25px; border: 1px solid var(--gold); border-radius: 20px; width: 85%; box-shadow: 0 0 30px rgba(212,175,55,0.2); }
+        input, textarea { width: 100%; background: #222; border: 1px solid #333; color: white; padding: 14px; margin: 10px 0; border-radius: 12px; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
 <div class="profile-container">
-    <div class="profile-pic"><img id="displayImg" src="" alt=""></div>
+    <div class="profile-pic">
+        <img id="displayImg" src="" alt="">
+    </div>
     <div class="stats-container">
         <div><span class="stat-value">12</span><span class="stat-label">منشور</span></div>
         <div><span class="stat-value">850</span><span class="stat-label">متابع</span></div>
@@ -80,18 +80,18 @@
 </div>
 
 <div class="bio-section">
-    <div class="profile-name">GAFFA ISMAIL 💎</div>
-    <div id="bioDisplay" style="font-size: 15px; color: #ccc; line-height: 1.4;">🚀 مبتكر أزرار الذهب السائل | سحر الفراشات</div>
+    <div class="profile-name">GAFFA ISMAIL <span style="color:var(--gold)">💎</span></div>
+    <div id="bioDisplay" style="font-size: 14px; color: #ccc;">🚀 مبتكر أزرار الذهب | سحر الفراشات المتطور</div>
 </div>
 
-<div class="btn-group-liquid">
-    <button class="liquid-btn" onclick="openModal()"><span>✨</span> تعديل الهوية</button>
-    <a href="messages.html" class="liquid-btn"><span>🦋</span> بريد الفراشات</a>
+<div class="btn-group-elite">
+    <button class="elite-btn" onclick="openModal()"><span class="btn-gold-text">✨</span> تعديل الهوية</button>
+    <a href="messages.html" class="elite-btn"><span class="btn-gold-text">🕊️</span> بريد الفراشات</a>
 </div>
 
 <div class="stories-container">
     <div class="story"><div class="story-circle"><img src="" alt=""></div><div class="story-name">جديد</div></div>
-    <div class="story"><div class="story-circle"><img src="" alt=""></div><div class="story-name">GAFFA</div></div>
+    <div class="story"><div class="story-circle"><img src="" alt=""></div><div class="story-name">Gaffa_Team</div></div>
     <div class="story"><div class="story-circle"><img src="" alt=""></div><div class="story-name">Marawi</div></div>
 </div>
 
@@ -110,39 +110,59 @@
 <div class="nav-bottom">
     <a href="feed.html" class="nav-item">🏠</a>
     <a href="explore.html" class="nav-item">🔍</a>
-    <div class="nav-item" style="color:var(--gold); cursor:pointer;">+</div>
+    <div class="nav-item" style="color:var(--gold); font-size:32px;">+</div>
     <a href="profile.html" class="nav-item active">👤</a>
 </div>
 
 <div id="editModal" class="modal">
     <div class="modal-content">
-        <h3 style="color:var(--gold); margin-top:0; text-align:center;">تحديث الهوية الذهبية 💎</h3>
-        <input type="file" id="imageInput" accept="image/*" style="background:#222; border:1px solid #444; color:white; padding:15px; width:100%; border-radius:12px; margin:15px 0;">
-        <input type="text" id="newName" placeholder="الاسم الجديد" style="background:#222; border:1px solid #444; color:white; padding:15px; width:100%; border-radius:12px; margin-bottom:15px;">
-        <textarea id="newBio" placeholder="السيرة الذاتية..." style="background:#222; border:1px solid #444; color:white; padding:15px; width:100%; border-radius:12px; margin-bottom:20px; height:100px;"></textarea>
-        <div style="display:flex; gap:15px;">
-            <button onclick="saveChanges()" class="liquid-btn" style="flex:1; background:var(--gold); color:black; box-shadow:0 0 20px var(--gold);">حفظ</button>
-            <button onclick="closeModal()" class="liquid-btn" style="flex:1; background:transparent; border:2px solid #444; color:white;">إلغاء</button>
+        <h3 style="color:var(--gold); margin-top:0; text-align:center;">تحديث GAFFA ID 💎</h3>
+        <input type="file" id="imageInput" accept="image/*">
+        <input type="text" id="newName" placeholder="الاسم الجديد">
+        <textarea id="newBio" placeholder="السيرة الذاتية..."></textarea>
+        <div style="display:flex; gap:12px;">
+            <button onclick="saveChanges()" style="flex:1; background:var(--gold); border:none; padding:12px; border-radius:12px; font-weight:bold; cursor:pointer;">حفظ</button>
+            <button onclick="closeModal()" style="flex:1; background:transparent; border:1px solid #444; color:white; padding:12px; border-radius:12px; cursor:pointer;">إلغاء</button>
         </div>
     </div>
 </div>
 
 <script>
     function tabAction(el, icon) {
-        document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active')); el.classList.add('active');
-        const b = document.createElement('div'); b.className = 'magic-butterfly'; b.innerHTML = '🦋';
-        b.style.left = event.clientX + 'px'; b.style.top = event.clientY + 'px';
-        document.body.appendChild(b); setTimeout(() => b.remove(), 2000);
-        const grid = document.getElementById('mainGrid'); grid.innerHTML = '';
-        for(let i=0; i<6; i++) { const item = document.createElement('div'); item.className = 'grid-item'; item.textContent = icon; grid.appendChild(item); }
+        document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+
+        const b = document.createElement('div');
+        b.className = 'magic-butterfly';
+        b.innerHTML = '🦋';
+        b.style.left = event.clientX + 'px';
+        b.style.top = event.clientY + 'px';
+        document.body.appendChild(b);
+        setTimeout(() => b.remove(), 1800);
+
+        const grid = document.getElementById('mainGrid');
+        grid.innerHTML = '';
+        for(let i=0; i<6; i++) {
+            const item = document.createElement('div');
+            item.className = 'grid-item';
+            item.textContent = icon;
+            grid.appendChild(item);
+        }
     }
+
     function openModal() { document.getElementById('editModal').style.display = 'block'; }
     function closeModal() { document.getElementById('editModal').style.display = 'none'; }
     function saveChanges() {
-        const n = document.getElementById('newName').value; const b = document.getElementById('newBio').value; const img = document.getElementById('imageInput');
-        if(n.trim()!=="") document.querySelector('.profile-name').innerText = n;
-        if(b.trim()!=="") document.getElementById('bioDisplay').innerText = b;
-        if(img.files && img.files[0]) { const r = new FileReader(); r.onload = function(e) { document.querySelector('.profile-pic img').src = e.target.result; }; r.readAsDataURL(img.files[0]); }
+        const n = document.getElementById('newName').value;
+        const b = document.getElementById('newBio').value;
+        const img = document.getElementById('imageInput');
+        if(n.trim() !== "") document.querySelector('.profile-name').innerHTML = n + ' <span style="color:var(--gold)">💎</span>';
+        if(b.trim() !== "") document.getElementById('bioDisplay').innerText = b;
+        if (img.files && img.files[0]) {
+            const r = new FileReader();
+            r.onload = function(e) { document.querySelector('.profile-pic img').src = e.target.result; }
+            r.readAsDataURL(img.files[0]);
+        }
         closeModal();
     }
 </script>
