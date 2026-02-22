@@ -3,64 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAFFA - The Final Masterpiece</title>
+    <title>GAFFA ISMAIL - Pro</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root { --gold: #d4af37; --bg: #000; --card: #111; }
         body { background-color: var(--bg); color: white; font-family: sans-serif; margin: 0; padding-bottom: 90px; overflow-x: hidden; }
 
-        /* الهوية البصرية والنبض */
+        /* الهوية البصرية (كما في الصورة تماماً) */
+        .profile-header { padding: 30px 20px 10px; display: flex; align-items: center; gap: 20px; flex-direction: row-reverse; }
         .profile-pic { width: 85px; height: 85px; border-radius: 50%; border: 2px solid var(--gold); padding: 3px; box-shadow: 0 0 15px var(--gold); animation: pulse 2.5s infinite; overflow: hidden; }
         @keyframes pulse { 0%, 100% { box-shadow: 0 0 10px var(--gold); } 50% { box-shadow: 0 0 25px var(--gold); } }
         .profile-pic img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
+        .stats { display: flex; flex-grow: 1; justify-content: space-around; text-align: center; }
         .btn-group { display: flex; gap: 8px; padding: 15px 20px; }
-        .btn { flex: 1; padding: 10px; border-radius: 12px; border: 1px solid #333; background: var(--card); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; font-weight: 600; transition: 0.3s; }
-        .btn-main { background: var(--gold); color: black; border: none; }
+        .btn { flex: 1; padding: 10px; border-radius: 10px; border: 1px solid #333; background: var(--card); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; font-weight: bold; }
+        .btn-follow { background: var(--gold); color: black; border: none; }
 
-        /* الهايلايتس */
+        /* الهايلايتس والتبويبات */
         .highlights { display: flex; gap: 15px; padding: 10px 20px; overflow-x: auto; scrollbar-width: none; }
         .hl-item { flex: 0 0 auto; width: 65px; text-align: center; }
         .hl-circle { width: 60px; height: 60px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; overflow: hidden; background: #0a0a0a; }
-
-        /* التبويبات (مستعادة ومؤكدة) */
-        .tabs { display: flex; border-top: 1px solid #111; border-bottom: 1px solid #111; background: #050505; margin-top: 10px; }
-        .tab { flex: 1; padding: 15px; text-align: center; color: #444; cursor: pointer; }
+        
+        .tabs { display: flex; border-top: 1px solid #222; margin-top: 10px; }
+        .tab { flex: 1; padding: 15px; text-align: center; color: #555; cursor: pointer; }
         .tab.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
 
-        /* الشبكة */
-        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
-        .grid-item { aspect-ratio: 1/1; background: #0a0a0a; overflow: hidden; border: 1px solid #050505; }
+        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; padding: 2px; }
+        .grid-item { aspect-ratio: 1/1; background: #0a0a0a; overflow: hidden; }
         .grid-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* البار السفلي */
-        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #111; z-index: 2000; }
-        .publish-btn { background: var(--gold); width: 50px; height: 50px; border-radius: 16px; box-shadow: 0 0 20px var(--gold); transform: translateY(-12px); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        /* شريط التنقل السفلي */
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #111; z-index: 2000; }
+        .publish-btn { background: var(--gold); width: 55px; height: 55px; border-radius: 18px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); transform: translateY(-15px); display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
-        /* المودالات */
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); }
-        .modal-content { background: #111; margin: 15% auto; padding: 25px; border-radius: 20px; width: 85%; border: 1px solid var(--gold); box-sizing: border-box; }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #333; color: white; border-radius: 10px; box-sizing: border-box; }
+        /* المودالات (نافذة المراسلة كما في الصورة) */
+        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); }
+        .modal-content { background: #000; margin: 30% auto; padding: 25px; border-radius: 20px; width: 85%; border: 1px solid var(--gold); box-sizing: border-box; text-align: center; }
+        .modal-content h3 { color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        input, textarea { width: 100%; padding: 15px; margin: 10px 0; background: #0a0a0a; border: 1px solid #222; color: white; border-radius: 12px; box-sizing: border-box; outline: none; }
+        .modal-btn { width: 100%; background: var(--gold); color: black; border: none; padding: 12px; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<div style="padding: 30px 20px 10px; display: flex; align-items: center; gap: 20px;">
-    <div class="profile-pic"><img id="mainProfileImg" src="https://via.placeholder.com/150"></div>
-    <div style="flex-grow:1; display:flex; justify-content:space-around; text-align:center;">
-        <div><b id="postCount">0</b><br><small style="color:#777">منشور</small></div>
-        <div><b id="followerCount">850</b><br><small style="color:#777">متابع</small></div>
-        <div><b>120</b><br><small style="color:#777">أتابع</small></div>
+<div class="profile-header">
+    <div class="profile-pic"><img id="mainImg" src="https://via.placeholder.com/150"></div>
+    <div class="stats">
+        <div><b id="pCount">1</b><br><small>منشور</small></div>
+        <div><b id="fCount">850</b><br><small>متابع</small></div>
+        <div><b>120</b><br><small>أتابع</small></div>
     </div>
 </div>
 
 <div style="padding: 0 25px 15px;">
-    <div id="uName" style="font-weight:bold; font-size:22px; display:flex; align-items:center; gap:8px;">GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#1d9bf0; stroke:none; width:18px;"></i></div>
-    <div id="uBio" style="font-size:13px; color:#aaa;">مبتكر نظام الذهب السائل 💎</div>
+    <div id="uName" style="font-weight:bold; font-size:22px;">GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#1d9bf0; stroke:none; width:18px;"></i></div>
+    <p id="uBio" style="font-size:13px; color:#aaa; margin-top:5px;">Trying to go to go back ⬅️ to the same as you serious or ok... 💎</p>
 </div>
 
 <div class="btn-group">
-    <button id="fBtn" class="btn btn-main" onclick="toggleFollow()">متابعة</button>
+    <button class="btn btn-follow" onclick="followLogic()">متابعة</button>
     <button class="btn" onclick="openModal('msgModal')"><i data-lucide="send"></i> مراسلة</button>
     <button class="btn" onclick="openModal('editModal')"><i data-lucide="edit-3"></i> تعديل</button>
 </div>
@@ -70,50 +72,52 @@
         <div class="hl-circle" style="border:1.5px dashed var(--gold); color:var(--gold)"><i data-lucide="plus"></i></div>
         <div style="font-size:10px; color:#777">جديد</div>
     </div>
-    <div class="hl-item"><div class="hl-circle"><img src="https://via.placeholder.com/100/111/d4af37" style="width:100%"></div><div style="font-size:10px; color:#777">Marawi</div></div>
+    <div class="hl-item"><div class="hl-circle"><img src="https://via.placeholder.com/100" style="width:100%"></div><div style="font-size:10px; color:#777">Good 😊</div></div>
 </div>
 
 <div class="tabs">
     <div class="tab active"><i data-lucide="grid"></i></div>
     <div class="tab"><i data-lucide="clapperboard"></i></div>
-    <div class="tab"><i data-lucide="contact-2"></i></div>
+    <div class="tab"><i data-lucide="user-square-2"></i></div>
 </div>
 
-<div class="photo-grid" id="mainGrid"></div>
+<div class="photo-grid" id="grid">
+    <div class="grid-item"><img src="https://via.placeholder.com/300"></div>
+</div>
 
 <div class="nav-bottom">
-    <i data-lucide="home" style="color:#555"></i>
-    <i data-lucide="search" style="color:#555"></i>
-    <div class="publish-btn" onclick="openModal('postModal')"><i data-lucide="plus" style="stroke:black"></i></div>
-    <i data-lucide="message-square" style="color:#555"></i>
+    <i data-lucide="home" style="color:#888"></i>
+    <i data-lucide="search" style="color:#888"></i>
+    <div class="publish-btn" onclick="openModal('postModal')"><i data-lucide="plus" style="color:black"></i></div>
+    <i data-lucide="message-square" style="color:#888"></i>
     <i data-lucide="user" style="color:var(--gold)"></i>
 </div>
 
 <div id="editModal" class="modal"><div class="modal-content">
-    <h3 style="color:var(--gold)">تعديل البروفايل ⚙️</h3>
+    <h3><i data-lucide="settings"></i> تعديل الملف</h3>
     <input type="file" id="pInp" accept="image/*">
     <input type="text" id="nInp" placeholder="الاسم الجديد">
     <textarea id="bInp" placeholder="السيرة الذاتية..."></textarea>
-    <button onclick="saveEdit()" style="width:100%; background:var(--gold); border:none; padding:12px; border-radius:10px; font-weight:bold; cursor:pointer;">حفظ التغييرات</button>
-</div></div>
-
-<div id="storyModal" class="modal"><div class="modal-content">
-    <h3 style="color:var(--gold)">إضافة هايلايت 🦋</h3>
-    <input type="file" id="sPicInp" accept="image/*">
-    <input type="text" id="sTitleInp" placeholder="اسم الهايلايت">
-    <button onclick="addStory()" style="width:100%; background:var(--gold); border:none; padding:12px; border-radius:10px; font-weight:bold; cursor:pointer;">إضافة</button>
-</div></div>
-
-<div id="postModal" class="modal"><div class="modal-content">
-    <h3 style="color:var(--gold)">منشور جديد 🖼️</h3>
-    <input type="file" id="postInp" accept="image/*">
-    <button onclick="addPost()" style="width:100%; background:var(--gold); border:none; padding:12px; border-radius:10px; font-weight:bold; cursor:pointer;">نشر</button>
+    <button class="modal-btn" onclick="applyEdit()">حفظ التغييرات</button>
 </div></div>
 
 <div id="msgModal" class="modal"><div class="modal-content">
-    <h3 style="color:var(--gold)">مراسلة GAFFA 💎</h3>
-    <textarea placeholder="رسالتك..."></textarea>
-    <button onclick="closeModal('msgModal')" style="width:100%; background:var(--gold); border:none; padding:12px; border-radius:10px; font-weight:bold; cursor:pointer;">إرسال</button>
+    <h3>💎 مراسلة GAFFA</h3>
+    <textarea id="msgInp" placeholder="Hi..."></textarea>
+    <button class="modal-btn" onclick="sendMsg()">إرسال</button>
+</div></div>
+
+<div id="postModal" class="modal"><div class="modal-content">
+    <h3>🖼️ منشور جديد</h3>
+    <input type="file" id="postInp" accept="image/*">
+    <button class="modal-btn" onclick="applyPost()">نشر الآن</button>
+</div></div>
+
+<div id="storyModal" class="modal"><div class="modal-content">
+    <h3>🦋 إضافة هايلايت</h3>
+    <input type="file" id="sPic" accept="image/*">
+    <input type="text" id="sTitle" placeholder="عنوان الهايلايت">
+    <button class="modal-btn" onclick="applyStory()">إضافة</button>
 </div></div>
 
 <script>
@@ -121,55 +125,59 @@
     function openModal(id) { document.getElementById(id).style.display = 'block'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    // 1. وظيفة التعديل (اسم + سيرة + صورة)
-    function saveEdit() {
-        const n = document.getElementById('nInp').value, b = document.getElementById('bInp').value, p = document.getElementById('pInp').files[0];
-        if(n) document.getElementById('uName').innerHTML = n + ' <i data-lucide="badge-check" style="fill:#1d9bf0; stroke:none; width:18px;"></i>';
-        if(b) document.getElementById('uBio').innerText = b;
-        if(p) {
-            const r = new FileReader();
-            r.onload = (e) => { document.getElementById('mainProfileImg').src = e.target.result; };
-            r.readAsDataURL(p);
+    // وظيفة التعديل (تغيير الصورة والاسم والسيرة)
+    function applyEdit() {
+        const name = document.getElementById('nInp').value;
+        const bio = document.getElementById('bInp').value;
+        const pic = document.getElementById('pInp').files[0];
+        if(name) document.getElementById('uName').innerHTML = name + ' <i data-lucide="badge-check" style="fill:#1d9bf0; stroke:none; width:18px;"></i>';
+        if(bio) document.getElementById('uBio').innerText = bio;
+        if(pic) {
+            const reader = new FileReader();
+            reader.onload = (e) => { document.getElementById('mainImg').src = e.target.result; };
+            reader.readAsDataURL(pic);
         }
         closeModal('editModal'); lucide.createIcons();
     }
 
-    // 2. وظيفة إضافة ستوري (هايلايت)
-    function addStory() {
-        const t = document.getElementById('sTitleInp').value, p = document.getElementById('sPicInp').files[0];
-        if(!p || !t) return alert("أكمل البيانات");
-        const r = new FileReader();
-        r.onload = (e) => {
-            const div = document.createElement('div'); div.className = 'hl-item';
-            div.innerHTML = `<div class="hl-circle"><img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover"></div><div style="font-size:10px; color:#777">${t}</div>`;
-            document.getElementById('hList').appendChild(div);
-        };
-        r.readAsDataURL(p); closeModal('storyModal');
-    }
-
-    // 3. وظيفة النشر الحقيقي في الشبكة
-    let posts = 0;
-    function addPost() {
-        const p = document.getElementById('postInp').files[0];
-        if(!p) return alert("اختر صورة");
-        const r = new FileReader();
-        r.onload = (e) => {
+    // وظيفة النشر في الشبكة
+    let count = 1;
+    function applyPost() {
+        const pic = document.getElementById('postInp').files[0];
+        if(!pic) return alert("اختر صورة");
+        const reader = new FileReader();
+        reader.onload = (e) => {
             const div = document.createElement('div'); div.className = 'grid-item';
             div.innerHTML = `<img src="${e.target.result}">`;
-            document.getElementById('mainGrid').prepend(div);
-            posts++; document.getElementById('postCount').innerText = posts;
+            document.getElementById('grid').prepend(div);
+            count++; document.getElementById('pCount').innerText = count;
         };
-        r.readAsDataURL(p); closeModal('postModal');
+        reader.readAsDataURL(pic); closeModal('postModal');
     }
 
-    // 4. وظيفة المتابعة
-    function toggleFollow() {
-        const btn = document.getElementById('fBtn'), c = document.getElementById('followerCount');
-        if(btn.innerText === "متابعة") {
-            btn.innerText = "تمت المتابعة"; btn.style.background = "#1a1a1a"; btn.style.color = "white"; c.innerText = "851";
-        } else {
-            btn.innerText = "متابعة"; btn.style.background = "var(--gold)"; btn.style.color = "black"; c.innerText = "850";
-        }
+    // وظيفة المراسلة
+    function sendMsg() {
+        const txt = document.getElementById('msgInp').value;
+        if(txt) { alert("تم إرسال رسالتك لـ GAFFA بنجاح! ✅"); closeModal('msgModal'); }
+    }
+
+    // وظيفة إضافة قصة/هايلايت
+    function applyStory() {
+        const pic = document.getElementById('sPic').files[0];
+        const title = document.getElementById('sTitle').value;
+        if(!pic || !title) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const div = document.createElement('div'); div.className = 'hl-item';
+            div.innerHTML = `<div class="hl-circle"><img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover"></div><div style="font-size:10px; color:#777">${title}</div>`;
+            document.getElementById('hList').appendChild(div);
+        };
+        reader.readAsDataURL(pic); closeModal('storyModal');
+    }
+
+    function followLogic() {
+        const f = document.getElementById('fCount');
+        f.innerText = f.innerText === "850" ? "851" : "850";
     }
 </script>
 </body>
