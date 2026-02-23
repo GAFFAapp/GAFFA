@@ -7,9 +7,9 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root { --gold: #d4af37; --bg: #000; --card: #111; --text-gray: #777; }
-        body { background-color: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        body { background-color: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
 
-        /* --- الهوية البصرية (Header) --- */
+        /* --- الهوية البصرية (تعبك الأصلي) --- */
         .profile-container { padding: 35px 20px 10px; display: flex; align-items: center; gap: 20px; }
         .profile-pic { 
             width: 85px; height: 85px; border-radius: 50%; border: 2px solid var(--gold); 
@@ -25,56 +25,40 @@
         .bio-section { padding: 0 25px 15px; }
         .profile-name { font-weight: bold; font-size: 22px; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
 
-        /* --- الأزرار الثلاثية --- */
+        /* --- الأزرار المعدلة للربط --- */
         .btn-group-elite { display: flex; gap: 8px; padding: 0 20px 15px; }
         .elite-btn { 
             flex: 1; padding: 10px; border: 1px solid #333; background: var(--card); 
             border-radius: 12px; color: white; font-size: 12px; font-weight: 600; 
             cursor: pointer; display: flex; align-items: center; justify-content: center; 
-            gap: 5px; transition: 0.3s; text-decoration: none; /* لضمان مظهر الرابط كأنه زر */
+            gap: 5px; transition: 0.3s; text-decoration: none; 
         }
         .btn-follow { background: var(--gold); color: black; border: none; flex: 1.5; }
 
-        /* --- الهايلايتس --- */
+        /* --- الهايلايتس (ميزتك الرائعة) --- */
         .highlights-container { display: flex; gap: 15px; padding: 0 20px 20px; overflow-x: auto; scrollbar-width: none; }
         .highlight-item { flex: 0 0 auto; width: 65px; text-align: center; cursor: pointer; }
-        .highlight-circle { 
-            width: 60px; height: 60px; border-radius: 50%; border: 1px solid #333; 
-            display: flex; align-items: center; justify-content: center; margin-bottom: 5px; 
-            background: #0a0a0a; overflow: hidden;
-        }
+        .highlight-circle { width: 60px; height: 60px; border-radius: 50%; border: 1px solid #333; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; background: #0a0a0a; overflow: hidden; }
         .highlight-circle.add-story { border: 1.5px dashed var(--gold); color: var(--gold); }
         .highlight-circle img { width: 100%; height: 100%; object-fit: cover; }
-        .highlight-name { font-size: 10px; color: var(--text-gray); }
 
-        /* --- التبويبات (Tabs) --- */
+        /* --- التبويبات والشبكة --- */
         .post-tabs { display: flex; border-top: 1px solid #222; margin-top: 10px; background: #050505; }
         .tab-item { flex: 1; padding: 15px; text-align: center; cursor: pointer; color: #555; }
         .tab-item.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
-
-        /* --- الشبكة (Grid) --- */
         .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; padding-bottom: 90px; }
-        .grid-item { aspect-ratio: 1/1; background: #0a0a0a; overflow: hidden; border: 1px solid #050505; }
+        .grid-item { aspect-ratio: 1/1; background: #0a0a0a; overflow: hidden; }
         .grid-item img { width: 100%; height: 100%; object-fit: cover; }
 
         /* --- البار السفلي --- */
-        .nav-bottom { 
-            position: fixed; bottom: 0; width: 100%; height: 70px; 
-            background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); 
-            display: flex; justify-content: space-around; align-items: center; 
-            border-top: 1px solid #111; z-index: 2000; 
-        }
-        .publish-btn { 
-            background: var(--gold); width: 50px; height: 50px; border-radius: 16px; 
-            box-shadow: 0 0 20px var(--gold); transform: translateY(-12px); 
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-        }
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.95); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #111; z-index: 2000; }
+        .publish-btn { background: var(--gold); width: 50px; height: 50px; border-radius: 16px; box-shadow: 0 0 20px var(--gold); transform: translateY(-12px); display: flex; align-items: center; justify-content: center; cursor: pointer; }
 
-        /* --- المودالات --- */
-        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); }
-        .modal-content { background: #111; margin: 25% auto; padding: 25px; border-radius: 20px; width: 85%; border: 1px solid var(--gold); box-sizing: border-box; }
+        /* --- المودالات (نظام التعديل والنشر) --- */
+        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); }
+        .modal-content { background: #111; margin: 25% auto; padding: 25px; border-radius: 20px; width: 85%; border: 1px solid var(--gold); box-sizing: border-box; text-align: center; }
         input, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #333; color: white; border-radius: 10px; box-sizing: border-box; }
-        .modal-btn { width: 100%; background: var(--gold); border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; color: black; margin-top: 10px; }
+        .modal-btn { width: 100%; background: var(--gold); border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; color: black; }
     </style>
 </head>
 <body>
@@ -89,14 +73,14 @@
 </div>
 
 <div class="bio-section">
-    <div class="profile-name" id="profileNameDisplay">GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#1d9bf0; stroke:none; width:20px;"></i></div>
-    <div id="bioDisplay" style="font-size: 13px; color: #aaa; line-height:1.4;">مبتكر نظام الذهب السائل 💎 | GAFFA Team</div>
+    <div class="profile-name" id="profileNameDisplay">GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#1d9bf0; color:white; width:20px;"></i></div>
+    <div id="bioDisplay" style="font-size: 13px; color: #aaa;">مبتكر نظام الذهب السائل 💎 | GAFFA Team</div>
 </div>
 
 <div class="btn-group-elite">
     <button id="followBtnAction" class="elite-btn btn-follow" onclick="handleFollow()">متابعة</button>
     
-    <a href="https://wa.me/212600000000" class="elite-btn" id="directChatBtn">
+    <a href="messages.html" class="elite-btn">
         <i data-lucide="mail"></i> مراسلة
     </a>
 
@@ -119,40 +103,39 @@
 <div class="photo-grid" id="imageGrid"></div>
 
 <div class="nav-bottom">
-    <div class="nav-item"><i data-lucide="home"></i></div>
-    <div class="nav-item"><i data-lucide="search"></i></div>
-    <div class="publish-btn" onclick="openModal('publishModal')"><i data-lucide="plus" style="stroke:black"></i></div>
-    <div class="nav-item"><i data-lucide="message-square"></i></div>
-    <div class="nav-item" style="color:var(--gold)"><i data-lucide="user"></i></div>
+    <a href="feed.html" style="color:#555"><i data-lucide="home"></i></a>
+    <a href="explore.html" style="color:#555"><i data-lucide="search"></i></a>
+    <div class="publish-btn" onclick="openModal('publishModal')"><i data-lucide="plus" style="color:black"></i></div>
+    <a href="messages.html" style="color:#555"><i data-lucide="message-square"></i></a>
+    <a href="profile.html" style="color:var(--gold)"><i data-lucide="user"></i></a>
 </div>
 
 <div id="editModal" class="modal">
     <div class="modal-content">
-        <h3 style="color:var(--gold); text-align:center;">تحديث الهوية 💎</h3>
+        <h3 style="color:var(--gold)">تعديل الملف الشخصي 💎</h3>
         <input type="file" id="editImageInp" accept="image/*">
         <input type="text" id="editNameInp" placeholder="الاسم الجديد">
-        <textarea id="editBioInp" placeholder="السيرة الجديدة..."></textarea>
-        <button class="modal-btn" onclick="saveProfileChanges()">حفظ التعديلات</button>
-        <button onclick="closeModal('editModal')" style="width:100%; background:transparent; border:none; color:#555; margin-top:5px; cursor:pointer;">إلغاء</button>
+        <textarea id="editBioInp" placeholder="البايو الجديد..."></textarea>
+        <button class="modal-btn" onclick="saveProfileChanges()">حفظ التغييرات</button>
+        <button onclick="closeModal('editModal')" style="background:none; border:none; color:#555; margin-top:10px;">إلغاء</button>
     </div>
 </div>
 
 <div id="publishModal" class="modal">
     <div class="modal-content">
-        <h3 style="color:var(--gold); text-align:center;">نشر صورة جديدة 🖼️</h3>
+        <h3 style="color:var(--gold)">نشر صورة جديدة 🖼️</h3>
         <input type="file" id="publishFileInp" accept="image/*">
         <button class="modal-btn" onclick="publishImage()">نشر الآن</button>
-        <button onclick="closeModal('publishModal')" style="width:100%; background:transparent; border:none; color:#555; margin-top:5px; cursor:pointer;">إلغاء</button>
+        <button onclick="closeModal('publishModal')" style="background:none; border:none; color:#555; margin-top:10px;">إلغاء</button>
     </div>
 </div>
 
 <div id="storyModal" class="modal">
     <div class="modal-content">
-        <h3 style="color:var(--gold); text-align:center;">إضافة هايلايت 🦋</h3>
+        <h3 style="color:var(--gold)">إضافة هايلايت 🦋</h3>
         <input type="file" id="storyFileInp" accept="image/*">
         <input type="text" id="storyTitleInp" placeholder="عنوان الهايلايت">
         <button class="modal-btn" onclick="addNewStory()">إضافة</button>
-        <button onclick="closeModal('storyModal')" style="width:100%; background:transparent; border:none; color:#555; margin-top:5px; cursor:pointer;">إلغاء</button>
     </div>
 </div>
 
@@ -162,29 +145,11 @@
     function openModal(id) { document.getElementById(id).style.display = 'block'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    // وظيفة حفظ تعديلات البروفايل
-    function saveProfileChanges() {
-        const name = document.getElementById('editNameInp').value;
-        const bio = document.getElementById('editBioInp').value;
-        const file = document.getElementById('editImageInp').files[0];
-        if (name.trim() !== "") {
-            document.getElementById('profileNameDisplay').innerHTML = name + ' <i data-lucide="badge-check" style="fill:#1d9bf0; stroke:none; width:20px;"></i>';
-        }
-        if (bio.trim() !== "") { document.getElementById('bioDisplay').innerText = bio; }
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => { document.getElementById('mainDisplayImg').src = e.target.result; };
-            reader.readAsDataURL(file);
-        }
-        closeModal('editModal');
-        lucide.createIcons();
-    }
-
-    // وظيفة النشر الحقيقي
+    // وظائف الجافا سكريبت الخاصة بك (كما في صورك)
     let currentPosts = 0;
     function publishImage() {
         const file = document.getElementById('publishFileInp').files[0];
-        if (!file) return;
+        if(!file) return;
         const reader = new FileReader();
         reader.onload = (e) => {
             const div = document.createElement('div');
@@ -198,11 +163,24 @@
         closeModal('publishModal');
     }
 
-    // إضافة هايلايت
+    function saveProfileChanges() {
+        const name = document.getElementById('editNameInp').value;
+        const bio = document.getElementById('editBioInp').value;
+        const file = document.getElementById('editImageInp').files[0];
+        if(name.trim() !== "") document.getElementById('profileNameDisplay').innerText = name;
+        if(bio.trim() !== "") document.getElementById('bioDisplay').innerText = bio;
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => { document.getElementById('mainDisplayImg').src = e.target.result; };
+            reader.readAsDataURL(file);
+        }
+        closeModal('editModal');
+    }
+
     function addNewStory() {
         const title = document.getElementById('storyTitleInp').value;
         const file = document.getElementById('storyFileInp').files[0];
-        if (!file || title.trim() === "") return;
+        if(!file || title.trim() === "") return;
         const reader = new FileReader();
         reader.onload = (e) => {
             const item = document.createElement('div');
@@ -214,15 +192,14 @@
         closeModal('storyModal');
     }
 
-    // وظيفة المتابعة
     let following = false;
     function handleFollow() {
         const btn = document.getElementById('followBtnAction');
-        const count = document.getElementById('followerCountDisplay');
-        if (!following) {
-            btn.innerText = "تمت المتابعة"; btn.style.background = "#1a1a1a"; btn.style.color = "white"; count.innerText = "851"; following = true;
+        following = !following;
+        if(following) {
+            btn.innerText = "تمت المتابعة"; btn.style.background = "#333"; btn.style.color = "white";
         } else {
-            btn.innerText = "متابعة"; btn.style.background = "var(--gold)"; btn.style.color = "black"; count.innerText = "850"; following = false;
+            btn.innerText = "متابعة"; btn.style.background = "var(--gold)"; btn.style.color = "black";
         }
     }
 </script>
