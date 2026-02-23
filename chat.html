@@ -3,116 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAFFA - Secret Chat</title>
+    <title>GAFFA - Chat 30s</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root { --gold: #d4af37; --bg: #000; }
-        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
-
-        /* الهيدر */
-        .chat-header { padding: 15px; border-bottom: 1px solid #111; display: flex; align-items: center; gap: 15px; background: #0a0a0a; }
-        .back-btn { color: var(--gold); text-decoration: none; }
-        .user-info { display: flex; align-items: center; gap: 10px; }
-        .user-info img { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--gold); }
-
-        /* منطقة الرسائل */
-        #chatBox { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; background: radial-gradient(circle at center, #050505, #000); }
-
-        /* نظام الرسالة الموقتة */
-        .msg-wrapper { display: flex; flex-direction: column; position: relative; max-width: 80%; }
-        .msg-wrapper.sent { align-self: flex-end; }
-        .msg-wrapper.received { align-self: flex-start; }
-
-        .bubble { padding: 12px 16px; border-radius: 18px; font-size: 14px; position: relative; transition: opacity 0.8s ease; }
-        .sent .bubble { background: var(--gold); color: black; font-weight: bold; border-bottom-left-radius: 2px; }
-        .received .bubble { background: #1a1a1a; color: white; border-bottom-right-radius: 2px; }
-
-        /* الفراشة التي ستختفي */
-        .butterfly { 
-            font-size: 10px; color: var(--gold); position: absolute; top: -15px; 
-            transition: all 0.5s ease; animation: float 3s infinite ease-in-out;
-        }
-        .sent .butterfly { left: 0; }
-        .received .butterfly { right: 0; }
-
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
-        /* شريط التلاشي */
-        .timer-bar { height: 2px; background: var(--gold); width: 100%; margin-top: 5px; transform-origin: right; }
-        .timer-anim { animation: shrink 30s linear forwards; }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; height: 100vh; display: flex; flex-direction: column; }
+        .chat-header { padding: 15px; border-bottom: 1px solid #111; display: flex; align-items: center; gap: 10px; background: #0a0a0a; }
+        #chatBox { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+        .msg-wrapper { position: relative; max-width: 80%; transition: 0.8s; }
+        .sent { align-self: flex-end; }
+        .bubble { background: var(--gold); color: black; padding: 12px; border-radius: 15px; font-size: 14px; font-weight: bold; }
+        .timer-bar { height: 2px; background: white; width: 100%; margin-top: 5px; animation: shrink 30s linear forwards; }
         @keyframes shrink { from { transform: scaleX(1); } to { transform: scaleX(0); } }
-
-        /* التلاشي النهائي */
-        .disappear { opacity: 0 !important; transform: scale(0.9); pointer-events: none; }
-
-        /* منطقة الإدخال */
-        .input-area { padding: 15px; background: #0a0a0a; display: flex; gap: 10px; align-items: center; border-top: 1px solid #111; padding-bottom: 30px; }
-        input { flex: 1; background: #111; border: 1px solid #222; padding: 12px; border-radius: 25px; color: white; outline: none; }
-        .send-btn { background: var(--gold); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .butterfly-msg { position: absolute; top: -15px; left: 0; color: var(--gold); }
+        .input-area { padding: 15px; background: #0a0a0a; display: flex; gap: 10px; padding-bottom: 30px; }
+        input { flex: 1; background: #111; border: 1px solid #333; padding: 12px; border-radius: 20px; color: white; }
     </style>
 </head>
 <body>
-
     <div class="chat-header">
-        <a href="messages.html" class="back-btn"><i data-lucide="chevron-right"></i></a>
-        <div class="user-info">
-            <img src="https://via.placeholder.com/60" id="chatUserImg">
-            <h4 id="chatUserName">المستخدم</h4>
-        </div>
+        <a href="messages.html" style="color:var(--gold)"><i data-lucide="chevron-right"></i></a>
+        <h4 id="userTitle">المحادثة</h4>
     </div>
-
-    <div id="chatBox">
-        </div>
-
+    <div id="chatBox"></div>
     <div class="input-area">
-        <input type="text" id="mInput" placeholder="اكتب رسالة ستختفي بعد 30 ثانية...">
-        <button class="send-btn" onclick="sendMessage()">
-            <i data-lucide="send-horizonal" style="color:black"></i>
-        </button>
+        <input type="text" id="mInp" placeholder="الرسالة ستختفي بعد 30 ثانية...">
+        <button onclick="send()" style="background:var(--gold); border:none; padding:10px; border-radius:50%"><i data-lucide="send"></i></button>
     </div>
-
     <script>
         lucide.createIcons();
+        const user = new URLSearchParams(window.location.search).get('user');
+        if(user) document.getElementById('userTitle').innerText = user;
 
-        // جلب اسم المستخدم من الرابط
-        const params = new URLSearchParams(window.location.search);
-        if(params.get('user')) document.getElementById('chatUserName').innerText = params.get('user');
-
-        function sendMessage() {
-            const inp = document.getElementById('mInput');
+        function send() {
+            const inp = document.getElementById('mInp');
+            if(!inp.value) return;
             const box = document.getElementById('chatBox');
-            if(inp.value.trim() === "") return;
-
-            const text = inp.value;
+            const wrap = document.createElement('div');
+            wrap.className = 'msg-wrapper sent';
+            wrap.innerHTML = `<div class="butterfly-msg"><i data-lucide="butterfly" style="width:12px"></i></div><div class="bubble">${inp.value}</div><div class="timer-bar"></div>`;
+            box.appendChild(wrap);
             inp.value = "";
-
-            createMessageElement(text, 'sent');
-
-            // رد تلقائي بعد ثانيتين
-            setTimeout(() => {
-                createMessageElement("رسالة استلمتها فراشات GAFFA.. ستختفي قريباً.", 'received');
-            }, 2000);
-        }
-
-        function createMessageElement(text, type) {
-            const box = document.getElementById('chatBox');
-            const wrapper = document.createElement('div');
-            wrapper.className = `msg-wrapper ${type}`;
-            
-            wrapper.innerHTML = `
-                <div class="butterfly"><i data-lucide="butterfly" style="width:12px"></i></div>
-                <div class="bubble">${text}</div>
-                <div class="timer-bar timer-anim"></div>
-            `;
-            
-            box.appendChild(wrapper);
             lucide.createIcons();
-            box.scrollTop = box.scrollHeight;
-
-            // منطق الاختفاء بعد 30 ثانية
+            
+            // سحر الاختفاء
             setTimeout(() => {
-                wrapper.classList.add('disappear');
-                setTimeout(() => wrapper.remove(), 1000); // إزالة نهائية من الـ DOM
+                wrap.style.opacity = '0';
+                wrap.style.transform = 'scale(0.8)';
+                setTimeout(() => wrap.remove(), 1000);
             }, 30000);
         }
     </script>

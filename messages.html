@@ -6,141 +6,42 @@
     <title>GAFFA MESSAGES</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root { --gold: #d4af37; --bg: #000; --card: #111; }
-        body { 
-            background-color: var(--bg); color: white; 
-            font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding-bottom: 80px;
-        }
-
-        /* رأس الصفحة */
-        .msg-header { 
-            padding: 25px 20px; display: flex; justify-content: space-between; 
-            align-items: center; border-bottom: 1px solid #111; position: relative;
-        }
-        .msg-header h2 { font-size: 18px; margin: 0; font-weight: 800; color: #fff; }
-        
-        /* علامة الاستفهام المزخرفة */
-        .help-icon { 
-            width: 35px; height: 35px; border-radius: 50%; border: 1.5px solid var(--gold);
-            display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; transition: 0.3s; box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-        }
-        .help-icon:hover { background: var(--gold); color: black; }
-
-        /* تلميح الرسالة السرية */
-        #secretHint {
-            display: none; position: absolute; top: 75px; left: 20px; right: 20px;
-            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold);
-            padding: 15px; border-radius: 12px; font-size: 13px; text-align: center;
-            color: var(--gold); z-index: 100; backdrop-filter: blur(5px);
-            animation: fadeIn 0.5s ease;
-        }
-
-        /* قائمة الأصدقاء النشطين */
-        .active-list { padding: 10px 20px; }
-        .user-row { 
-            display: flex; align-items: center; gap: 15px; padding: 15px 0;
-            border-bottom: 1px solid #0a0a0a; text-decoration: none; color: white;
-            transition: 0.3s; cursor: pointer;
-        }
-        .user-row:hover { transform: translateX(-5px); }
-        
-        .avatar-container { position: relative; }
-        .avatar { 
-            width: 55px; height: 55px; border-radius: 50%; 
-            border: 1px solid #333; object-fit: cover; 
-        }
-        .online-dot { 
-            width: 12px; height: 12px; background: #2ecc71; border-radius: 50%;
-            position: absolute; bottom: 3px; right: 3px; border: 2px solid #000;
-        }
-
-        .user-info { flex: 1; }
-        .user-info h4 { margin: 0; font-size: 15px; }
-        .user-info p { margin: 5px 0 0; font-size: 12px; color: #777; }
-
-        /* الفراشة الذهبية */
-        .butterfly-icon { color: var(--gold); animation: flap 2s infinite; }
-        @keyframes flap { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
-        /* البار السفلي */
-        .nav-bottom { 
-            position: fixed; bottom: 0; width: 100%; height: 70px; 
-            background: rgba(0,0,0,0.95); display: flex; justify-content: space-around; 
-            align-items: center; border-top: 1px solid #111; 
-        }
-        .nav-item { color: #555; text-decoration: none; }
-        .nav-active { color: var(--gold); }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        :root { --gold: #d4af37; --bg: #000; }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; }
+        .msg-header { padding: 25px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #111; }
+        .help-icon { width: 35px; height: 35px; border-radius: 50%; border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        #secretHint { display: none; padding: 15px; background: rgba(212,175,55,0.1); border: 1px solid var(--gold); margin: 10px 20px; border-radius: 10px; font-size: 12px; color: var(--gold); }
+        .active-list { padding: 20px; }
+        .user-row { display: flex; align-items: center; gap: 15px; padding: 15px 0; cursor: pointer; border-bottom: 1px solid #0a0a0a; }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; border: 1px solid #333; }
+        .butterfly-icon { color: var(--gold); margin-right: auto; }
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 70px; background: #000; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
-
     <div class="msg-header">
-        <h2>مرحباً بك في GAFFA MESSAGES</h2>
-        <div class="help-icon" onclick="toggleHint()">
-            <i data-lucide="help-circle"></i>
-        </div>
-        <div id="secretHint">
-            🦋 تذكر أن اختفاء الفراشة يعني اختفاء الرسالة.. نحن لسنا كالباقي، نحن الأفضل.
-        </div>
+        <h4>مرحباً بك في GAFFA MESSAGES</h4>
+        <div class="help-icon" onclick="toggleHint()"><i data-lucide="help-circle"></i></div>
     </div>
-
+    <div id="secretHint">🦋 تذكر أن اختفاء الفراشة يعني اختفاء الرسالة.. نحن لسنا كالباقي، نحن الأفضل.</div>
     <div class="active-list">
-        <div class="user-row" onclick="goToChat('GAFFA ISMAIL')">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/60" class="avatar">
-                <div class="online-dot"></div>
-            </div>
-            <div class="user-info">
-                <h4>GAFFA ISMAIL 💎</h4>
-                <p>نشط الآن</p>
-            </div>
+        <div class="user-row" onclick="location.href='chat.html?user=GAFFA%20ISMAIL'">
+            <img src="https://via.placeholder.com/50" class="avatar">
+            <div><h4>GAFFA ISMAIL</h4><p style="font-size:11px; color:var(--gold)">نشط الآن</p></div>
             <i data-lucide="butterfly" class="butterfly-icon"></i>
         </div>
-
-        <div class="user-row" onclick="goToChat('أحمد علي')">
-            <div class="avatar-container">
-                <img src="https://via.placeholder.com/60" class="avatar">
-                <div class="online-dot"></div>
-            </div>
-            <div class="user-info">
-                <h4>أحمد علي</h4>
-                <p>نشط منذ 5 دقائق</p>
-            </div>
-            <i data-lucide="butterfly" class="butterfly-icon"></i>
-        </div>
-        
-        </div>
-
-    <div class="nav-bottom">
-        <a href="feed.html" class="nav-item"><i data-lucide="home"></i></a>
-        <a href="explore.html" class="nav-item"><i data-lucide="search"></i></a>
-        <div class="nav-item" style="background:var(--gold); padding:10px; border-radius:12px; color:black;"><i data-lucide="plus"></i></div>
-        <a href="messages.html" class="nav-item nav-active"><i data-lucide="message-square"></i></a>
-        <a href="profile.html" class="nav-item"><i data-lucide="user"></i></a>
     </div>
-
+    <div class="nav-bottom">
+        <a href="feed.html" style="color:#555"><i data-lucide="home"></i></a>
+        <a href="messages.html" style="color:var(--gold)"><i data-lucide="message-square"></i></a>
+        <a href="profile.html" style="color:#555"><i data-lucide="user"></i></a>
+    </div>
     <script>
         lucide.createIcons();
-
-        // وظيفة إظهار الرسالة السرية واختفائها
         function toggleHint() {
-            const hint = document.getElementById('secretHint');
-            hint.style.display = 'block';
-            
-            // تختفي بعد وقت قصير كما في رؤيتك
-            setTimeout(() => {
-                hint.style.opacity = '0';
-                setTimeout(() => { hint.style.display = 'none'; hint.style.opacity = '1'; }, 500);
-            }, 5000); // تظهر لـ 5 ثوانٍ عند الضغط
-        }
-
-        // الانتقال للمحادثة الشخصية
-        function goToChat(name) {
-            // سنقوم بتوجيه المستخدم لصفحة محادثة معينة، يمكننا تمرير الاسم في الرابط
-            window.location.href = `direct_chat.html?user=${encodeURIComponent(name)}`;
+            const h = document.getElementById('secretHint');
+            h.style.display = 'block';
+            setTimeout(() => h.style.display = 'none', 5000);
         }
     </script>
 </body>
