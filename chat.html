@@ -6,6 +6,27 @@
     <title>GAFFA - Chat 30s</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+/* تأثير رفرفة أجنحة الفراشة */
+@keyframes flutter {
+    0% { transform: scaleX(1) rotate(0deg); }
+    50% { transform: scaleX(0.4) rotate(10deg); filter: brightness(1.5); }
+    100% { transform: scaleX(1) rotate(0deg); }
+}
+
+/* تأثير الطيران العائم */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.butterfly-icon, [data-lucide="butterfly"] {
+    display: inline-block;
+    color: var(--gold);
+    animation: flutter 0.4s infinite ease-in-out, float 3s infinite ease-in-out;
+    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.6));
+    transform-origin: center;
+}
+
         :root { --gold: #d4af37; --bg: #000; }
         body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; height: 100vh; display: flex; flex-direction: column; }
         .chat-header { padding: 15px; border-bottom: 1px solid #111; display: flex; align-items: center; gap: 10px; background: #0a0a0a; }
@@ -31,7 +52,9 @@
         <button onclick="send()" style="background:var(--gold); border:none; padding:10px; border-radius:50%"><i data-lucide="send"></i></button>
     </div>
     <script>
-        lucide.createIcons();
+
+     
+   lucide.createIcons();
         const user = new URLSearchParams(window.location.search).get('user');
         if(user) document.getElementById('userTitle').innerText = user;
 
