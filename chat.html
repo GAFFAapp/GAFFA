@@ -53,29 +53,48 @@
     </div>
     <script>
 
-     
-   lucide.createIcons();
-        const user = new URLSearchParams(window.location.search).get('user');
-        if(user) document.getElementById('userTitle').innerText = user;
+     <script>
+    lucide.createIcons();
 
-        function send() {
-            const inp = document.getElementById('mInp');
-            if(!inp.value) return;
-            const box = document.getElementById('chatBox');
-            const wrap = document.createElement('div');
-            wrap.className = 'msg-wrapper sent';
-            wrap.innerHTML = `<div class="butterfly-msg"><i data-lucide="butterfly" style="width:12px"></i></div><div class="bubble">${inp.value}</div><div class="timer-bar"></div>`;
-            box.appendChild(wrap);
-            inp.value = "";
-            lucide.createIcons();
-            
-            // سحر الاختفاء
-            setTimeout(() => {
-                wrap.style.opacity = '0';
-                wrap.style.transform = 'scale(0.8)';
-                setTimeout(() => wrap.remove(), 1000);
-            }, 30000);
-        }
+    // جلب اسم المستخدم من الرابط
+    const user = new URLSearchParams(window.location.search).get('user');
+    if(user) document.getElementById('userTitle').innerText = user;
+
+    function send() {
+        const inp = document.getElementById('mInp');
+        if(!inp.value) return;
+
+        const box = document.getElementById('chatBox');
+        const wrap = document.createElement('div');
+        wrap.className = 'msg-wrapper sent';
+
+        // التصحيح هنا: دمج كلاس الفراشة المتحركة butterfly-icon
+        wrap.innerHTML = `
+            <div class="butterfly-msg">
+                <i data-lucide="butterfly" class="butterfly-icon"></i>
+            </div>
+            <div class="bubble">${inp.value}</div>
+            <div class="timer-bar"></div>
+        `;
+
+        box.appendChild(wrap);
+        inp.value = "";
+        
+        // إعادة تشغيل الأيقونات لتظهر الفراشة الجديدة
+        lucide.createIcons();
+        
+        // النزول لآخر الرسائل
+        box.scrollTop = box.scrollHeight;
+
+        // نظام اختفاء الفراشة والرسالة بعد 30 ثانية
+        setTimeout(() => {
+            wrap.style.opacity = '0';
+            wrap.style.transform = 'scale(0.8)';
+            setTimeout(() => wrap.remove(), 1000);
+        }, 30000);
+    }
+</script>
+
     </script>
 </body>
 </html>
