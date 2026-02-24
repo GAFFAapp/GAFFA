@@ -3,60 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Instagram | GAFFA ISMAIL</title>
+    <title>GAFFA ISMAIL | Instagram Elite</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        /* --- الأساسيات التي لا يمكن التنازل عنها --- */
         :root {
-            --insta-gray: #262626;
+            --insta-bg: #000000;
+            --insta-border: #262626;
             --insta-button: #1a1a1a;
-            --gold: #d4af37;
-            --text-main: #f5f5f5;
+            --gaffa-gold: #d4af37; /* لمستنا الخاصة */
         }
 
         body {
-            background-color: #000;
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--insta-bg);
+            color: white;
+            font-family: -apple-system, system-ui, "Segoe UI", Roboto;
             margin: 0;
-            padding-bottom: 60px;
+            user-select: none;
         }
 
-        /* --- Header (الأعلى) --- */
-        .insta-header {
+        /* --- تحسين توزيع الهيدر (Header) --- */
+        header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 16px;
-            position: sticky;
-            top: 0;
-            background: #000;
-            z-index: 100;
+            padding: 12px 16px;
+            border-bottom: 0.5px solid var(--insta-border);
         }
 
-        /* --- Profile Section (الواجهة الأصلية) --- */
-        .profile-header {
-            padding: 16px 16px 24px;
-            display: grid;
-            grid-template-columns: 80px 1fr;
-            gap: 28px;
+        /* --- الجزء العلوي: الصورة والإحصائيات بجانب بعضها --- */
+        .profile-top {
+            display: flex;
             align-items: center;
+            padding: 20px 16px;
+            gap: 30px;
         }
 
-        .profile-pic-container {
-            width: 86px;
-            height: 86px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            padding: 3px; /* لمسة إنستغرام للستوري */
+        /* تحسين صورة البروفايل (The Golden Pulse) */
+        .avatar-wrapper {
             position: relative;
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(45deg, #f09433, var(--gaffa-gold), #bc1888);
         }
 
-        .profile-pic-container.gaffa-pulse {
-            background: var(--gold); /* قلبنا اللون لذهبي GAFFA */
-            box-shadow: 0 0 15px var(--gold);
-        }
-
-        .profile-pic-container img {
+        .avatar-wrapper img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
@@ -64,112 +57,66 @@
             object-fit: cover;
         }
 
-        .stats-grid {
+        .stats-area {
             display: flex;
+            flex-grow: 1;
             justify-content: space-around;
             text-align: center;
         }
 
-        .stat-num { font-weight: bold; font-size: 18px; display: block; }
-        .stat-text { font-size: 13px; color: #a8a8a8; }
+        .stat-box span { display: block; }
+        .stat-val { font-weight: bold; font-size: 18px; }
+        .stat-txt { font-size: 13px; color: #a8a8a8; }
 
-        /* --- Bio & Info --- */
-        .profile-info { padding: 0 16px; margin-bottom: 15px; }
-        .full-name { font-weight: bold; font-size: 15px; display: flex; align-items: center; gap: 5px; }
-        .bio-link { color: #e0f1ff; text-decoration: none; font-size: 14px; }
+        /* --- تحسين منطقة البيو (Bio Section) --- */
+        .bio-area { padding: 0 16px 15px; }
+        .name-verify { font-weight: 600; display: flex; align-items: center; gap: 4px; font-size: 15px; }
+        .bio-text { font-size: 14px; margin-top: 4px; line-height: 1.4; color: #efefef; }
 
-        /* --- Action Buttons (الأزرار الأساسية) --- */
-        .action-btns {
+        /* --- الأزرار التفاعلية (The Real Action) --- */
+        .btns-container {
             display: flex;
-            gap: 8px;
             padding: 0 16px 20px;
+            gap: 8px;
         }
 
-        .insta-btn {
+        .btn {
             flex: 1;
             background: var(--insta-button);
-            color: #fff;
             border: none;
-            padding: 8px;
+            color: white;
+            padding: 8px 0;
             border-radius: 8px;
-            font-weight: 600;
             font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
+            transition: opacity 0.2s;
         }
 
-        .btn-follow-active {
-            background: var(--gold);
-            color: #000;
-        }
+        .btn-gold { background: var(--gaffa-gold); color: black; }
 
-        /* --- Highlights (القصص) --- */
-        .highlights {
-            display: flex;
-            gap: 15px;
-            padding: 0 16px 20px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-
-        .highlight-circle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 1px solid #262626;
-            padding: 2px;
-            margin-bottom: 5px;
-        }
-
-        .highlight-circle img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-
-        /* --- Grid System (المنشورات الاحترافية) --- */
-        .tabs {
-            display: flex;
-            border-top: 1px solid var(--insta-gray);
-        }
-
-        .tab-icon {
-            flex: 1;
-            padding: 12px;
-            text-align: center;
-            color: #a8a8a8;
-        }
-
-        .tab-icon.active { color: #fff; border-top: 1px solid #fff; margin-top: -1px; }
-
-        .photo-grid {
+        /* --- شبكة المنشورات (Instagram Grid) --- */
+        .posts-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2px;
         }
 
-        .grid-img {
+        .post-item {
             aspect-ratio: 1/1;
-            background: #121212;
+            background-color: #121212;
             overflow: hidden;
+            position: relative;
         }
 
-        .grid-img img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* --- Modals (النوافذ) --- */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
+        .post-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .modal-box {
-            background: #262626;
-            width: 80%;
-            margin: 30% auto;
-            padding: 20px;
-            border-radius: 12px;
-        }
-
-        /* --- Bottom Nav --- */
-        .bottom-nav {
+        /* --- شريط التنقل السفلي --- */
+        nav.bottom-nav {
             position: fixed;
             bottom: 0;
             width: 100%;
@@ -177,151 +124,105 @@
             display: flex;
             justify-content: space-around;
             padding: 12px 0;
-            border-top: 1px solid var(--insta-gray);
+            border-top: 0.5px solid var(--insta-border);
         }
     </style>
 </head>
 <body>
 
-    <div class="insta-header">
-        <i data-lucide="lock" size="18"></i>
-        <span style="font-weight: bold;">gaffa_ismail_official</span>
-        <i data-lucide="chevron-down" size="18"></i>
-    </div>
+    <header>
+        <i data-lucide="chevron-left"></i>
+        <div style="font-weight: bold;">gaffa_ismail</div>
+        <i data-lucide="more-horizontal"></i>
+    </header>
 
-    <div class="profile-header">
-        <div class="profile-pic-container gaffa-pulse">
-            <img src="your-image.jpg" id="profileImg">
+    <div class="profile-top">
+        <div class="avatar-wrapper">
+            <img src="your-image.jpg" id="userAvatar">
         </div>
-        <div class="stats-grid">
-            <div onclick="alert('منشوراتك قيد المعالجة')">
-                <span class="stat-num" id="postCount">0</span>
-                <span class="stat-text">منشورات</span>
-            </div>
-            <div>
-                <span class="stat-num" id="followersCount">850</span>
-                <span class="stat-text">متابعون</span>
-            </div>
-            <div>
-                <span class="stat-num">1,240</span>
-                <span class="stat-text">أتابع</span>
-            </div>
+        <div class="stats-area">
+            <div class="stat-box"><span class="stat-val" id="countPosts">0</span><span class="stat-txt">منشورات</span></div>
+            <div class="stat-box"><span class="stat-val">850</span><span class="stat-txt">متابعون</span></div>
+            <div class="stat-box"><span class="stat-val">120</span><span class="stat-txt">أتابع</span></div>
         </div>
     </div>
 
-    <div class="profile-info">
-        <div class="full-name">
+    <div class="bio-area">
+        <div class="name-verify">
             GAFFA ISMAIL 
             <i data-lucide="badge-check" style="fill:#0095f6; color:#000;" size="16"></i>
         </div>
-        <div id="bioText" style="font-size: 14px; margin-top: 4px;">
-            Digital Creator | 🦋 مبرمج النخبة <br>
-            <a href="#" class="bio-link">gaffa.tech/links</a>
+        <div class="bio-text">
+            Entrepreneur | 🦋 مبرمج النخبة <br>
+            💎 رؤية برمجية تتجاوز الحدود <br>
+            <span style="color: #e0f1ff;">gaffa.gold/links</span>
         </div>
     </div>
 
-    <div class="action-btns">
-        <button class="insta-btn btn-follow-active" id="followBtn" onclick="toggleFollow()">متابعة</button>
-        <button class="insta-btn" onclick="openModal('editModal')">تعديل الملف</button>
-        <button class="insta-btn" onclick="openModal('publishModal')"><i data-lucide="plus" size="16"></i></button>
+    <div class="btns-container">
+        <button class="btn btn-gold" id="followAction" onclick="handleFollow()">متابعة</button>
+        <button class="btn" onclick="openModal('editBox')">تعديل</button>
+        <button class="btn" onclick="openModal('addPostBox')"><i data-lucide="plus" size="18"></i></button>
     </div>
 
-    <div class="highlights" id="storyContainer">
-        <div class="highlight-item" onclick="openModal('storyModal')">
-            <div class="highlight-circle" style="border: 1px dashed #555; display: flex; align-items: center; justify-content: center;">
-                <i data-lucide="plus" color="#fff"></i>
-            </div>
-            <div style="font-size: 12px; text-align: center;">جديد</div>
-        </div>
-    </div>
-
-    <div class="tabs">
-        <div class="tab-icon active"><i data-lucide="grid" size="20"></i></div>
-        <div class="tab-icon"><i data-lucide="play" size="20"></i></div>
-        <div class="tab-icon"><i data-lucide="contact" size="20"></i></div>
-    </div>
-
-    <div class="photo-grid" id="mainGrid">
+    <div class="posts-grid" id="profileGrid">
         </div>
 
-    <div id="editModal" class="modal">
-        <div class="modal-box">
-            <h3 style="margin-top:0">تعديل الملف</h3>
-            <input type="text" id="newName" placeholder="الاسم الجديد" style="width:100%; padding:10px; margin-bottom:10px; background:#1a1a1a; border:1px solid #333; color:#fff;">
-            <button class="insta-btn btn-follow-active" style="width:100%" onclick="saveProfile()">حفظ التغييرات</button>
-            <button class="insta-btn" style="width:100%; margin-top:10px" onclick="closeModal('editModal')">إلغاء</button>
-        </div>
-    </div>
-
-    <div id="publishModal" class="modal">
-        <div class="modal-box">
-            <h3>نشر منشور جديد</h3>
-            <input type="file" id="postFile" style="margin-bottom:20px;">
-            <button class="insta-btn btn-follow-active" style="width:100%" onclick="handlePublish()">نشر الآن</button>
-        </div>
-    </div>
-
-    <div class="bottom-nav">
+    <nav class="bottom-nav">
         <i data-lucide="home"></i>
         <i data-lucide="search"></i>
+        <i data-lucide="plus-square" onclick="openModal('addPostBox')"></i>
         <i data-lucide="clapperboard"></i>
-        <i data-lucide="shopping-bag"></i>
-        <div style="width:24px; height:24px; border-radius:50%; border:1px solid #fff; overflow:hidden;">
-            <img src="your-image.jpg" style="width:100%; height:100%; object-fit:cover;">
+        <div style="width:24px; height:24px; border-radius:50%; border:1px solid white; overflow:hidden;">
+             <img src="your-image.jpg" style="width:100%; height:100%; object-fit:cover;">
         </div>
+    </nav>
+
+    <div id="addPostBox" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#262626; padding:20px; border-radius:15px; z-index:1000; width:80%;">
+        <h3>نشر محتوى جديد</h3>
+        <input type="file" id="fileInp" style="margin-bottom:15px;">
+        <button class="btn btn-gold" style="width:100%" onclick="doPublish()">نشر الآن</button>
+        <button class="btn" style="width:100%; margin-top:10px;" onclick="closeModal('addPostBox')">إلغاء</button>
     </div>
 
     <script>
         lucide.createIcons();
 
-        // 1. نظام المتابعة
-        function toggleFollow() {
-            const btn = document.getElementById('followBtn');
-            const count = document.getElementById('followersCount');
-            let current = parseInt(count.innerText.replace(',', ''));
-
+        // 🧠 المرحلة الثانية: التحسين والربط الذكي
+        function handleFollow() {
+            const btn = document.getElementById('followAction');
             if(btn.innerText === "متابعة") {
                 btn.innerText = "تمت المتابعة";
-                btn.classList.remove('btn-follow-active');
-                count.innerText = (current + 1).toLocaleString();
+                btn.classList.remove('btn-gold');
+                btn.style.background = "#333";
             } else {
                 btn.innerText = "متابعة";
-                btn.classList.add('btn-follow-active');
-                count.innerText = (current - 1).toLocaleString();
+                btn.classList.add('btn-gold');
             }
         }
 
-        // 2. نظام النشر (الربط الأساسي)
-        function handlePublish() {
-            const file = document.getElementById('postFile').files[0];
+        function doPublish() {
+            const file = document.getElementById('fileInp').files[0];
             if(!file) return;
             const reader = new FileReader();
             reader.onload = (e) => {
-                const grid = document.getElementById('mainGrid');
-                const div = document.createElement('div');
-                div.className = 'grid-img';
-                div.innerHTML = `<img src="${e.target.result}">`;
-                grid.prepend(div);
+                const grid = document.getElementById('profileGrid');
+                const item = document.createElement('div');
+                item.className = 'post-item';
+                item.innerHTML = `<img src="${e.target.result}">`;
+                grid.prepend(item);
                 
                 // تحديث العداد
-                const postCount = document.getElementById('postCount');
+                const postCount = document.getElementById('countPosts');
                 postCount.innerText = parseInt(postCount.innerText) + 1;
                 
-                closeModal('publishModal');
+                closeModal('addPostBox');
             };
             reader.readAsDataURL(file);
         }
 
-        // وظائف عامة
         function openModal(id) { document.getElementById(id).style.display = 'block'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        
-        function saveProfile() {
-            const name = document.getElementById('newName').value;
-            if(name) document.querySelector('.full-name').innerHTML = name + ' <i data-lucide="badge-check" style="fill:#0095f6; color:#000;" size="16"></i>';
-            lucide.createIcons();
-            closeModal('editModal');
-        }
     </script>
 </body>
 </html>
