@@ -6,305 +6,455 @@
     <title>GAFFA ISMAIL | Official Profile</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root { --gold: #d4af37; --bg: #000; --card: #111; --text-gray: #777; }
-        body { background-color: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+    :root { 
+        --gold: #d4af37; 
+        --bg: #000; 
+        --card: #111; 
+        --text-gray: #777; 
+    }
+    
+    body { 
+        background-color: var(--bg); 
+        color: white; 
+        font-family: 'Segoe UI', sans-serif; 
+        margin: 0; 
+        padding: 0; 
+        overflow-x: hidden; 
+    }
 
-        /* --- التأثيرات الحركية (التي استعدناها) --- */
-        @keyframes pulse {
-            0% { box-shadow: 0 0 10px var(--gold); transform: scale(1); }
-            50% { box-shadow: 0 0 25px var(--gold); transform: scale(1.02); }
-            100% { box-shadow: 0 0 10px var(--gold); transform: scale(1); }
-        }
+    /* --- التأثيرات الحركية --- */
+    @keyframes pulse {
+        0% { box-shadow: 0 0 10px var(--gold); transform: scale(1); }
+        50% { box-shadow: 0 0 25px var(--gold); transform: scale(1.02); }
+        100% { box-shadow: 0 0 10px var(--gold); transform: scale(1); }
+    }
 
-        /* --- الهوية البصرية --- */
-        .profile-container { padding: 40px 20px 10px; display: flex; align-items: center; gap: 20px; }
-        .profile-pic { 
-            width: 90px; height: 90px; border-radius: 50%; border: 2.5px solid var(--gold); 
-            padding: 3px; animation: pulse 3s infinite ease-in-out;
-        }
-        .profile-pic img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #1a1a1a; }
-        
-        .stats-container { display: flex; flex-grow: 1; justify-content: space-around; text-align: center; }
-        .stat-value { font-weight: 800; font-size: 19px; display: block; color: #fff; }
-        .stat-label { font-size: 11px; color: var(--text-gray); text-transform: uppercase; }
+    @keyframes flutter {
+        0%, 100% { transform: scaleX(1); }
+        50% { transform: scaleX(0.5); filter: brightness(1.3); }
+    }
 
-        .bio-section { padding: 10px 25px 20px; }
-        .profile-name { font-weight: bold; font-size: 24px; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
-        .bio-text { font-size: 13.5px; color: #ccc; line-height: 1.5; }
+    .butterfly-icon { 
+        display: inline-block; 
+        animation: flutter 0.4s infinite; 
+        color: var(--gold); 
+    }
 
-        /* --- الأزرار الاحترافية --- */
-        .btn-group-elite { display: flex; gap: 10px; padding: 0 20px 20px; }
-        .elite-btn { 
-            flex: 1; padding: 12px; border: 1px solid #222; background: var(--card); 
-            border-radius: 14px; color: white; font-size: 13px; font-weight: 600; 
-            cursor: pointer; display: flex; align-items: center; justify-content: center; 
-            gap: 8px; transition: 0.3s; text-decoration: none; 
-        }
-        .btn-follow { background: var(--gold); color: black; border: none; flex: 1.6; }
-        .elite-btn:active { transform: scale(0.95); }
+    /* --- الهوية البصرية (تصحيح الأسطر المقطوعة) --- */
+    .profile-container { 
+        padding: 40px 20px 10px; 
+        display: flex; 
+        align-items: center; 
+        gap: 20px; 
+    }
+    
+    .profile-pic {
+        width: 90px; 
+        height: 90px; 
+        border-radius: 50%; 
+        border: 2.5px solid var(--gold);
+        padding: 3px; 
+        animation: pulse 3s infinite ease-in-out;
+    }
+    
+    .profile-pic img { 
+        width: 100%; 
+        height: 100%; 
+        border-radius: 50%; 
+        object-fit: cover; 
+        background: #1a1a1a; 
+    }
 
-        /* --- الهايلايتس (نظام الـ 12 ساعة) --- */
-        .highlights-container { display: flex; gap: 18px; padding: 0 20px 25px; overflow-x: auto; scrollbar-width: none; }
-        .highlight-item { flex: 0 0 auto; width: 70px; text-align: center; cursor: pointer; }
-        .highlight-circle { width: 65px; height: 65px; border-radius: 50%; border: 1px solid #222; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; background: #080808; overflow: hidden; }
-        .highlight-circle img { width: 100%; height: 100%; object-fit: cover; }
-        .add-story-btn { border: 1.5px dashed var(--gold) !important; color: var(--gold); }
-        .highlight-name { font-size: 11px; color: #eee; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .stats-container { 
+        display: flex; 
+        flex-grow: 1; 
+        justify-content: space-around; 
+        text-align: center; 
+    }
+    
+    .stat-value { 
+        font-weight: 800; 
+        font-size: 19px; 
+        display: block; 
+        color: #fff; 
+    }
+    
+    .stat-label { 
+        font-size: 11px; 
+        color: var(--text-gray); 
+        text-transform: uppercase; 
+    }
 
-        /* --- التبويبات (التي استعدناها) --- */
-        .post-tabs { display: flex; border-top: 1px solid #111; background: #050505; }
-        .tab-item { flex: 1; padding: 15px; text-align: center; cursor: pointer; color: #444; transition: 0.4s; }
-        .tab-item.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
+    .bio-section { 
+        padding: 10px 25px 20px; 
+    }
+    
+    .profile-name { 
+        font-weight: bold; 
+        font-size: 24px; 
+        margin-bottom: 5px; 
+        display: flex; 
+        align-items: center; 
+        gap: 8px; 
+    }
+    
+    .bio-text { 
+        font-size: 13.5px; 
+        color: #ccc; 
+        line-height: 1.5; 
+    }
 
-        /* --- شبكة الصور --- */
-        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding-bottom: 90px; }
-        .grid-item { aspect-ratio: 1/1; background: #0a0a0a; overflow: hidden; position: relative; }
-        .grid-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    /* --- الأزرار الاحترافية --- */
+    .btn-group-elite { 
+        display: flex; 
+        gap: 10px; 
+        padding: 0 20px 20px; 
+    }
+    
+    .elite-btn {
+        flex: 1; 
+        padding: 12px; 
+        border: 1px solid #222; 
+        background: var(--card);
+        border-radius: 14px; 
+        color: white; 
+        font-size: 13px; 
+        font-weight: 600;
+        cursor: pointer; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+        gap: 8px; 
+        transition: 0.3s; 
+        text-decoration: none;
+    }
+    
+    .btn-follow { 
+        background: var(--gold); 
+        color: black; 
+        border: none; 
+        flex: 1.6; 
+    }
+    
+    .elite-btn:active { 
+        transform: scale(0.95); 
+    }
 
-        /* --- البار السفلي --- */
-        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 75px; background: rgba(0,0,0,0.92); backdrop-filter: blur(20px); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #111; z-index: 2000; }
-        .publish-btn-main { background: var(--gold); width: 55px; height: 55px; border-radius: 18px; box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); transform: translateY(-15px); display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
-        .nav-link { color: #555; text-decoration: none; transition: 0.3s; }
+    /* --- الهايلايتس --- */
+    .highlights-container { 
+        display: flex; 
+        gap: 18px; 
+        padding: 0 20px 25px; 
+        overflow-x: auto; 
+        scrollbar-width: none; 
+    }
+    
+    .highlight-item { 
+        flex: 0 0 auto; 
+        width: 70px; 
+        text-align: center; 
+        cursor: pointer; 
+    }
+    
+    .highlight-circle { 
+        width: 65px; 
+        height: 65px; 
+        border-radius: 50%; 
+        border: 1px solid #222; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        margin: 0 auto 5px; 
+    }
+    
+    .highlight-circle img { 
+        width: 100%; 
+        height: 100%; 
+        border-radius: 50%; 
+        object-fit: cover; 
+    }
+    
+    .add-story-btn { 
+        border: 1.5px dashed var(--gold) !important; 
+        color: var(--gold); 
+    }
+    
+    .highlight-name { 
+        font-size: 11px; 
+        color: #eee; 
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+    }
 
-        /* --- المودالات --- */
-        .modal { display: none; position: fixed; z-index: 5000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); }
-        .modal-content { background: #111; margin: 20% auto; padding: 30px; border-radius: 25px; width: 85%; border: 1px solid var(--gold); animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        input, textarea { width: 100%; padding: 15px; margin: 12px 0; background: #000; border: 1px solid #222; color: white; border-radius: 12px; box-sizing: border-box; }
-        .modal-save-btn { width: 100%; background: var(--gold); border: none; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; color: black; font-size: 16px; }
+    /* --- التبويبات والبار السفلي --- */
+    .post-tabs { 
+        display: flex; 
+        border-top: 1px solid #111; 
+        background: #050505; 
+    }
+    
+    .tab-item { 
+        flex: 1; 
+        padding: 15px; 
+        text-align: center; 
+        cursor: pointer; 
+        color: #444; 
+        transition: 0.4s; 
+    }
+    
+    .tab-item.active { 
+        color: var(--gold); 
+        border-bottom: 2px solid var(--gold); 
+    }
+
+    .nav-bottom { 
+        position: fixed; 
+        bottom: 0; 
+        width: 100%; 
+        height: 75px; 
+        background: rgba(0,0,0,0.92); 
+        backdrop-filter: blur(10px); 
+        display: flex; 
+        justify-content: space-around; 
+        align-items: center; 
+        z-index: 1000; 
+    }
+    
+    .publish-btn-main { 
+        background: var(--gold); 
+        width: 55px; 
+        height: 55px; 
+        border-radius: 18px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); 
+    }
+
+    /* --- المودالات --- */
+    .modal { 
+        display: none; 
+        position: fixed; 
+        z-index: 5000; 
+        left: 0; 
+        top: 0; 
+        width: 100%; 
+        height: 100%; 
+        background: rgba(0,0,0,0.8); 
+    }
+    
+    .modal-content { 
+        background: #111; 
+        margin: 20% auto; 
+        padding: 30px; 
+        border-radius: 25px; 
+        width: 85%; 
+        border: 1px solid #222; 
+        animation: fadeIn 0.3s ease; 
+    }
+    
+    @keyframes fadeIn { 
+        from { opacity: 0; transform: translateY(20px); } 
+        to { opacity: 1; transform: translateY(0); } 
+    }
+    
+    input, textarea { 
+        width: 100%; 
+        padding: 15px; 
+        margin: 12px 0; 
+        background: #000; 
+        border: 1px solid #222; 
+        color: white; 
+        border-radius: 10px; 
+        box-sizing: border-box; 
+    }
     </style>
 </head>
 <body>
 
-<div class="bio-section">
-    <div class="profile-name" id="profileNameDisplay">
-        GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#1d9bf0; color:white; width:18px"></i>
+    <div class="profile-container">
+        <div class="profile-pic">
+            <img src="default-avatar.jpg" id="mainDisplayImg">
+        </div>
+        <div class="stats-container">
+            <div><span id="postCountDisplay" class="stat-value">0</span><span class="stat-label">منشور</span></div>
+            <div><span id="followersDisplay" class="stat-value">0</span><span class="stat-label">متابع</span></div>
+            <div><span id="followingDisplay" class="stat-value">0</span><span class="stat-label">أتابع</span></div>
+        </div>
     </div>
-    <div id="bioDisplay" class="bio-text">مبتكر نظام الذهب السائل 💎 | رؤية برمجية خارج الحدود 🦋</div>
-</div>
 
-<div class="stats-container">
-    <div><span id="postCountDisplay" class="stat-value">0</span><span class="stat-label">منشور</span></div>
-    <div><span id="followersDisplay" class="stat-value">0</span><span class="stat-label">متابع</span></div>
-    <div><span id="followingDisplay" class="stat-value">0</span><span class="stat-label">أتابع</span></div>
-</div>
-
-<div class="btn-group-elite">
-    <button id="followBtnAction" class="elite-btn btn-follow" onclick="handleFollow()">متابعة</button>
-    <a href="chat.html?user=GAFFA%20ISMAIL" class="elite-btn"><i data-lucide="mail"></i> مراسلة</a>
-    <button class="elite-btn" onclick="openModal('editModal')"><i data-lucide="edit-3"></i> تعديل</button>
-</div>
-
-<div class="highlights-container" id="storyList">
-    <div class="highlight-item" onclick="openModal('storyModal')">
-        <div class="highlight-circle add-story-btn"><i data-lucide="plus"></i></div>
-        <div class="highlight-name">إضافة جديد</div>
+    <div class="bio-section">
+        <div class="profile-name" id="profileNameDisplay">
+            GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#1d9bf0; color:white; width:20px;"></i>
+        </div>
+        <div id="bioDisplay" class="bio-text">مبتكر نظام الذهب السائل 💎 | رؤية برمجية خارج الحدود 🦋</div>
     </div>
-</div>
 
-<div class="post-tabs">
-    <div class="tab-item active" onclick="switchTab(this)"><i data-lucide="grid"></i></div>
-    <div class="tab-item" onclick="switchTab(this)"><i data-lucide="clapperboard"></i></div>
-    <div class="tab-item" onclick="switchTab(this)"><i data-lucide="contact-2"></i></div>
-</div>
-
-<div class="photo-grid" id="imageGrid"></div>
-
-<div class="nav-bottom">
-    <a href="feed.html" class="nav-link"><i data-lucide="home"></i></a>
-    <a href="explore.html" class="nav-link"><i data-lucide="search"></i></a>
-    <button class="publish-btn-main" onclick="openModal('publishModal')"><i data-lucide="plus" style="color:black; width:30px; height:30px;"></i></button>
-    <a href="messages.html" class="nav-link"><i data-lucide="message-square"></i></a>
-    <a href="profile.html" class="nav-link" style="color:var(--gold)"><i data-lucide="user"></i></a>
-</div>
-
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <h3 style="color:var(--gold); margin:0 0 15px 0;">تحديث الهوية الرقمية</h3>
-        <input type="file" id="editImageInp" accept="image/*">
-        <input type="text" id="editNameInp" placeholder="اسمك الجديد">
-        <textarea id="editBioInp" placeholder="اكتب قصة نجاحك..."></textarea>
-        <button class="modal-save-btn" onclick="saveProfileChanges()">تأكيد التغيير</button>
-        <button onclick="closeModal('editModal')" style="background:none; border:none; color:#555; width:100%; margin-top:15px;">إغلاق</button>
+    <div class="btn-group-elite">
+        <button id="followBtnAction" class="elite-btn btn-follow" onclick="handleFollow()">متابعة</button>
+        <button class="elite-btn" onclick="location.href='chat.html?user=GAFFA%20ISMAIL'">مراسلة</button>
+        <button class="elite-btn" onclick="openModal('editModal')"><i data-lucide="edit-3"></i></button>
     </div>
-</div>
 
-<div id="publishModal" class="modal">
-    <div class="modal-content">
-        <h3 style="color:var(--gold); margin:0 0 15px 0;">نشر في GAFFA Feed</h3>
-        <input type="file" id="publishFileInp" accept="image/*">
-        <button class="modal-save-btn" onclick="publishImage()">نشر الآن</button>
-        <button onclick="closeModal('publishModal')" style="background:none; border:none; color:#555; width:100%; margin-top:15px;">تراجع</button>
+    <div class="highlights-container" id="storyList">
+        </div>
+
+    <div class="post-tabs">
+        <div class="tab-item active" onclick="switchTab(this)"><i data-lucide="grid"></i></div>
+        <div class="tab-item" onclick="switchTab(this)"><i data-lucide="play"></i></div>
+        <div class="tab-item" onclick="switchTab(this)"><i data-lucide="contact"></i></div>
     </div>
-</div>
 
-<div id="storyModal" class="modal">
-    <div class="modal-content">
-        <h3 style="color:var(--gold); margin:0 0 15px 0;">قصة فراشة (12 ساعة)</h3>
-        <input type="file" id="storyFileInp" accept="image/*">
-        <input type="text" id="storyTitleInp" placeholder="عنوان القصة">
-        <button class="modal-save-btn" onclick="addNewStory()">طيران 🦋</button>
+    <div class="photo-grid" id="imageGrid">
+        </div>
+
+    <div class="nav-bottom">
+        <a href="feed.html" class="nav-link"><i data-lucide="home"></i></a>
+        <a href="explore.html" class="nav-link"><i data-lucide="search"></i></a>
+        <div class="publish-btn-main" onclick="openModal('publishModal')">
+            <i data-lucide="plus" style="color:black"></i>
+        </div>
+        <a href="messages.html" class="nav-link"><i data-lucide="message-circle"></i></a>
+        <a href="profile.html" class="nav-link active"><i data-lucide="user"></i></a>
     </div>
-</div>
 
-<script>
-// --- نظام الإحصائيات الذكي لـ GAFFA ---
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color:var(--gold)">تعديل النخبة</h3>
+            <input type="text" id="editNameInp" placeholder="الاسم الجديد">
+            <textarea id="editBioInp" placeholder="اكتب رؤيتك الجديدة..."></textarea>
+            <input type="file" id="editImageInp" accept="image/*">
+            <button class="modal-save-btn" onclick="saveProfileChanges()">حفظ التغييرات</button>
+            <button class="elite-btn" style="width:100%; margin-top:10px" onclick="closeModal('editModal')">إلغاء</button>
+        </div>
+    </div>
 
-// 1. عند تحميل الصفحة، جلب البيانات أو وضع أصفار
-window.onload = function() {
-    renderStories(); // وظيفة القصص القديمة
-    updateStats();   // تحديث الأرقام
-};
+    <div id="publishModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color:var(--gold)">نشر إبداع</h3>
+            <input type="file" id="publishFileInp" accept="image/*">
+            <button class="modal-save-btn" onclick="publishImage()">نشر الآن</button>
+            <button class="elite-btn" style="width:100%; margin-top:10px" onclick="closeModal('publishModal')">إلغاء</button>
+        </div>
+    </div>
 
-function updateStats() {
-    // جلب عدد المنشورات الحقيقي من المصفوفة التي برمجناها سابقاً
-    const myPosts = JSON.parse(localStorage.getItem('GAFFA_GLOBAL_FEED') || "[]");
-    document.getElementById('postCountDisplay').innerText = myPosts.length;
+    <div id="storyModal" class="modal">
+        <div class="modal-content">
+            <h3 style="color:var(--gold)">إضافة قصة (12 ساعة)</h3>
+            <input type="text" id="storyTitleInp" placeholder="عنوان القصة">
+            <input type="file" id="storyFileInp" accept="image/*">
+            <button class="modal-save-btn" onclick="addNewStory()">إضافة</button>
+            <button class="elite-btn" style="width:100%; margin-top:10px" onclick="closeModal('storyModal')">إلغاء</button>
+        </div>
+    </div>
 
-    // جلب عدد المتابعين (مخزن محلياً)
-    const followers = localStorage.getItem('GAFFA_FOLLOWERS') || 0;
-    const following = localStorage.getItem('GAFFA_FOLLOWING') || 0;
-    
-    document.getElementById('followersDisplay').innerText = followers;
-    document.getElementById('followingDisplay').innerText = following;
-}
-
-// 2. تعديل دالة المتابعة لتزيد الرقم حقيقةً
-function handleFollow() {
-    const btn = document.getElementById('followBtnAction');
-    let currentFollowers = parseInt(localStorage.getItem('GAFFA_FOLLOWERS') || 0);
-
-    if(btn.innerText === "متابعة") {
-        // حالة المتابعة
-        currentFollowers++;
-        btn.innerText = "تمت المتابعة";
-        btn.style.background = "#333";
-        btn.style.color = "#fff";
-    } else {
-        // حالة إلغاء المتابعة
-        currentFollowers = currentFollowers > 0 ? currentFollowers - 1 : 0;
-        btn.innerText = "متابعة";
-        btn.style.background = "var(--gold)";
-        btn.style.color = "#000";
-    }
-
-    // حفظ الرقم الجديد وتحديث الشاشة
-    localStorage.setItem('GAFFA_FOLLOWERS', currentFollowers);
-    document.getElementById('followersDisplay').innerText = currentFollowers;
-}
-
-// 3. تعديل دالة النشر لزيادة العداد فوراً
-// تأكد أن دالة publishImage() تحتوي على استدعاء لـ updateStats() في نهايتها
-function publishImage() {
-    // ... كود النشر الذي كتبناه سابقاً ...
-    
-    // بعد إضافة المنشور للمصفوفة، استدعِ هذه الدالة:
-    updateStats(); 
-}
-
-    lucide.createIcons();
-
-    function openModal(id) { document.getElementById(id).style.display = 'block'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-    function switchTab(el) {
-        document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-        el.classList.add('active');
-    }
-
-    // 1. نظام النشر المزدوج المستعاد
-    let postCount = 0;
-    function publishImage() {
-        const file = document.getElementById('publishFileInp').files[0];
-        if(!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const imgData = e.target.result;
-            // إضافة للشبكة
-            const div = document.createElement('div');
-            div.className = 'grid-item';
-            div.innerHTML = `<img src="${imgData}">`;
-            document.getElementById('imageGrid').prepend(div);
-            
-            postCount++;
-            document.getElementById('postCountDisplay').innerText = postCount;
-
-            // الحفظ للصفحة الرئيسية (feed.html)
-            let feedPosts = JSON.parse(localStorage.getItem('GAFFA_GLOBAL_FEED') || "[]");
-            feedPosts.unshift({ image: imgData, user: 'GAFFA ISMAIL', time: new Date().getTime() });
-            localStorage.setItem('GAFFA_GLOBAL_FEED', JSON.stringify(feedPosts));
-        };
-        reader.readAsDataURL(file);
-        closeModal('publishModal');
-    }
-
-    // 2. نظام القصص لـ 12 ساعة المستعاد
-    function addNewStory() {
-        const title = document.getElementById('storyTitleInp').value;
-        const file = document.getElementById('storyFileInp').files[0];
-        if(!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const story = {
-                image: e.target.result,
-                title: title,
-                expiresAt: Date.now() + (12 * 60 * 60 * 1000)
-            };
-            let stories = JSON.parse(localStorage.getItem('GAFFA_STORIES') || "[]");
-            stories.push(story);
-            localStorage.setItem('GAFFA_STORIES', JSON.stringify(stories));
-            renderStories();
-        };
-        reader.readAsDataURL(file);
-        closeModal('storyModal');
-    }
-
-    function renderStories() {
-        const now = Date.now();
-        let stories = JSON.parse(localStorage.getItem('GAFFA_STORIES') || "[]");
-        // التنظيف التلقائي
-        stories = stories.filter(s => s.expiresAt > now);
-        localStorage.setItem('GAFFA_STORIES', JSON.stringify(stories));
-
-        const container = document.getElementById('storyList');
-        container.innerHTML = `<div class="highlight-item" onclick="openModal('storyModal')"><div class="highlight-circle add-story-btn"><i data-lucide="plus"></i></div><div class="highlight-name">إضافة جديد</div></div>`;
-        
-        stories.forEach(s => {
-            const div = document.createElement('div');
-            div.className = 'highlight-item';
-            div.innerHTML = `<div class="highlight-circle"><img src="${s.image}"></div><div class="highlight-name">${s.title}</div>`;
-            container.appendChild(div);
-        });
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // تفعيل الأيقونات
         lucide.createIcons();
-    }
 
-    function saveProfileChanges() {
-        const name = document.getElementById('editNameInp').value;
-        const bio = document.getElementById('editBioInp').value;
-        const file = document.getElementById('editImageInp').files[0];
-        if(name) document.getElementById('profileNameDisplay').innerHTML = `${name} <i data-lucide="badge-check" style="fill:#1d9bf0; color:white; width:22px;"></i>`;
-        if(bio) document.getElementById('bioDisplay').innerText = bio;
-        if(file) {
+        // التشغيل الأولي
+        window.onload = function() {
+            updateStats();
+            renderStories();
+            loadMyPosts();
+        };
+
+        function updateStats() {
+            const myPosts = JSON.parse(localStorage.getItem('GAFFA_GLOBAL_FEED') || "[]");
+            document.getElementById('postCountDisplay').innerText = myPosts.length;
+
+            const followers = localStorage.getItem('GAFFA_FOLLOWERS') || 0;
+            const following = localStorage.getItem('GAFFA_FOLLOWING') || 0;
+
+            document.getElementById('followersDisplay').innerText = followers;
+            document.getElementById('followingDisplay').innerText = following;
+        }
+
+        function handleFollow() {
+            const btn = document.getElementById('followBtnAction');
+            let f = parseInt(localStorage.getItem('GAFFA_FOLLOWERS') || 0);
+
+            if(btn.innerText === "متابعة") {
+                f++; btn.innerText = "تمت المتابعة";
+                btn.style.background = "#333"; btn.style.color = "#fff";
+            } else {
+                f = f > 0 ? f - 1 : 0; btn.innerText = "متابعة";
+                btn.style.background = "var(--gold)"; btn.style.color = "#000";
+            }
+            localStorage.setItem('GAFFA_FOLLOWERS', f);
+            document.getElementById('followersDisplay').innerText = f;
+        }
+
+        function publishImage() {
+            const file = document.getElementById('publishFileInp').files[0];
+            if(!file) return;
             const reader = new FileReader();
-            reader.onload = (e) => { document.getElementById('mainDisplayImg').src = e.target.result; };
+            reader.onload = (e) => {
+                const imgData = e.target.result;
+                let feed = JSON.parse(localStorage.getItem('GAFFA_GLOBAL_FEED') || "[]");
+                feed.unshift({ image: imgData, user: 'GAFFA ISMAIL', time: Date.now() });
+                localStorage.setItem('GAFFA_GLOBAL_FEED', JSON.stringify(feed));
+                updateStats(); loadMyPosts(); closeModal('publishModal');
+            };
             reader.readAsDataURL(file);
         }
-        lucide.createIcons();
-        closeModal('editModal');
-    }
 
-    function handleFollow() {
-        const btn = document.getElementById('followBtnAction');
-        if(btn.innerText === "متابعة") {
-            btn.innerText = "تمت المتابعة"; btn.style.background = "#333"; btn.style.color = "#fff";
-        } else {
-            btn.innerText = "متابعة"; btn.style.background = "var(--gold)"; btn.style.color = "#000";
+        function loadMyPosts() {
+            const grid = document.getElementById('imageGrid');
+            const myPosts = JSON.parse(localStorage.getItem('GAFFA_GLOBAL_FEED') || "[]");
+            grid.innerHTML = myPosts.map(p => `<div class="grid-item"><img src="${p.image}"></div>`).join('');
         }
-    }
 
-    // التشغيل عند التحميل
-    window.onload = renderStories;
-</script>
+        function addNewStory() {
+            const title = document.getElementById('storyTitleInp').value;
+            const file = document.getElementById('storyFileInp').files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const story = { image: e.target.result, title: title, expiresAt: Date.now() + (12*60*60*1000) };
+                let stories = JSON.parse(localStorage.getItem('GAFFA_STORIES') || "[]");
+                stories.push(story);
+                localStorage.setItem('GAFFA_STORIES', JSON.stringify(stories));
+                renderStories(); closeModal('storyModal');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function renderStories() {
+            const now = Date.now();
+            let stories = JSON.parse(localStorage.getItem('GAFFA_STORIES') || "[]").filter(s => s.expiresAt > now);
+            localStorage.setItem('GAFFA_STORIES', JSON.stringify(stories));
+            const container = document.getElementById('storyList');
+            container.innerHTML = `<div class="highlight-item" onclick="openModal('storyModal')"><div class="highlight-circle add-story-btn"><i data-lucide="plus"></i></div><div class="highlight-name">إضافة</div></div>`;
+            stories.forEach(s => {
+                container.innerHTML += `<div class="highlight-item"><div class="highlight-circle"><img src="${s.image}"></div><div class="highlight-name">${s.title}</div></div>`;
+            });
+            lucide.createIcons();
+        }
+
+        function saveProfileChanges() {
+            const name = document.getElementById('editNameInp').value;
+            const bio = document.getElementById('editBioInp').value;
+            const file = document.getElementById('editImageInp').files[0];
+            if(name) document.getElementById('profileNameDisplay').innerHTML = `${name} <i data-lucide="badge-check" style="fill:#1d9bf0; color:white; width:20px;"></i>`;
+            if(bio) document.getElementById('bioDisplay').innerText = bio;
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => document.getElementById('mainDisplayImg').src = e.target.result;
+                reader.readAsDataURL(file);
+            }
+            closeModal('editModal'); lucide.createIcons();
+        }
+
+        function openModal(id) { document.getElementById(id).style.display = 'block'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function switchTab(el) {
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+        }
+    </script>
 </body>
 </html>
 
