@@ -76,13 +76,12 @@
 </head>
 <body>
 
-<div class="profile-container">
-    <div class="profile-pic"><img id="mainDisplayImg" src="https://via.placeholder.com/150"></div>
-    <div class="stats-container">
-        <div><span id="postCountDisplay" class="stat-value">0</span><span class="stat-label">منشور</span></div>
-        <div><span class="stat-value">850</span><span class="stat-label">متابع</span></div>
-        <div><span class="stat-value">120</span><span class="stat-label">أتابع</span></div>
-    </div>
+<div class="stats-container">
+    <div><span id="postCountDisplay" class="stat-value">0</span><span class="stat-label">منشور</span></div>
+    <div><span id="followersDisplay" class="stat-value">0</span><span class="stat-label">متابع</span></div>
+    <div><span id="followingDisplay" class="stat-value">0</span><span class="stat-label">أتابع</span></div>
+</div>
+
 </div>
 
 <div class="bio-section">
@@ -149,6 +148,60 @@
 </div>
 
 <script>
+// --- نظام الإحصائيات الذكي لـ GAFFA ---
+
+// 1. عند تحميل الصفحة، جلب البيانات أو وضع أصفار
+window.onload = function() {
+    renderStories(); // وظيفة القصص القديمة
+    updateStats();   // تحديث الأرقام
+};
+
+function updateStats() {
+    // جلب عدد المنشورات الحقيقي من المصفوفة التي برمجناها سابقاً
+    const myPosts = JSON.parse(localStorage.getItem('GAFFA_GLOBAL_FEED') || "[]");
+    document.getElementById('postCountDisplay').innerText = myPosts.length;
+
+    // جلب عدد المتابعين (مخزن محلياً)
+    const followers = localStorage.getItem('GAFFA_FOLLOWERS') || 0;
+    const following = localStorage.getItem('GAFFA_FOLLOWING') || 0;
+    
+    document.getElementById('followersDisplay').innerText = followers;
+    document.getElementById('followingDisplay').innerText = following;
+}
+
+// 2. تعديل دالة المتابعة لتزيد الرقم حقيقةً
+function handleFollow() {
+    const btn = document.getElementById('followBtnAction');
+    let currentFollowers = parseInt(localStorage.getItem('GAFFA_FOLLOWERS') || 0);
+
+    if(btn.innerText === "متابعة") {
+        // حالة المتابعة
+        currentFollowers++;
+        btn.innerText = "تمت المتابعة";
+        btn.style.background = "#333";
+        btn.style.color = "#fff";
+    } else {
+        // حالة إلغاء المتابعة
+        currentFollowers = currentFollowers > 0 ? currentFollowers - 1 : 0;
+        btn.innerText = "متابعة";
+        btn.style.background = "var(--gold)";
+        btn.style.color = "#000";
+    }
+
+    // حفظ الرقم الجديد وتحديث الشاشة
+    localStorage.setItem('GAFFA_FOLLOWERS', currentFollowers);
+    document.getElementById('followersDisplay').innerText = currentFollowers;
+}
+
+// 3. تعديل دالة النشر لزيادة العداد فوراً
+// تأكد أن دالة publishImage() تحتوي على استدعاء لـ updateStats() في نهايتها
+function publishImage() {
+    // ... كود النشر الذي كتبناه سابقاً ...
+    
+    // بعد إضافة المنشور للمصفوفة، استدعِ هذه الدالة:
+    updateStats(); 
+}
+
     lucide.createIcons();
 
     function openModal(id) { document.getElementById(id).style.display = 'block'; }
