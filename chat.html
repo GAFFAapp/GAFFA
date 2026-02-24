@@ -4,97 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAFFA - Chat 30s</title>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@0.444.0/dist/umd/lucide.js"></script>
     <style>
-/* تأثير رفرفة أجنحة الفراشة */
-@keyframes flutter {
-    0% { transform: scaleX(1) rotate(0deg); }
-    50% { transform: scaleX(0.4) rotate(10deg); filter: brightness(1.5); }
-    100% { transform: scaleX(1) rotate(0deg); }
-}
-
-/* تأثير الطيران العائم */
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
-.butterfly-icon, [data-lucide="butterfly"] {
-    display: inline-block;
-    color: var(--gold);
-    animation: flutter 0.4s infinite ease-in-out, float 3s infinite ease-in-out;
-    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.6));
-    transform-origin: center;
-}
-
         :root { --gold: #d4af37; --bg: #000; }
-        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; height: 100vh; display: flex; flex-direction: column; }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+        /* --- سحر الفراشة (الرفرفة والتحليق) --- */
+        @keyframes flutter {
+            0% { transform: scaleX(1) rotate(0deg); }
+            50% { transform: scaleX(0.4) rotate(10deg); filter: brightness(1.5); }
+            100% { transform: scaleX(1) rotate(0deg); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .butterfly-icon {
+            display: inline-block;
+            color: var(--gold);
+            animation: flutter 0.4s infinite ease-in-out, float 3s infinite ease-in-out;
+            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.6));
+            transform-origin: center;
+        }
+
+        /* --- تصميم الواجهة --- */
         .chat-header { padding: 15px; border-bottom: 1px solid #111; display: flex; align-items: center; gap: 10px; background: #0a0a0a; }
-        #chatBox { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
-        .msg-wrapper { position: relative; max-width: 80%; transition: 0.8s; }
-        .sent { align-self: flex-end; }
-        .bubble { background: var(--gold); color: black; padding: 12px; border-radius: 15px; font-size: 14px; font-weight: bold; }
-        .timer-bar { height: 2px; background: white; width: 100%; margin-top: 5px; animation: shrink 30s linear forwards; }
+        #chatBox { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 25px; }
+        
+        .msg-wrapper { position: relative; max-width: 85%; transition: 0.8s ease; align-self: flex-end; }
+        .butterfly-msg { position: absolute; top: -18px; left: 0; z-index: 10; }
+        
+        .bubble { background: var(--gold); color: black; padding: 12px 18px; border-radius: 18px 18px 0 18px; font-size: 14px; font-weight: bold; position: relative; }
+        
+        .timer-bar { height: 2px; background: white; width: 100%; margin-top: 6px; border-radius: 2px; animation: shrink 30s linear forwards; transform-origin: left; }
         @keyframes shrink { from { transform: scaleX(1); } to { transform: scaleX(0); } }
-        .butterfly-msg { position: absolute; top: -15px; left: 0; color: var(--gold); }
-        .input-area { padding: 15px; background: #0a0a0a; display: flex; gap: 10px; padding-bottom: 30px; }
-        input { flex: 1; background: #111; border: 1px solid #333; padding: 12px; border-radius: 20px; color: white; }
+
+        .input-area { padding: 15px; background: #0a0a0a; display: flex; gap: 10px; padding-bottom: 30px; border-top: 1px solid #111; }
+        input { flex: 1; background: #111; border: 1px solid #333; padding: 12px; border-radius: 25px; color: white; outline: none; }
+        button { background: var(--gold); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
+
     <div class="chat-header">
         <a href="messages.html" style="color:var(--gold)"><i data-lucide="chevron-right"></i></a>
-        <h4 id="userTitle">المحادثة</h4>
+        <h4 id="userTitle" style="margin:0">المحادثة</h4>
     </div>
+
     <div id="chatBox"></div>
+
     <div class="input-area">
-        <input type="text" id="mInp" placeholder="الرسالة ستختفي بعد 30 ثانية...">
-        <button onclick="send()" style="background:var(--gold); border:none; padding:10px; border-radius:50%"><i data-lucide="send"></i></button>
+        <input type="text" id="mInp" placeholder="اكتب رسالة تختفي بعد 30 ثانية...">
+        <button onclick="send()"><i data-lucide="send" style="color:black; width:20px"></i></button>
     </div>
+
     <script>
-
-     <script>
-    lucide.createIcons();
-
-    // جلب اسم المستخدم من الرابط
-    const user = new URLSearchParams(window.location.search).get('user');
-    if(user) document.getElementById('userTitle').innerText = user;
-
-    function send() {
-        const inp = document.getElementById('mInp');
-        if(!inp.value) return;
-
-        const box = document.getElementById('chatBox');
-        const wrap = document.createElement('div');
-        wrap.className = 'msg-wrapper sent';
-
-        // التصحيح هنا: دمج كلاس الفراشة المتحركة butterfly-icon
-        wrap.innerHTML = `
-            <div class="butterfly-msg">
-                <i data-lucide="butterfly" class="butterfly-icon"></i>
-            </div>
-            <div class="bubble">${inp.value}</div>
-            <div class="timer-bar"></div>
-        `;
-
-        box.appendChild(wrap);
-        inp.value = "";
-        
-        // إعادة تشغيل الأيقونات لتظهر الفراشة الجديدة
+        // تفعيل الأيقونات عند التحميل
         lucide.createIcons();
-        
-        // النزول لآخر الرسائل
-        box.scrollTop = box.scrollHeight;
 
-        // نظام اختفاء الفراشة والرسالة بعد 30 ثانية
-        setTimeout(() => {
-            wrap.style.opacity = '0';
-            wrap.style.transform = 'scale(0.8)';
-            setTimeout(() => wrap.remove(), 1000);
-        }, 30000);
-    }
-</script>
+        // جلب اسم المستخدم من الرابط (URL)
+        const params = new URLSearchParams(window.location.search);
+        const user = params.get('user');
+        if(user) document.getElementById('userTitle').innerText = user;
 
+        function send() {
+            const inp = document.getElementById('mInp');
+            const box = document.getElementById('chatBox');
+            
+            if(!inp.value.trim()) return;
+
+            const wrap = document.createElement('div');
+            wrap.className = 'msg-wrapper';
+
+            // دمج الفراشة المتحركة مع نص الرسالة وشريط الوقت
+            wrap.innerHTML = `
+                <div class="butterfly-msg">
+                    <i data-lucide="butterfly" class="butterfly-icon" style="width:16px"></i>
+                </div>
+                <div class="bubble">${inp.value}</div>
+                <div class="timer-bar"></div>
+            `;
+
+            box.appendChild(wrap);
+            inp.value = "";
+            
+            // إعادة تفعيل الأيقونة الجديدة لتعمل الرفرفة
+            lucide.createIcons();
+            
+            // النزول لآخر الرسائل تلقائياً
+            box.scrollTop = box.scrollHeight;
+
+            // نظام اختفاء الفراشة والرسالة بعد 30 ثانية
+            setTimeout(() => {
+                wrap.style.opacity = '0';
+                wrap.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    wrap.remove();
+                }, 800);
+            }, 30000);
+        }
+
+        // إرسال الرسالة عند الضغط على Enter
+        document.getElementById('mInp').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') send();
+        });
     </script>
 </body>
 </html>
