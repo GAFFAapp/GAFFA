@@ -2,193 +2,326 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAFFA ISMAIL | Official Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Instagram | GAFFA ISMAIL</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root { --gold: #d4af37; --bg: #000; --card: #111; --text-gray: #777; }
-        body { background-color: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
-
-        /* --- التأثيرات الحركية (النبض والرفرفة) --- */
-        @keyframes pulse {
-            0% { box-shadow: 0 0 10px var(--gold); transform: scale(1); }
-            50% { box-shadow: 0 0 25px var(--gold); transform: scale(1.02); }
-            100% { box-shadow: 0 0 10px var(--gold); transform: scale(1); }
+        :root {
+            --insta-gray: #262626;
+            --insta-button: #1a1a1a;
+            --gold: #d4af37;
+            --text-main: #f5f5f5;
         }
 
-        /* --- الهوية البصرية (تصحيح التوزيع) --- */
-        .profile-container { padding: 40px 20px 10px; display: flex; align-items: center; gap: 20px; }
-        .profile-pic { width: 90px; height: 90px; border-radius: 50%; border: 2.5px solid var(--gold); padding: 3px; animation: pulse 3s infinite; }
-        .profile-pic img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        
-        .stats-container { display: flex; flex-grow: 1; justify-content: space-around; text-align: center; }
-        .stat-value { font-weight: 800; font-size: 19px; display: block; }
-        .stat-label { font-size: 11px; color: var(--text-gray); text-transform: uppercase; }
+        body {
+            background-color: #000;
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding-bottom: 60px;
+        }
 
-        /* --- شبكة الصور (حل مشكلة الصور الكبيرة) --- */
-        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding-bottom: 90px; }
-        .grid-item { aspect-ratio: 1/1; background: #0a0a0a; overflow: hidden; }
-        .grid-item img { width: 100%; height: 100%; object-fit: cover; }
+        /* --- Header (الأعلى) --- */
+        .insta-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            position: sticky;
+            top: 0;
+            background: #000;
+            z-index: 100;
+        }
 
-        /* --- الهايلايتس (القصص) --- */
-        .highlights-container { display: flex; gap: 18px; padding: 0 20px 25px; overflow-x: auto; scrollbar-width: none; }
-        .highlight-item { flex: 0 0 auto; width: 70px; text-align: center; cursor: pointer; }
-        .highlight-circle { width: 65px; height: 65px; border-radius: 50%; border: 1px solid #222; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
+        /* --- Profile Section (الواجهة الأصلية) --- */
+        .profile-header {
+            padding: 16px 16px 24px;
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .profile-pic-container {
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            padding: 3px; /* لمسة إنستغرام للستوري */
+            position: relative;
+        }
+
+        .profile-pic-container.gaffa-pulse {
+            background: var(--gold); /* قلبنا اللون لذهبي GAFFA */
+            box-shadow: 0 0 15px var(--gold);
+        }
+
+        .profile-pic-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #000;
+            object-fit: cover;
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .stat-num { font-weight: bold; font-size: 18px; display: block; }
+        .stat-text { font-size: 13px; color: #a8a8a8; }
+
+        /* --- Bio & Info --- */
+        .profile-info { padding: 0 16px; margin-bottom: 15px; }
+        .full-name { font-weight: bold; font-size: 15px; display: flex; align-items: center; gap: 5px; }
+        .bio-link { color: #e0f1ff; text-decoration: none; font-size: 14px; }
+
+        /* --- Action Buttons (الأزرار الأساسية) --- */
+        .action-btns {
+            display: flex;
+            gap: 8px;
+            padding: 0 16px 20px;
+        }
+
+        .insta-btn {
+            flex: 1;
+            background: var(--insta-button);
+            color: #fff;
+            border: none;
+            padding: 8px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-follow-active {
+            background: var(--gold);
+            color: #000;
+        }
+
+        /* --- Highlights (القصص) --- */
+        .highlights {
+            display: flex;
+            gap: 15px;
+            padding: 0 16px 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .highlight-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 1px solid #262626;
+            padding: 2px;
+            margin-bottom: 5px;
+        }
+
         .highlight-circle img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
-        /* --- الأزرار والمودالات --- */
-        .btn-group-elite { display: flex; gap: 10px; padding: 0 20px 20px; }
-        .elite-btn { flex: 1; padding: 12px; border: 1px solid #222; background: var(--card); border-radius: 14px; color: white; cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-follow { background: var(--gold); color: black; border: none; flex: 1.6; }
+        /* --- Grid System (المنشورات الاحترافية) --- */
+        .tabs {
+            display: flex;
+            border-top: 1px solid var(--insta-gray);
+        }
 
-        .modal { display: none; position: fixed; z-index: 5000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
-        .modal-content { background: #111; margin: 20% auto; padding: 30px; border-radius: 25px; width: 85%; border: 1px solid var(--gold); }
-        input, textarea { width: 100%; padding: 15px; margin: 10px 0; background: #000; border: 1px solid #222; color: white; border-radius: 10px; box-sizing: border-box; }
-        .save-btn { width: 100%; background: var(--gold); padding: 15px; border-radius: 12px; font-weight: bold; border: none; cursor: pointer; }
+        .tab-icon {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            color: #a8a8a8;
+        }
 
-        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 75px; background: rgba(0,0,0,0.92); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #111; }
+        .tab-icon.active { color: #fff; border-top: 1px solid #fff; margin-top: -1px; }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+
+        .grid-img {
+            aspect-ratio: 1/1;
+            background: #121212;
+            overflow: hidden;
+        }
+
+        .grid-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- Modals (النوافذ) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background: #262626;
+            width: 80%;
+            margin: 30% auto;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        /* --- Bottom Nav --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #000;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-top: 1px solid var(--insta-gray);
+        }
     </style>
 </head>
 <body>
 
-    <div class="profile-container">
-        <div class="profile-pic"><img src="default-avatar.jpg" id="mainDisplayImg"></div>
-        <div class="stats-container">
-            <div><span id="postCountDisplay" class="stat-value">0</span><span class="stat-label">منشور</span></div>
-            <div><span id="followersDisplay" class="stat-value">0</span><span class="stat-label">متابع</span></div>
-            <div><span id="followingDisplay" class="stat-value">0</span><span class="stat-label">أتابع</span></div>
+    <div class="insta-header">
+        <i data-lucide="lock" size="18"></i>
+        <span style="font-weight: bold;">gaffa_ismail_official</span>
+        <i data-lucide="chevron-down" size="18"></i>
+    </div>
+
+    <div class="profile-header">
+        <div class="profile-pic-container gaffa-pulse">
+            <img src="your-image.jpg" id="profileImg">
+        </div>
+        <div class="stats-grid">
+            <div onclick="alert('منشوراتك قيد المعالجة')">
+                <span class="stat-num" id="postCount">0</span>
+                <span class="stat-text">منشورات</span>
+            </div>
+            <div>
+                <span class="stat-num" id="followersCount">850</span>
+                <span class="stat-text">متابعون</span>
+            </div>
+            <div>
+                <span class="stat-num">1,240</span>
+                <span class="stat-text">أتابع</span>
+            </div>
         </div>
     </div>
 
-    <div style="padding: 10px 25px 20px;">
-        <div id="profileNameDisplay" style="font-weight: bold; font-size: 24px; display: flex; align-items: center; gap: 8px;">
-            GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#1d9bf0; color:white; width:22px;"></i>
+    <div class="profile-info">
+        <div class="full-name">
+            GAFFA ISMAIL 
+            <i data-lucide="badge-check" style="fill:#0095f6; color:#000;" size="16"></i>
         </div>
-        <div id="bioDisplay" style="font-size: 13.5px; color: #ccc; margin-top: 5px;">مبتكر نظام الذهب السائل 💎 | رؤية برمجية خارج الحدود 🦋</div>
+        <div id="bioText" style="font-size: 14px; margin-top: 4px;">
+            Digital Creator | 🦋 مبرمج النخبة <br>
+            <a href="#" class="bio-link">gaffa.tech/links</a>
+        </div>
     </div>
 
-    <div class="btn-group-elite">
-        <button id="followBtnAction" class="elite-btn btn-follow" onclick="handleFollow()">متابعة</button>
-        <button class="elite-btn" onclick="openModal('editModal')"><i data-lucide="edit-3"></i></button>
-        <button class="elite-btn" onclick="openModal('storyModal')"><i data-lucide="plus-circle"></i></button>
+    <div class="action-btns">
+        <button class="insta-btn btn-follow-active" id="followBtn" onclick="toggleFollow()">متابعة</button>
+        <button class="insta-btn" onclick="openModal('editModal')">تعديل الملف</button>
+        <button class="insta-btn" onclick="openModal('publishModal')"><i data-lucide="plus" size="16"></i></button>
     </div>
 
-    <div class="highlights-container" id="storyList"></div>
+    <div class="highlights" id="storyContainer">
+        <div class="highlight-item" onclick="openModal('storyModal')">
+            <div class="highlight-circle" style="border: 1px dashed #555; display: flex; align-items: center; justify-content: center;">
+                <i data-lucide="plus" color="#fff"></i>
+            </div>
+            <div style="font-size: 12px; text-align: center;">جديد</div>
+        </div>
+    </div>
 
-    <div class="photo-grid" id="imageGrid"></div>
+    <div class="tabs">
+        <div class="tab-icon active"><i data-lucide="grid" size="20"></i></div>
+        <div class="tab-icon"><i data-lucide="play" size="20"></i></div>
+        <div class="tab-icon"><i data-lucide="contact" size="20"></i></div>
+    </div>
 
-    <div class="nav-bottom">
+    <div class="photo-grid" id="mainGrid">
+        </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-box">
+            <h3 style="margin-top:0">تعديل الملف</h3>
+            <input type="text" id="newName" placeholder="الاسم الجديد" style="width:100%; padding:10px; margin-bottom:10px; background:#1a1a1a; border:1px solid #333; color:#fff;">
+            <button class="insta-btn btn-follow-active" style="width:100%" onclick="saveProfile()">حفظ التغييرات</button>
+            <button class="insta-btn" style="width:100%; margin-top:10px" onclick="closeModal('editModal')">إلغاء</button>
+        </div>
+    </div>
+
+    <div id="publishModal" class="modal">
+        <div class="modal-box">
+            <h3>نشر منشور جديد</h3>
+            <input type="file" id="postFile" style="margin-bottom:20px;">
+            <button class="insta-btn btn-follow-active" style="width:100%" onclick="handlePublish()">نشر الآن</button>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
         <i data-lucide="home"></i>
-        <div style="background: var(--gold); width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center;" onclick="openModal('publishModal')">
-            <i data-lucide="plus" style="color:black"></i>
+        <i data-lucide="search"></i>
+        <i data-lucide="clapperboard"></i>
+        <i data-lucide="shopping-bag"></i>
+        <div style="width:24px; height:24px; border-radius:50%; border:1px solid #fff; overflow:hidden;">
+            <img src="your-image.jpg" style="width:100%; height:100%; object-fit:cover;">
         </div>
-        <i data-lucide="user" style="color:var(--gold)"></i>
     </div>
-
-    <div id="editModal" class="modal"><div class="modal-content">
-        <h3>تعديل البيانات</h3>
-        <input type="text" id="editNameInp" placeholder="الاسم">
-        <textarea id="editBioInp" placeholder="البيو"></textarea>
-        <button class="save-btn" onclick="saveProfileChanges()">حفظ</button>
-        <button onclick="closeModal('editModal')" style="background:none; border:none; color:gray; width:100%; margin-top:10px;">إلغاء</button>
-    </div></div>
-
-    <div id="publishModal" class="modal"><div class="modal-content">
-        <h3>نشر جديد</h3>
-        <input type="file" id="publishFileInp" accept="image/*">
-        <button class="save-btn" onclick="publishImage()">نشر الآن</button>
-        <button onclick="closeModal('publishModal')" style="background:none; border:none; color:gray; width:100%; margin-top:10px;">إلغاء</button>
-    </div></div>
-
-    <div id="storyModal" class="modal"><div class="modal-content">
-        <h3>إضافة قصة</h3>
-        <input type="text" id="storyTitleInp" placeholder="عنوان القصة">
-        <input type="file" id="storyFileInp" accept="image/*">
-        <button class="save-btn" onclick="addNewStory()">إضافة</button>
-        <button onclick="closeModal('storyModal')" style="background:none; border:none; color:gray; width:100%; margin-top:10px;">إلغاء</button>
-    </div></div>
 
     <script>
         lucide.createIcons();
 
-        // استعادة المحرك الكامل (The Engine)
-        window.onload = function() {
-            updateStats();
-            loadPosts();
-            renderStories();
-        };
+        // 1. نظام المتابعة
+        function toggleFollow() {
+            const btn = document.getElementById('followBtn');
+            const count = document.getElementById('followersCount');
+            let current = parseInt(count.innerText.replace(',', ''));
 
-        function updateStats() {
-            const posts = JSON.parse(localStorage.getItem('GAFFA_GLOBAL_FEED') || "[]");
-            document.getElementById('postCountDisplay').innerText = posts.length;
-            document.getElementById('followersDisplay').innerText = localStorage.getItem('GAFFA_FOLLOWERS') || 0;
-            document.getElementById('followingDisplay').innerText = localStorage.getItem('GAFFA_FOLLOWING') || 0;
-        }
-
-        function handleFollow() {
-            let f = parseInt(localStorage.getItem('GAFFA_FOLLOWERS') || 0);
-            const btn = document.getElementById('followBtnAction');
             if(btn.innerText === "متابعة") {
-                f++; btn.innerText = "تمت المتابعة"; btn.style.background = "#333";
+                btn.innerText = "تمت المتابعة";
+                btn.classList.remove('btn-follow-active');
+                count.innerText = (current + 1).toLocaleString();
             } else {
-                f--; btn.innerText = "متابعة"; btn.style.background = "var(--gold)";
+                btn.innerText = "متابعة";
+                btn.classList.add('btn-follow-active');
+                count.innerText = (current - 1).toLocaleString();
             }
-            localStorage.setItem('GAFFA_FOLLOWERS', f);
-            document.getElementById('followersDisplay').innerText = f;
         }
 
-        function publishImage() {
-            const file = document.getElementById('publishFileInp').files[0];
+        // 2. نظام النشر (الربط الأساسي)
+        function handlePublish() {
+            const file = document.getElementById('postFile').files[0];
             if(!file) return;
             const reader = new FileReader();
             reader.onload = (e) => {
-                let feed = JSON.parse(localStorage.getItem('GAFFA_GLOBAL_FEED') || "[]");
-                feed.unshift({ image: e.target.result, time: Date.now() });
-                localStorage.setItem('GAFFA_GLOBAL_FEED', JSON.stringify(feed));
-                updateStats(); loadPosts(); closeModal('publishModal');
+                const grid = document.getElementById('mainGrid');
+                const div = document.createElement('div');
+                div.className = 'grid-img';
+                div.innerHTML = `<img src="${e.target.result}">`;
+                grid.prepend(div);
+                
+                // تحديث العداد
+                const postCount = document.getElementById('postCount');
+                postCount.innerText = parseInt(postCount.innerText) + 1;
+                
+                closeModal('publishModal');
             };
             reader.readAsDataURL(file);
         }
 
-        function loadPosts() {
-            const grid = document.getElementById('imageGrid');
-            const posts = JSON.parse(localStorage.getItem('GAFFA_GLOBAL_FEED') || "[]");
-            grid.innerHTML = posts.map(p => `<div class="grid-item"><img src="${p.image}"></div>`).join('');
-        }
-
-        function addNewStory() {
-            const title = document.getElementById('storyTitleInp').value;
-            const file = document.getElementById('storyFileInp').files[0];
-            if(!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const story = { image: e.target.result, title: title, expiresAt: Date.now() + (12*60*60*1000) };
-                let stories = JSON.parse(localStorage.getItem('GAFFA_STORIES') || "[]");
-                stories.push(story);
-                localStorage.setItem('GAFFA_STORIES', JSON.stringify(stories));
-                renderStories(); closeModal('storyModal');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function renderStories() {
-            const now = Date.now();
-            let stories = JSON.parse(localStorage.getItem('GAFFA_STORIES') || "[]").filter(s => s.expiresAt > now);
-            localStorage.setItem('GAFFA_STORIES', JSON.stringify(stories));
-            const container = document.getElementById('storyList');
-            container.innerHTML = stories.map(s => `<div class="highlight-item"><div class="highlight-circle"><img src="${s.image}"></div><div class="highlight-name">${s.title}</div></div>`).join('');
-        }
-
-        function saveProfileChanges() {
-            const name = document.getElementById('editNameInp').value;
-            const bio = document.getElementById('editBioInp').value;
-            if(name) document.getElementById('profileNameDisplay').innerHTML = `${name} <i data-lucide="badge-check" style="fill:#1d9bf0; color:white; width:22px;"></i>`;
-            if(bio) document.getElementById('bioDisplay').innerText = bio;
-            closeModal('editModal'); lucide.createIcons();
-        }
-
+        // وظائف عامة
         function openModal(id) { document.getElementById(id).style.display = 'block'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        
+        function saveProfile() {
+            const name = document.getElementById('newName').value;
+            if(name) document.querySelector('.full-name').innerHTML = name + ' <i data-lucide="badge-check" style="fill:#0095f6; color:#000;" size="16"></i>';
+            lucide.createIcons();
+            closeModal('editModal');
+        }
     </script>
 </body>
 </html>
