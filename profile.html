@@ -9,43 +9,50 @@
         :root { --gold: #d4af37; --bg: #000; --card: #111; --text-gray: #777; }
         body { background-color: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
 
-        /* --- استعادة التنسيقات المفقودة (حل الصور الكبيرة) --- */
+        /* --- التأثيرات الحركية (النبض والرفرفة) --- */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px var(--gold); transform: scale(1); }
+            50% { box-shadow: 0 0 25px var(--gold); transform: scale(1.02); }
+            100% { box-shadow: 0 0 10px var(--gold); transform: scale(1); }
+        }
+
+        /* --- الهوية البصرية (تصحيح التوزيع) --- */
         .profile-container { padding: 40px 20px 10px; display: flex; align-items: center; gap: 20px; }
-        .profile-pic { width: 90px; height: 90px; border-radius: 50%; border: 2.5px solid var(--gold); padding: 3px; position: relative; }
-        .profile-pic img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #1a1a1a; }
+        .profile-pic { width: 90px; height: 90px; border-radius: 50%; border: 2.5px solid var(--gold); padding: 3px; animation: pulse 3s infinite; }
+        .profile-pic img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
         
         .stats-container { display: flex; flex-grow: 1; justify-content: space-around; text-align: center; }
-        .stat-value { font-weight: 800; font-size: 19px; display: block; color: #fff; }
+        .stat-value { font-weight: 800; font-size: 19px; display: block; }
         .stat-label { font-size: 11px; color: var(--text-gray); text-transform: uppercase; }
 
-        /* --- استعادة شبكة الصور (3x3) --- */
-        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding-bottom: 90px; margin-top: 10px; }
+        /* --- شبكة الصور (حل مشكلة الصور الكبيرة) --- */
+        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding-bottom: 90px; }
         .grid-item { aspect-ratio: 1/1; background: #0a0a0a; overflow: hidden; }
         .grid-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- استعادة استجابة الأزرار والمودالات --- */
-        .btn-group-elite { display: flex; gap: 10px; padding: 0 20px 20px; }
-        .elite-btn { flex: 1; padding: 12px; border: 1px solid #222; background: var(--card); border-radius: 14px; color: white; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s; text-decoration: none; }
-        .btn-follow { background: var(--gold); color: black; border: none; flex: 1.6; }
-        
-        .modal { display: none; position: fixed; z-index: 5000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
-        .modal-content { background: #111; margin: 20% auto; padding: 30px; border-radius: 25px; width: 85%; border: 1px solid var(--gold); animation: fadeIn 0.3s ease; }
-        input, textarea { width: 100%; padding: 15px; margin: 12px 0; background: #000; border: 1px solid #222; color: white; border-radius: 10px; box-sizing: border-box; }
-        .modal-save-btn { width: 100%; background: var(--gold); border: none; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; }
+        /* --- الهايلايتس (القصص) --- */
+        .highlights-container { display: flex; gap: 18px; padding: 0 20px 25px; overflow-x: auto; scrollbar-width: none; }
+        .highlight-item { flex: 0 0 auto; width: 70px; text-align: center; cursor: pointer; }
+        .highlight-circle { width: 65px; height: 65px; border-radius: 50%; border: 1px solid #222; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
+        .highlight-circle img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
-        /* البار السفلي والتبويبات */
-        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 75px; background: rgba(0,0,0,0.92); backdrop-filter: blur(10px); display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
-        .post-tabs { display: flex; border-top: 1px solid #111; background: #050505; }
-        .tab-item { flex: 1; padding: 15px; text-align: center; cursor: pointer; color: #444; }
-        .tab-item.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
+        /* --- الأزرار والمودالات --- */
+        .btn-group-elite { display: flex; gap: 10px; padding: 0 20px 20px; }
+        .elite-btn { flex: 1; padding: 12px; border: 1px solid #222; background: var(--card); border-radius: 14px; color: white; cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-follow { background: var(--gold); color: black; border: none; flex: 1.6; }
+
+        .modal { display: none; position: fixed; z-index: 5000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
+        .modal-content { background: #111; margin: 20% auto; padding: 30px; border-radius: 25px; width: 85%; border: 1px solid var(--gold); }
+        input, textarea { width: 100%; padding: 15px; margin: 10px 0; background: #000; border: 1px solid #222; color: white; border-radius: 10px; box-sizing: border-box; }
+        .save-btn { width: 100%; background: var(--gold); padding: 15px; border-radius: 12px; font-weight: bold; border: none; cursor: pointer; }
+
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; height: 75px; background: rgba(0,0,0,0.92); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #111; }
     </style>
 </head>
 <body>
 
     <div class="profile-container">
-        <div class="profile-pic">
-            <img src="your-image.jpg" id="mainDisplayImg">
-        </div>
+        <div class="profile-pic"><img src="default-avatar.jpg" id="mainDisplayImg"></div>
         <div class="stats-container">
             <div><span id="postCountDisplay" class="stat-value">0</span><span class="stat-label">منشور</span></div>
             <div><span id="followersDisplay" class="stat-value">0</span><span class="stat-label">متابع</span></div>
@@ -53,23 +60,25 @@
         </div>
     </div>
 
-    <div style="padding: 0 25px 20px;">
-        <div class="profile-name" id="profileNameDisplay" style="font-weight: bold; font-size: 24px; margin-bottom: 5px; display: flex; align-items: center; gap: 8px;">
+    <div style="padding: 10px 25px 20px;">
+        <div id="profileNameDisplay" style="font-weight: bold; font-size: 24px; display: flex; align-items: center; gap: 8px;">
             GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#1d9bf0; color:white; width:22px;"></i>
         </div>
-        <div id="bioDisplay" style="font-size: 13.5px; color: #ccc; line-height: 1.5;">مبتكر نظام الذهب السائل 💎 | رؤية برمجية خارج الحدود 🦋</div>
+        <div id="bioDisplay" style="font-size: 13.5px; color: #ccc; margin-top: 5px;">مبتكر نظام الذهب السائل 💎 | رؤية برمجية خارج الحدود 🦋</div>
     </div>
 
     <div class="btn-group-elite">
         <button id="followBtnAction" class="elite-btn btn-follow" onclick="handleFollow()">متابعة</button>
         <button class="elite-btn" onclick="openModal('editModal')"><i data-lucide="edit-3"></i></button>
-        <button class="elite-btn" onclick="location.href='chat.html?user=GAFFA'"><i data-lucide="send"></i></button>
+        <button class="elite-btn" onclick="openModal('storyModal')"><i data-lucide="plus-circle"></i></button>
     </div>
+
+    <div class="highlights-container" id="storyList"></div>
 
     <div class="photo-grid" id="imageGrid"></div>
 
     <div class="nav-bottom">
-        <i data-lucide="home" class="nav-link"></i>
+        <i data-lucide="home"></i>
         <div style="background: var(--gold); width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center;" onclick="openModal('publishModal')">
             <i data-lucide="plus" style="color:black"></i>
         </div>
@@ -77,33 +86,43 @@
     </div>
 
     <div id="editModal" class="modal"><div class="modal-content">
-        <h3>تعديل البروفايل</h3>
+        <h3>تعديل البيانات</h3>
         <input type="text" id="editNameInp" placeholder="الاسم">
         <textarea id="editBioInp" placeholder="البيو"></textarea>
-        <button class="modal-save-btn" onclick="saveProfileChanges()">حفظ</button>
-        <button onclick="closeModal('editModal')" style="background:none; color:gray; border:none; margin-top:10px; width:100%;">إغلاق</button>
+        <button class="save-btn" onclick="saveProfileChanges()">حفظ</button>
+        <button onclick="closeModal('editModal')" style="background:none; border:none; color:gray; width:100%; margin-top:10px;">إلغاء</button>
     </div></div>
 
     <div id="publishModal" class="modal"><div class="modal-content">
-        <h3>نشر صورة جديدة</h3>
+        <h3>نشر جديد</h3>
         <input type="file" id="publishFileInp" accept="image/*">
-        <button class="modal-save-btn" onclick="publishImage()">نشر</button>
-        <button onclick="closeModal('publishModal')" style="background:none; color:gray; border:none; margin-top:10px; width:100%;">إغلاق</button>
+        <button class="save-btn" onclick="publishImage()">نشر الآن</button>
+        <button onclick="closeModal('publishModal')" style="background:none; border:none; color:gray; width:100%; margin-top:10px;">إلغاء</button>
+    </div></div>
+
+    <div id="storyModal" class="modal"><div class="modal-content">
+        <h3>إضافة قصة</h3>
+        <input type="text" id="storyTitleInp" placeholder="عنوان القصة">
+        <input type="file" id="storyFileInp" accept="image/*">
+        <button class="save-btn" onclick="addNewStory()">إضافة</button>
+        <button onclick="closeModal('storyModal')" style="background:none; border:none; color:gray; width:100%; margin-top:10px;">إلغاء</button>
     </div></div>
 
     <script>
         lucide.createIcons();
 
-        // استعادة المحرك الكامل
+        // استعادة المحرك الكامل (The Engine)
         window.onload = function() {
             updateStats();
             loadPosts();
+            renderStories();
         };
 
         function updateStats() {
             const posts = JSON.parse(localStorage.getItem('GAFFA_GLOBAL_FEED') || "[]");
             document.getElementById('postCountDisplay').innerText = posts.length;
             document.getElementById('followersDisplay').innerText = localStorage.getItem('GAFFA_FOLLOWERS') || 0;
+            document.getElementById('followingDisplay').innerText = localStorage.getItem('GAFFA_FOLLOWING') || 0;
         }
 
         function handleFollow() {
@@ -135,6 +154,29 @@
             const grid = document.getElementById('imageGrid');
             const posts = JSON.parse(localStorage.getItem('GAFFA_GLOBAL_FEED') || "[]");
             grid.innerHTML = posts.map(p => `<div class="grid-item"><img src="${p.image}"></div>`).join('');
+        }
+
+        function addNewStory() {
+            const title = document.getElementById('storyTitleInp').value;
+            const file = document.getElementById('storyFileInp').files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const story = { image: e.target.result, title: title, expiresAt: Date.now() + (12*60*60*1000) };
+                let stories = JSON.parse(localStorage.getItem('GAFFA_STORIES') || "[]");
+                stories.push(story);
+                localStorage.setItem('GAFFA_STORIES', JSON.stringify(stories));
+                renderStories(); closeModal('storyModal');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function renderStories() {
+            const now = Date.now();
+            let stories = JSON.parse(localStorage.getItem('GAFFA_STORIES') || "[]").filter(s => s.expiresAt > now);
+            localStorage.setItem('GAFFA_STORIES', JSON.stringify(stories));
+            const container = document.getElementById('storyList');
+            container.innerHTML = stories.map(s => `<div class="highlight-item"><div class="highlight-circle"><img src="${s.image}"></div><div class="highlight-name">${s.title}</div></div>`).join('');
         }
 
         function saveProfileChanges() {
