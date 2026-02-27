@@ -3,222 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GAFFA ISMAIL | Official Profile</title>
+    <title>GAFFA ISMAIL | Final Edition</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* المتغيرات لسهولة التعديل المستقبلي دون البحث في الكود */
-        :root {
-            --gaffa-gold: #d4af37;
-            --insta-black: #000000;
-            --insta-gray: #121212;
-            --insta-border: #262626;
-            --text-secondary: #a8a8a8;
-        }
+        :root { --gold: #d4af37; --bg: #000; --border: #262626; }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; padding-bottom: 80px; overflow-x: hidden; }
+        
+        /* الهيدر */
+        .header { display: flex; justify-content: space-between; padding: 10px 16px; align-items: center; position: sticky; top: 0; background: #000; z-index: 10; }
+        
+        /* معلومات الحساب */
+        .profile-info { display: flex; align-items: center; padding: 15px 16px; gap: 20px; }
+        .p-pic { width: 85px; height: 85px; border-radius: 50%; border: 2px solid var(--gold); padding: 3px; cursor: pointer; position: relative; }
+        .p-pic img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .stats { display: flex; flex: 1; justify-content: space-around; text-align: center; }
+        .s-num { font-weight: bold; font-size: 18px; display: block; }
+        .s-txt { font-size: 12px; color: #a8a8a8; }
 
-        body {
-            background-color: var(--insta-black);
-            color: white;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding-bottom: 80px; /* مساحة للبار السفلي */
-        }
+        /* الأزرار */
+        .btns { display: flex; gap: 8px; padding: 10px 16px; }
+        .btn { flex: 1; background: #363636; border: none; color: white; padding: 8px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-follow.active { background: #1a1a1a; color: white; border: 1px solid #333; }
+        .btn-gold { background: var(--gold); color: black; }
 
-        /* --- Header --- */
-        .top-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 16px;
-            position: sticky;
-            top: 0;
-            background: var(--insta-black);
-            z-index: 1000;
-        }
-
-        /* --- Profile Info --- */
-        .profile-header {
-            display: flex;
-            align-items: center;
-            padding: 10px 16px;
-            gap: 25px;
-        }
-
-        .avatar-container {
-            position: relative;
-            width: 86px;
-            height: 86px;
-            border-radius: 50%;
-            padding: 3px;
-            background: var(--gaffa-gold);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-        }
-
-        .avatar-container img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 3px solid black;
-            object-fit: cover;
-        }
-
-        .stats {
-            display: flex;
-            flex-grow: 1;
-            justify-content: space-around;
-            text-align: center;
-        }
-
-        .stat-num { font-weight: bold; font-size: 18px; display: block; }
-        .stat-label { font-size: 13px; color: var(--text-secondary); }
-
-        /* --- Bio --- */
-        .bio-area { padding: 5px 16px 15px; }
-        .full-name { font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 5px; }
-        .bio-text { font-size: 14px; margin-top: 2px; color: #efefef; line-height: 1.4; }
-
-        /* --- Buttons --- */
-        .action-btns { display: flex; gap: 8px; padding: 0 16px 15px; }
-        .btn {
-            flex: 1;
-            background: #363636;
-            border: none;
-            color: white;
-            padding: 8px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            text-decoration: none;
-            text-align: center;
-        }
-        .btn-gold { background: var(--gaffa-gold); color: black; }
-
-        /* --- Grid --- */
-        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-        .grid-item { aspect-ratio: 1/1; background: var(--insta-gray); overflow: hidden; }
+        /* الشبكة */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
+        .grid-item { aspect-ratio: 1/1; background: #111; overflow: hidden; }
         .grid-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- Navigation --- */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: var(--insta-black);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            border-top: 1px solid var(--insta-border);
-            z-index: 2000;
-        }
+        /* البار السفلي */
+        .nav { position: fixed; bottom: 0; width: 100%; display: flex; justify-content: space-around; padding: 12px 0; background: #000; border-top: 1px solid var(--border); }
+        .nav i { color: #888; cursor: pointer; }
 
-        .nav-link { color: white; text-decoration: none; display: flex; align-items: center; }
-
-        /* --- Modals --- */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; }
-        .modal-box { background: #262626; width: 85%; margin: 30% auto; padding: 25px; border-radius: 15px; }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #444; color: white; border-radius: 10px; box-sizing: border-box; }
+        /* النوافذ */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100; }
+        .modal-body { background: #262626; width: 85%; margin: 30% auto; padding: 20px; border-radius: 15px; text-align: center; }
+        input[type="file"] { display: none; }
+        .upload-label { display: block; background: #444; padding: 15px; border-radius: 10px; margin-bottom: 15px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="top-nav">
-        <i data-lucide="lock" size="18"></i>
-        <div style="font-weight: bold; font-size: 18px;">gaffa_ismail <i data-lucide="chevron-down" size="14"></i></div>
-        <div style="display:flex; gap:15px;">
-            <i data-lucide="plus-square" onclick="openMod('pubModal')"></i>
-            <i data-lucide="menu"></i>
-        </div>
+    <div class="header">
+        <div style="font-weight:bold; font-size:18px;">gaffa_ismail <i data-lucide="chevron-down" size="14"></i></div>
+        <i data-lucide="plus-square" onclick="showMod('postMod')"></i>
     </div>
 
-    <div class="profile-header">
-        <div class="avatar-container">
-            <img src="your-image.jpg" id="profileImg">
+    <div class="profile-info">
+        <div class="p-pic" onclick="document.getElementById('profileInput').click()">
+            <img src="https://via.placeholder.com/150" id="mainAvatar">
+            <input type="file" id="profileInput" accept="image/*" onchange="updateProfilePic(this)">
         </div>
         <div class="stats">
-            <div><span class="stat-num" id="postCount">12</span><span class="stat-label">منشورات</span></div>
-            <div><span class="stat-num">850</span><span class="stat-label">متابعون</span></div>
-            <div><span class="stat-num">120</span><span class="stat-label">أتابع</span></div>
+            <div><span class="s-num" id="postCount">0</span><span class="s-txt">منشورات</span></div>
+            <div><span class="s-num" id="followerCount">850</span><span class="s-txt">متابعون</span></div>
+            <div><span class="s-num">120</span><span class="s-txt">أتابع</span></div>
         </div>
     </div>
 
-    <div class="bio-area">
-        <div class="full-name">GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#0095f6; color:#000;" size="16"></i></div>
-        <div class="bio-text">
-            Entrepreneur | 🦋 مبرمج النخبة <br>
-            💎 ابتكار أنظمة الذهب السائل <br>
-            <span style="color: #e0f1ff;">gaffa.gold/links</span>
-        </div>
+    <div style="padding: 0 16px 15px;">
+        <div style="font-weight:600;">GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#0095f6; color:#000;" size="15"></i></div>
+        <div style="font-size:14px; color:#ccc;">مبتكر نظام الذهب السائل 💎</div>
     </div>
 
-    <div class="action-btns">
-        <button class="btn btn-gold">متابعة</button>
-        <a href="chat.html" class="btn">مراسلة</a>
-        <button class="btn" onclick="openMod('editModal')">تعديل</button>
+    <div class="btns">
+        <button class="btn btn-gold btn-follow" id="followAction" onclick="handleFollow()">متابعة</button>
+        <button class="btn" onclick="location.href='chat.html'">مراسلة</button>
     </div>
 
-    <div class="photo-grid" id="mainGrid">
-        <div class="grid-item"><img src="https://via.placeholder.com/400/111/d4af37"></div>
+    <div class="grid" id="profileGrid"></div>
+
+    <div class="nav">
+        <i data-lucide="home" onclick="location.href='feed.html'"></i>
+        <i data-lucide="search" onclick="location.href='explore.html'"></i>
+        <i data-lucide="plus-circle" style="color:var(--gold)" onclick="showMod('postMod')"></i>
+        <i data-lucide="message-square" onclick="location.href='messages.html'"></i>
+        <i data-lucide="user" style="color:white"></i>
     </div>
 
-    <div class="bottom-nav">
-        <a href="feed.html" class="nav-link"><i data-lucide="home"></i></a>
-        <a href="explore.html" class="nav-link"><i data-lucide="search"></i></a>
-        <div class="nav-link" onclick="openMod('pubModal')" style="background:var(--gaffa-gold); padding:8px; border-radius:12px; transform:translateY(-5px);">
-            <i data-lucide="plus" style="color:black"></i>
-        </div>
-        <a href="messages.html" class="nav-link"><i data-lucide="message-square"></i></a>
-        <a href="profile.html" class="nav-link" style="color:var(--gaffa-gold)"><i data-lucide="user"></i></a>
-    </div>
-
-    <div id="pubModal" class="modal">
-        <div class="modal-box">
-            <h3 style="margin:0 0 15px; text-align:center;">نشر محتوى جديد 🚀</h3>
-            <input type="file" id="imgInp" accept="image/*">
-            <button class="btn btn-gold" style="width:100%" onclick="doPub()">نشر الآن</button>
-            <button class="btn" style="width:100%; margin-top:10px" onclick="closeMod('pubModal')">إلغاء</button>
-        </div>
-    </div>
-
-    <div id="editModal" class="modal">
-        <div class="modal-box">
-            <h3 style="margin:0 0 15px; text-align:center;">تعديل الملف الشخصي 💎</h3>
-            <input type="text" id="nameInp" placeholder="الاسم الجديد">
-            <textarea id="bioInp" placeholder="السيرة الذاتية..."></textarea>
-            <button class="btn btn-gold" style="width:100%" onclick="saveEdit()">حفظ التغييرات</button>
-            <button class="btn" style="width:100%; margin-top:10px" onclick="closeMod('editModal')">إلغاء</button>
+    <div id="postMod" class="modal">
+        <div class="modal-body">
+            <h3>نشر جديد 🚀</h3>
+            <label class="upload-label" for="postFile">اختر صورة من جهازك</label>
+            <input type="file" id="postFile" accept="image/*">
+            <button class="btn btn-gold" style="width:100%" onclick="publishPost()">نشر الآن</button>
+            <button class="btn" style="width:100%; margin-top:10px" onclick="hideMod('postMod')">إلغاء</button>
         </div>
     </div>
 
     <script>
         lucide.createIcons();
 
-        function openMod(id) { document.getElementById(id).style.display = 'block'; }
-        function closeMod(id) { document.getElementById(id).style.display = 'none'; }
+        // 1. نظام المتابعة الفعال
+        let followers = 850;
+        let isFollowing = false;
+        function handleFollow() {
+            const btn = document.getElementById('followAction');
+            if (!isFollowing) {
+                followers++;
+                btn.innerText = "تمت المتابعة";
+                btn.classList.add('active');
+            } else {
+                followers--;
+                btn.innerText = "متابعة";
+                btn.classList.remove('active');
+            }
+            isFollowing = !isFollowing;
+            document.getElementById('followerCount').innerText = followers;
+        }
 
-        function doPub() {
-            const file = document.getElementById('imgInp').files[0];
-            if(file) {
+        // 2. تحديث صورة الملف الشخصي
+        function updateProfilePic(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => document.getElementById('mainAvatar').src = e.target.result;
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // 3. تفعيل النشر وإضافة الصور للشبكة
+        function publishPost() {
+            const fileInp = document.getElementById('postFile');
+            if (fileInp.files && fileInp.files[0]) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    const item = document.createElement('div');
-                    item.className = 'grid-item';
-                    item.innerHTML = `<img src="${e.target.result}">`;
-                    document.getElementById('mainGrid').prepend(item);
+                    const div = document.createElement('div');
+                    div.className = 'grid-item';
+                    div.innerHTML = `<img src="${e.target.result}">`;
+                    document.getElementById('profileGrid').prepend(div);
                     document.getElementById('postCount').innerText = parseInt(document.getElementById('postCount').innerText) + 1;
-                    closeMod('pubModal');
+                    hideMod('postMod');
                 };
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(fileInp.files[0]);
             }
         }
 
-        function saveEdit() {
-            const name = document.getElementById('nameInp').value;
-            if(name) {
-                document.querySelector('.full-name').innerHTML = `${name} <i data-lucide="badge-check" style="fill:#0095f6; color:#000;" size="16"></i>`;
-                lucide.createIcons();
-            }
-            closeMod('editModal');
-        }
+        function showMod(id) { document.getElementById(id).style.display = 'block'; }
+        function hideMod(id) { document.getElementById(id).style.display = 'none'; }
     </script>
 </body>
 </html>
