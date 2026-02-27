@@ -6,6 +6,24 @@
     <title>Instagram | GAFFA ISMAIL</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+/* تأثير عند تمرير الفأرة أو الضغط بالإصبع */
+i, .tab, .btn-insta {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+i:active {
+    opacity: 0.5;
+    transform: scale(0.9);
+}
+
+/* تحسين شكل التبويب النشط ليطابق صورتك */
+.tab.active {
+    color: #ffffff;
+    border-top: 1.5px solid #ffffff;
+    margin-top: -1px;
+}
+
         :root {
             --bg: #000;
             --border: #262626;
@@ -257,6 +275,70 @@
     </div>
 
     <script>
+// 1. تفعيل التبويبات (Posts, Reels, Tagged)
+function setupTabs() {
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // إزالة الحالة النشطة من الجميع
+            tabs.forEach(t => t.classList.remove('active'));
+            // إضافة الحالة النشطة للتبويب المختار
+            tab.classList.add('active');
+            
+            // محاكاة تحميل المحتوى
+            const grid = document.getElementById('profileGrid');
+            grid.style.opacity = '0.5';
+            setTimeout(() => { grid.style.opacity = '1'; }, 300);
+        });
+    });
+}
+
+// 2. تفعيل القائمة الجانبية (Sidebar Menu)
+function toggleMenu() {
+    const menuIcon = document.querySelector('[data-lucide="menu"]');
+    menuIcon.addEventListener('click', () => {
+        alert("إعدادات GAFFA: \n- الأرشفة \n- نشاطك \n- رمز الاستجابة \n- الإعدادات والخصوصية");
+    });
+}
+
+// 3. تفعيل شريط التنقل السفلي (Bottom Nav)
+function setupBottomNav() {
+    const navIcons = document.querySelectorAll('.nav-bottom i');
+    navIcons.forEach(icon => {
+        icon.addEventListener('click', () => {
+            // تأثير بصري عند الضغط
+            icon.style.transform = 'scale(0.8)';
+            setTimeout(() => { icon.style.transform = 'scale(1)'; }, 100);
+            
+            const type = icon.getAttribute('data-lucide');
+            if(type === 'search') alert("فتح صفحة الاستكشاف...");
+            if(type === 'play-circle') alert("فتح مقاطع Reels...");
+            if(type === 'shopping-bag') alert("فتح متجر GAFFA...");
+        });
+    });
+}
+
+// 4. تفعيل أيقونة "جديد" (+) في الهيدر
+function setupTopAdd() {
+    const addIcon = document.querySelector('.top-nav [data-lucide="plus-square"]');
+    if(addIcon) {
+        addIcon.onclick = () => openModal('pubModal');
+    }
+}
+
+// استدعاء جميع الوظائف عند تحميل الصفحة
+window.onload = function() {
+    updateStats(); // من كودنا السابق
+    loadPosts();   // من كودنا السابق
+    
+    // تفعيل الأجزاء الجديدة
+    setupTabs();
+    toggleMenu();
+    setupBottomNav();
+    setupTopAdd();
+    lucide.createIcons(); // لتأكيد رسم الأيقونات
+};
+
         lucide.createIcons();
 
         function publishNow() {
