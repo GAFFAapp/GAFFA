@@ -3,364 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Instagram | GAFFA ISMAIL</title>
+    <title>Instagram Profile | GAFFA</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-/* تأثير عند تمرير الفأرة أو الضغط بالإصبع */
-i, .tab, .btn-insta {
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
+        :root { --insta-border: #262626; --gold: #d4af37; }
+        body { background: #000; color: #fff; font-family: -apple-system, sans-serif; margin: 0; padding-bottom: 60px; overflow-x: hidden; }
+        
+        /* الهيدر العلوي */
+        .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; position: sticky; top: 0; background: #000; z-index: 100; }
+        .username-tab { display: flex; align-items: center; gap: 5px; font-weight: bold; font-size: 20px; }
 
-i:active {
-    opacity: 0.5;
-    transform: scale(0.9);
-}
+        /* منطقة المعلومات الشخصية */
+        .profile-main { display: grid; grid-template-columns: 100px 1fr; padding: 15px 16px; align-items: center; }
+        .p-avatar { width: 86px; height: 86px; border-radius: 50%; padding: 3px; background: var(--gold); position: relative; }
+        .p-avatar img { width: 100%; height: 100%; border-radius: 50%; border: 2px solid #000; object-fit: cover; }
+        
+        .p-stats { display: flex; justify-content: space-around; text-align: center; }
+        .s-val { font-weight: bold; font-size: 18px; display: block; }
+        .s-lbl { font-size: 12px; color: #a8a8a8; }
 
-/* تحسين شكل التبويب النشط ليطابق صورتك */
-.tab.active {
-    color: #ffffff;
-    border-top: 1.5px solid #ffffff;
-    margin-top: -1px;
-}
+        /* الأزرار */
+        .actions { display: flex; gap: 8px; padding: 10px 16px; }
+        .btn-i { flex: 1; background: #363636; border: none; color: #fff; padding: 8px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; }
+        .btn-follow { background: var(--gold); color: #000; }
 
-        :root {
-            --bg: #000;
-            --border: #262626;
-            --text: #ffffff;
-            --text-secondary: #a8a8a8;
-            --button: #363636;
-            --gold: #d4af37;
-        }
+        /* التبويبات (Icons) */
+        .tabs { display: flex; border-top: 1px solid var(--insta-border); margin-top: 20px; }
+        .t-item { flex: 1; padding: 12px; text-align: center; color: #8e8e8e; cursor: pointer; }
+        .t-item.active { color: #fff; border-top: 1.5px solid #fff; }
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0;
-            padding-bottom: 70px;
-        }
+        /* الشبكة */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+        .g-item { aspect-ratio: 1/1; background: #121212; overflow: hidden; }
+        .g-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* 1. الشريط العلوي (Status Bar Style) */
-        .top-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            position: sticky;
-            top: 0;
-            background: #000;
-            z-index: 1000;
-        }
-
-        .user-handle {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-weight: bold;
-            font-size: 22px;
-        }
-
-        /* 2. قسم الملف الشخصي الاحترافي */
-        .profile-header {
-            display: grid;
-            grid-template-columns: 100px 1fr;
-            padding: 10px 16px 20px;
-            align-items: center;
-        }
-
-        .avatar-section {
-            position: relative;
-            width: 88px;
-            height: 88px;
-        }
-
-        .avatar-ring {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            padding: 3px;
-            background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7); /* حلقة الستوري الأصلية */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* لمسة GAFFA: إذا كان البروفايل ذهبي */
-        .avatar-ring.gold-mode {
-            background: var(--gold);
-            box-shadow: 0 0 10px var(--gold);
-        }
-
-        .avatar-ring img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 3px solid #000;
-            object-fit: cover;
-        }
-
-        .stats-section {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-        }
-
-        .stat-val { font-weight: bold; font-size: 18px; display: block; }
-        .stat-lbl { font-size: 13px; color: var(--text-secondary); }
-
-        /* 3. البيو (Bio) بالتفصيل */
-        .bio-section { padding: 0 16px 15px; }
-        .display-name { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
-        .category { color: var(--text-secondary); font-size: 14px; margin-bottom: 4px; }
-        .bio-text { font-size: 14px; line-height: 1.4; }
-        .bio-link { color: #e0f1ff; text-decoration: none; font-weight: 500; }
-
-        /* 4. الأزرار (Buttons) */
-        .action-buttons {
-            display: flex;
-            gap: 6px;
-            padding: 0 16px 20px;
-        }
-
-        .btn-insta {
-            flex: 1;
-            background: var(--button);
-            border: none;
-            color: white;
-            padding: 8px 0;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        /* 5. القصص البارزة (Highlights) */
-        .highlights {
-            display: flex;
-            gap: 15px;
-            padding: 0 16px 25px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-
-        .h-item { width: 64px; text-align: center; flex-shrink: 0; }
-        .h-circle {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            border: 1px solid var(--border);
-            padding: 3px;
-            margin-bottom: 5px;
-        }
-
-        .h-circle img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #1a1a1a; }
-        .h-text { font-size: 11px; color: var(--text); }
-
-        /* 6. التبويبات والشبكة (Tabs & Grid) */
-        .tabs-header {
-            display: flex;
-            border-top: 1px solid var(--border);
-        }
-
-        .tab { flex: 1; padding: 12px; text-align: center; color: var(--text-secondary); cursor: pointer; }
-        .tab.active { color: #fff; border-top: 1px solid #fff; margin-top: -1px; }
-
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5px;
-        }
-
-        .grid-post { aspect-ratio: 1/1; background: #121212; position: relative; }
-        .grid-post img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* 7. البار السفلي الحقيقي */
-        .nav-bottom {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: #000;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            border-top: 1px solid var(--border);
-            z-index: 2000;
-        }
-
-        /* مودالات */
-        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; }
-        .modal-content { background:#262626; width:85%; margin:40% auto; padding:20px; border-radius:12px; }
+        /* البار السفلي */
+        .nav-b { position: fixed; bottom: 0; width: 100%; background: #000; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid var(--insta-border); }
+        
+        /* Modal */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; }
+        .modal-c { background: #262626; width: 80%; margin: 30% auto; padding: 20px; border-radius: 12px; text-align: center; }
     </style>
 </head>
 <body>
 
-    <div class="top-nav">
-        <div class="user-handle">
-            gaffa_ismail <i data-lucide="chevron-down" size="16"></i>
-        </div>
-        <div style="display:flex; gap: 20px;">
-            <i data-lucide="plus-square" onclick="openModal('pubModal')"></i>
-            <i data-lucide="menu"></i>
+    <div class="top-bar">
+        <div class="username-tab"><i data-lucide="lock" size="16"></i> <span id="uNameTop">user_name</span> <i data-lucide="chevron-down" size="16"></i></div>
+        <div style="display:flex; gap:20px;"><i data-lucide="plus-square" onclick="showMod('pubModal')"></i><i data-lucide="menu"></i></div>
+    </div>
+
+    <div class="profile-main">
+        <div class="p-avatar"><img src="default.jpg" id="uImg"></div>
+        <div class="p-stats">
+            <div><span class="s-val" id="pCount">0</span><span class="s-lbl">منشورات</span></div>
+            <div><span class="s-val">850</span><span class="s-lbl">متابعون</span></div>
+            <div><span class="s-val">1,240</span><span class="s-lbl">أتابع</span></div>
         </div>
     </div>
 
-    <div class="profile-header">
-        <div class="avatar-section">
-            <div class="avatar-ring gold-mode">
-                <img src="your-image.jpg" id="mainAvatar">
-            </div>
-        </div>
-        <div class="stats-section">
-            <div><span class="stat-val" id="postsCount">0</span><span class="stat-lbl">منشورات</span></div>
-            <div><span class="stat-val">850</span><span class="stat-lbl">متابعون</span></div>
-            <div><span class="stat-val">1,240</span><span class="stat-lbl">أتابع</span></div>
-        </div>
+    <div style="padding:0 16px;">
+        <div style="font-weight:600;" id="uFullName">GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#0095f6; color:#000;" size="15"></i></div>
+        <div style="font-size:14px; color:#a8a8a8;">شخصية عامة | مبرمج 🦋</div>
     </div>
 
-    <div class="bio-section">
-        <div class="display-name">GAFFA ISMAIL <i data-lucide="badge-check" style="fill:#0095f6; color:#000;" size="15"></i></div>
-        <div class="category">شخصية عامة | مبرمج 🦋</div>
-        <div class="bio-text">
-            • 💎 ابتكار أنظمة النخبة <br>
-            • 🚀 رؤية برمجية خارج المألوف <br>
-            <a href="#" class="bio-link">gaffa.gold/links</a>
-        </div>
+    <div class="actions">
+        <button class="btn-i btn-follow">متابعة</button>
+        <button class="btn-i">مراسلة</button>
+        <button class="btn-i" style="flex:0.2;" onclick="showMod('editModal')"><i data-lucide="user-plus" size="16"></i></button>
     </div>
 
-    <div class="action-buttons">
-        <button class="btn-insta" style="background:var(--gold); color:#000; flex:2;">متابعة</button>
-        <button class="btn-insta">مراسلة</button>
-        <button class="btn-insta" style="flex:0.3;" onclick="openModal('editModal')"><i data-lucide="user-plus" size="16"></i></button>
+    <div class="tabs">
+        <div class="t-item active" onclick="chTab(this)"><i data-lucide="grid" size="22"></i></div>
+        <div class="t-item" onclick="chTab(this)"><i data-lucide="play" size="22"></i></div>
+        <div class="t-item" onclick="chTab(this)"><i data-lucide="contact" size="22"></i></div>
     </div>
 
-    <div class="highlights">
-        <div class="h-item" onclick="openModal('storyModal')">
-            <div class="h-circle" style="border-style: dashed; border-color:#555;">
-                <i data-lucide="plus" style="margin-top:18px;"></i>
-            </div>
-            <div class="h-text">جديد</div>
-        </div>
-        <div class="h-item">
-            <div class="h-circle"><img src="h1.jpg"></div>
-            <div class="h-text">تطوير</div>
-        </div>
+    <div class="grid" id="pGrid"></div>
+
+    <div class="nav-b">
+        <i data-lucide="home"></i><i data-lucide="search"></i><i data-lucide="clapperboard"></i><i data-lucide="shopping-bag"></i><i data-lucide="circle-user" style="color:var(--gold)"></i>
     </div>
 
-    <div class="tabs-header">
-        <div class="tab active"><i data-lucide="grid" size="20"></i></div>
-        <div class="tab"><i data-lucide="clapperboard" size="20"></i></div>
-        <div class="tab"><i data-lucide="contact" size="20"></i></div>
-    </div>
-
-    <div class="photo-grid" id="profileGrid">
-        </div>
-
-    <div class="nav-bottom">
-        <i data-lucide="home"></i>
-        <i data-lucide="search"></i>
-        <i data-lucide="play-circle"></i>
-        <i data-lucide="shopping-bag"></i>
-        <div style="width:24px; height:24px; border-radius:50%; border:1.5px solid #fff; overflow:hidden;">
-            <img src="your-image.jpg" style="width:100%; height:100%; object-fit:cover;">
-        </div>
-    </div>
-
-    <div id="pubModal" class="modal">
-        <div class="modal-content">
-            <h3 style="margin-top:0">نشر صورة</h3>
-            <input type="file" id="fileInput" style="margin-bottom:20px;">
-            <button class="btn-insta" style="background:var(--gold); color:#000; width:100%" onclick="publishNow()">نشر</button>
-            <button class="btn-insta" style="width:100%; margin-top:10px" onclick="closeModal('pubModal')">إلغاء</button>
-        </div>
-    </div>
+    <div id="pubModal" class="modal"><div class="modal-c"><h3>نشر جديد</h3><input type="file" id="fInp"><button class="btn-i btn-follow" style="width:100%;margin-top:10px;" onclick="pub()">نشر</button></div></div>
 
     <script>
-// 1. تفعيل التبويبات (Posts, Reels, Tagged)
-function setupTabs() {
-    const tabs = document.querySelectorAll('.tab');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // إزالة الحالة النشطة من الجميع
-            tabs.forEach(t => t.classList.remove('active'));
-            // إضافة الحالة النشطة للتبويب المختار
-            tab.classList.add('active');
-            
-            // محاكاة تحميل المحتوى
-            const grid = document.getElementById('profileGrid');
-            grid.style.opacity = '0.5';
-            setTimeout(() => { grid.style.opacity = '1'; }, 300);
-        });
-    });
-}
-
-// 2. تفعيل القائمة الجانبية (Sidebar Menu)
-function toggleMenu() {
-    const menuIcon = document.querySelector('[data-lucide="menu"]');
-    menuIcon.addEventListener('click', () => {
-        alert("إعدادات GAFFA: \n- الأرشفة \n- نشاطك \n- رمز الاستجابة \n- الإعدادات والخصوصية");
-    });
-}
-
-// 3. تفعيل شريط التنقل السفلي (Bottom Nav)
-function setupBottomNav() {
-    const navIcons = document.querySelectorAll('.nav-bottom i');
-    navIcons.forEach(icon => {
-        icon.addEventListener('click', () => {
-            // تأثير بصري عند الضغط
-            icon.style.transform = 'scale(0.8)';
-            setTimeout(() => { icon.style.transform = 'scale(1)'; }, 100);
-            
-            const type = icon.getAttribute('data-lucide');
-            if(type === 'search') alert("فتح صفحة الاستكشاف...");
-            if(type === 'play-circle') alert("فتح مقاطع Reels...");
-            if(type === 'shopping-bag') alert("فتح متجر GAFFA...");
-        });
-    });
-}
-
-// 4. تفعيل أيقونة "جديد" (+) في الهيدر
-function setupTopAdd() {
-    const addIcon = document.querySelector('.top-nav [data-lucide="plus-square"]');
-    if(addIcon) {
-        addIcon.onclick = () => openModal('pubModal');
-    }
-}
-
-// استدعاء جميع الوظائف عند تحميل الصفحة
-window.onload = function() {
-    updateStats(); // من كودنا السابق
-    loadPosts();   // من كودنا السابق
-    
-    // تفعيل الأجزاء الجديدة
-    setupTabs();
-    toggleMenu();
-    setupBottomNav();
-    setupTopAdd();
-    lucide.createIcons(); // لتأكيد رسم الأيقونات
-};
-
         lucide.createIcons();
 
-        function publishNow() {
-            const file = document.getElementById('fileInput').files[0];
+        // 1. استلام الاسم من صفحة تسجيل الدخول
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const user = params.get('user') || "gaffa_guest";
+            document.getElementById('uNameTop').innerText = user;
+            document.getElementById('uFullName').innerHTML = user.toUpperCase() + ' <i data-lucide="badge-check" style="fill:#0095f6; color:#000;" size="15"></i>';
+            lucide.createIcons();
+        };
+
+        // 2. تفعيل التبويبات
+        function chTab(el) {
+            document.querySelectorAll('.t-item').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // 3. تفعيل النشر
+        function pub() {
+            const file = document.getElementById('fInp').files[0];
             if(!file) return;
             const reader = new FileReader();
             reader.onload = (e) => {
-                const grid = document.getElementById('profileGrid');
-                const div = document.createElement('div');
-                div.className = 'grid-post';
-                div.innerHTML = `<img src="${e.target.result}">`;
-                grid.prepend(div);
-                
-                const count = document.getElementById('postsCount');
-                count.innerText = parseInt(count.innerText) + 1;
-                closeModal('pubModal');
+                const item = document.createElement('div');
+                item.className = 'g-item';
+                item.innerHTML = `<img src="${e.target.result}">`;
+                document.getElementById('pGrid').prepend(item);
+                document.getElementById('pCount').innerText = parseInt(document.getElementById('pCount').innerText) + 1;
+                document.getElementById('pubModal').style.display = 'none';
             };
             reader.readAsDataURL(file);
         }
 
-        function openModal(id) { document.getElementById(id).style.display = 'block'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function showMod(id) { document.getElementById(id).style.display = 'block'; }
     </script>
 </body>
 </html>
