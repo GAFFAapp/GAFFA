@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Butterfly Chat 2.0</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <span class="status-dot"></span>
+            <h2>محادثة الفراشات 🦋</h2>
+        </div>
+        
+        <div class="messages-area" id="chatBox">
+            <div class="message incoming">أهلاً بك مجدداً في عالم الفراشات! ✨</div>
+            <div class="message outgoing">شكراً لك، لنبدأ البرمجة. 🚀</div>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
+            <button onclick="sendMessage()">إرسال</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
