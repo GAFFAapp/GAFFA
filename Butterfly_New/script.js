@@ -66,3 +66,24 @@ function sendMessage() {
     }
 }
 
+function sendMessage() {
+    const input = document.getElementById("userInput");
+    const chatBox = document.getElementById("chatBox");
+
+    // التأكد من أن النص ليس فارغاً
+    if (input.value.trim() !== "") {
+        // إنشاء عنصر الرسالة
+        const msgDiv = document.createElement("div");
+        msgDiv.className = "message outgoing";
+        msgDiv.textContent = input.value;
+
+        // إضافة الرسالة لصندوق المحادثة
+        chatBox.appendChild(msgDiv);
+
+        // مسح النص من الخانة بعد الإرسال
+        input.value = "";
+
+        // النزول لأسفل المحادثة تلقائياً
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
