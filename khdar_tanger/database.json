@@ -1,0 +1,26 @@
+{
+  "project_desc": "نحن في 'خضار طنجة' نؤمن بأن الجودة الملكية تبدأ من مزارعنا لتصل إلى مائدتكم. نوفر لكم أفضل تشكيلة من الخضروات والفواكه الطازجة المختارة بعناية يومياً.",
+  "categories": {
+    "الخضروات": [
+      {"id": 1, "name": "طماطم", "price": 8.5, "unit": "كيلو", "img": "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400"},
+      {"id": 2, "name": "بطاطس", "price": 7.0, "unit": "كيلو", "img": "https://images.unsplash.com/photo-1518977676601-b53f02bad177?w=400"},
+      {"id": 3, "name": "بصل", "price": 6.5, "unit": "كيلو", "img": "https://images.unsplash.com/photo-1508747703725-719777637510?w=400"},
+      {"id": 4, "name": "جزر", "price": 5.0, "unit": "كيلو", "img": "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400"},
+      {"id": 5, "name": "فلفل أخضر", "price": 10.0, "unit": "كيلو", "img": "https://images.unsplash.com/photo-1563513672331-10c20af069fd?w=400"},
+      {"id": 6, "name": "باذنجان", "price": 7.5, "unit": "كيلو", "img": "https://images.unsplash.com/photo-1528137858917-6407b3d36804?w=400"}
+    ],
+    "الفواكه": [
+      {"id": 20, "name": "أناناس", "price": 30.0, "unit": "حبة", "img": "https://images.unsplash.com/photo-1550258114-b0d2400d39a4?w=400"},
+      {"id": 21, "name": "أفوكا", "price": 25.0, "unit": "كيلو", "img": "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=400"},
+      {"id": 22, "name": "موز", "price": 12.0, "unit": "كيلو", "img": "https://images.unsplash.com/photo-1571771894821-ad9902610947?w=400"},
+      {"id": 23, "name": "تفاح أحمر", "price": 15.0, "unit": "كيلو", "img": "https://images.unsplash.com/photo-1560806887-1e4cd0b6bcd6?w=400"},
+      {"id": 24, "name": "برتقال", "price": 6.0, "unit": "كيلو", "img": "https://images.unsplash.com/photo-1547514701-42782101795e?w=400"},
+      {"id": 25, "name": "فراولة", "price": 20.0, "unit": "كيلو", "img": "https://images.unsplash.com/photo-1464960350423-93c6628b0510?w=400"}
+    ],
+    "الأعشاب": [
+      {"id": 50, "name": "نعناع", "price": 1.5, "unit": "قبطة", "img": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=400"},
+      {"id": 51, "name": "قزبور ومعدنوس", "price": 1.0, "unit": "قبطة", "img": "https://images.unsplash.com/photo-1514733670139-4d87a1941d55?w=400"}
+    ]
+  }
+}
+

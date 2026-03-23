@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خضار طنجة | المتجر الملكي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --main: #7eb33d; --dark: #1b3022; --gold: #d4af37; }
+        body { font-family: 'Tajawal', sans-serif; margin: 0; background: #f8f9f8; padding-bottom: 90px; }
+        .header { background: var(--dark); color: var(--gold); padding: 20px; text-align: center; }
+        .tabs { display: flex; overflow-x: auto; background: white; border-bottom: 2px solid #eee; sticky: top; }
+        .tab { padding: 15px 25px; cursor: pointer; text-decoration: none; color: #777; font-weight: bold; white-space: nowrap; }
+        .tab.active { color: var(--main); border-bottom: 3px solid var(--main); background: #f0f7e8; }
+        .container { padding: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; border: 1px solid #eee; }
+        .card img { width: 100%; height: 130px; object-fit: cover; }
+        .qty-box { display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 25px; margin: 10px; padding: 3px; }
+        .btn-q { background: var(--main); color: white; border: none; width: 30px; height: 30px; border-radius: 50%; font-size: 18px; }
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); }
+    </style>
+    <script>
+        function changeQty(id, amount, unitPrice) {
+            let qLabel = document.getElementById('q-' + id);
+            let tLabel = document.getElementById('t-' + id);
+            let current = parseFloat(qLabel.innerText);
+            let next = current + amount;
+            if (next < 0.5) next = 0.5;
+            qLabel.innerText = next.toFixed(1);
+            tLabel.innerText = (next * unitPrice).toFixed(2);
+        }
+    </script>
+</head>
+<body>
+    <div class="header"><h1>KHEDAR | طنجة</h1></div>
+    <div class="tabs">
+        {% for cat in db.categories.keys() %}
+        <a href="/?cat={{cat}}" class="tab {{ 'active' if active_cat == cat else '' }}">{{cat}}</a>
+        {% endfor %}
+    </div>
+    <div class="container">
+        {% for item in db.categories[active_cat] %}
+        <div class="card">
+            <img src="{{ item.img }}">
+            <div style="padding:10px;">
+                <h3>{{ item.name }}</h3>
+                <div style="color:var(--main); font-weight:bold;">{{ item.price }} Dhs/{{item.unit}}</div>
+                <div class="qty-box">
+                    <button class="btn-q" onclick="changeQty('{{item.id}}', 0.5, {{item.price}})">+</button>
+                    <span id="q-{{item.id}}" style="margin:0 10px; font-weight:bold;">0.5</span>
+                    <button class="btn-q" onclick="changeQty('{{item.id}}', -0.5, {{item.price}})">-</button>
+                </div>
+                <div style="font-size:0.8em; color:#888;">المجموع: <span id="t-{{item.id}}">{{ (item.price * 0.5)|round(2) }}</span> د.م</div>
+                <button style="background:var(--dark); color:var(--gold); border:none; padding:10px; width:100%; border-radius:10px; margin-top:10px;">أضف للسلة</button>
+                {% if is_admin %}
+                <form action="/update_price" method="POST" style="margin-top:10px; border-top:1px dashed #ccc; padding-top:5px;">
+                    <input type="hidden" name="id" value="{{item.id}}">
+                    <input type="number" step="0.1" name="price" style="width:50px;">
+                    <button type="submit" style="font-size:10px;">تحديث</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <nav class="bottom-nav">
+        <a href="/" style="text-decoration:none;">🏠 الرئيسية</a>
+        <a href="/login" style="text-decoration:none;">👤 {{ 'خروج' if is_admin else 'دخول' }}</a>
+    </nav>
+</body>
+</html>
+
